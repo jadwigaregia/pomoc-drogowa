@@ -28,7 +28,7 @@
 
   <div class="overlay">
     <div class="pulse"></div>
-    <span id="statusBox">Szukanie pomocy drogowej w pobliżu...</span>
+    <span id="statusBox">Szukanie aktywnych lawet...</span>
   </div>
 
   <div id="map"></div>
@@ -37,16 +37,7 @@
     const SUPABASE_URL = "https://pofvghphcfrdtalyqui.supabase.co";
     const SUPABASE_KEY = "sb_publishable_5ftuKj2b17oQkeyqDpsePg_k13hgzhn";
 
-    const dbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
-      auth: { persistSession: false },
-      global: {
-        headers: {
-          apikey: SUPABASE_KEY,
-          Authorization: `Bearer ${SUPABASE_KEY}`
-        }
-      }
-    });
-
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     const map = L.map('map').setView([52.40637, 16.92516], 12);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -56,6 +47,7 @@
 
     let markers = {};
 
+    // Pobranie pozycji klienta
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (pos) => {
@@ -64,51 +56,49 @@
           map.setView([lat, lng], 13);
           L.marker([lat, lng])
             .addTo(map)
-            .bindPopup("<b>📍 Twoja lokalizacja</b><br>Miejsce zgłoszenia")
+            .bindPopup("<b>📍 Twoja lokalizacja</b><br>Miejsce wezwania pomocy")
             .openPopup();
         },
-        (err) => console.log("Brak zgody na GPS klienta:", err.message),
+        () => console.log("Brak zgody na pozycję klienta"),
         { enableHighAccuracy: true }
       );
     }
 
-    function updateMarker(driver) {
-      if (!driver.lat || !driver.lng) return;
+    const channel = supabaseClient.channel('tracking-room');
 
-      if (markers[driver.id]) {
-        markers[driver.id].setLatLng([driver.lat, driver.lng]);
-      } else {
-        const marker = L.marker([driver.lat, driver.lng]).addTo(map);
-        marker.bindPopup(`<b>🚗 ${driver.name || 'Pomoc Drogowa'}</b><br>Status: Aktywny na żywo`);
-        markers[driver.id] = marker;
-      }
-    }
+    // Nasłuchiwanie stanu wszystkich aktywnych pojazdów na bieżąco
+    channel
+      .on('presence', { event: 'sync' }, () => {
+        const state = channel.presenceState();
+        const driverKeys = Object.keys(state);
 
-    async function loadActiveDrivers() {
-      const { data, error } = await dbClient
-        .from('drivers')
-        .select('*')
-        .eq('is_available', true);
+        if (driverKeys.length === 0) {
+          document.getElementById("statusBox").innerText = "Oczekiwanie na aktywne lawety...";
+          return;
+        }
 
-      if (data && data.length > 0) {
-        document.getElementById("statusBox").innerText = `Dostępne pojazdy: ${data.length}`;
-        data.forEach(updateMarker);
-      } else {
-        document.getElementById("statusBox").innerText = "Oczekiwanie na aktywne lawety...";
-      }
-    }
+        document.getElementById("statusBox").innerText = `Dostępne lawety na żywo: ${driverKeys.length}`;
 
-    dbClient
-      .channel('realtime:drivers')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'drivers' }, (payload) => {
-        if (payload.new) {
-          updateMarker(payload.new);
-          document.getElementById("statusBox").innerText = `Odebrano sygnał od: ${payload.new.name || 'Laweta'}`;
+        driverKeys.forEach((key) => {
+          const driverInfo = state[key][0];
+          if (!driverInfo || !driverInfo.lat || !driverInfo.lng) return;
+
+          if (markers[key]) {
+            markers[key].setLatLng([driverInfo.lat, driverInfo.lng]);
+          } else {
+            const m = L.marker([driverInfo.lat, driverInfo.lng]).addTo(map);
+            m.bindPopup(`<b>🚗 ${driverInfo.name || 'Laweta'}</b><br>Aktywna na żywo`).openPopup();
+            markers[key] = m;
+          }
+        });
+      })
+      .on('presence', { event: 'leave' }, ({ key }) => {
+        if (markers[key]) {
+          map.removeLayer(markers[key]);
+          delete markers[key];
         }
       })
       .subscribe();
-
-    loadActiveDrivers();
   </script>
 </body>
 </html>
