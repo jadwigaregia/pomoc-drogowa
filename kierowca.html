@@ -6,7 +6,16 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
+  
   <title>Kokpit Kierowcy - Pomoc Drogowa</title>
+  
+  <!-- PWA & Mobile Web App -->
+  <link rel="manifest" href="manifest-kierowca.json" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Kierowca" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#0b1120" />
   
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -40,7 +49,7 @@
     .btn-success { background: var(--success); color: #052e16; }
     .btn-warning { background: var(--warning); color: #451a03; }
     .btn-danger { background: var(--danger); color: #fff; }
-    .btn-photo { background: #334155; color: #38bdf8; border: 1px dashed #38bdf8; }
+    .btn-install { background: linear-gradient(135deg, #38bdf8, #818cf8); color: #0f172a; font-weight: 800; }
     
     .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
     .btn-nav-gmaps { background: var(--gmaps); color: #fff; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px; border-radius: 10px; padding: 12px; font-weight: bold; font-size: 13px; text-align: center; }
@@ -89,6 +98,8 @@
       <h2 style="text-align:center; margin-bottom:6px;">🔐 Portal Kierowcy</h2>
       <p style="text-align:center; color:var(--subtext); font-size:13px; margin-bottom:16px;">System Pomocy Drogowej</p>
       
+      <button id="installAppBtn" class="btn-install hidden" onclick="installPWA()">📲 Zainstaluj Aplikację Kierowcy</button>
+
       <form onsubmit="handleLogin(event)">
         <label for="loginPhone">Numer telefonu kierowcy:</label>
         <input type="tel" id="loginPhone" name="username" autocomplete="username" placeholder="np. 664901126" required />
@@ -117,6 +128,8 @@
     </header>
 
     <div class="cockpit-content">
+      <button id="installAppBtnInside" class="btn-install hidden" onclick="installPWA()">📲 Dodaj ikonę aplikacji na pulpit</button>
+
       <div class="card" style="padding: 12px 16px;">
         <label style="margin-top:0;">🚐 Wybierz pojazd:</label>
         <select id="vehicleSelector" onchange="updateVehicleChoice()">
@@ -158,7 +171,7 @@
         </div>
       </div>
 
-      <!-- PROTOKÓŁ FOTOGRAFICZNY SZKÓD -->
+      <!-- PROTOKÓŁ FOTOGRAFICZNY -->
       <div class="photo-protocol">
         <div style="display:flex; justify-content:space-between; align-items:center;">
           <strong style="font-size:14px; color:var(--primary);">📸 Protokół stanu pojazdu</strong>
@@ -166,7 +179,6 @@
         </div>
         <p style="font-size:12px; color:var(--subtext); margin-top:2px;">Udokumentuj stan i rysy przed wciągnięciem na lawetę</p>
 
-        <!-- Ukryte pole input aparatu -->
         <input type="file" id="cameraInput" accept="image/*" capture="environment" class="hidden" onchange="handlePhotoUpload(event)" />
 
         <div class="photo-grid">
@@ -221,6 +233,24 @@
   </div>
 
   <script>
+    // PWA Instalacja
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const b1 = document.getElementById('installAppBtn');
+      const b2 = document.getElementById('installAppBtnInside');
+      if (b1) b1.classList.remove('hidden');
+      if (b2) b2.classList.remove('hidden');
+    });
+
+    function installPWA() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
+      }
+    }
+
     const VERIFIED_DRIVERS = [
       { name: "Jadwiga Matuszak", phone: "664901126", id_number: "DAJ 658768", license: "A0589345" },
       { name: "Jan Kowalski", phone: "500100200", id_number: "ABC 123456", license: "B/12345" }
@@ -239,7 +269,6 @@
     let currentJobStatus = "W drodze do klienta";
     let activeSlotIndex = null;
     const vehiclePhotos = [null, null, null, null];
-
     const slotLabels = ["Przód / Zderzak", "Bok lewy", "Bok prawy", "Tył / Uszkodzenia"];
 
     const client = mqtt.connect('wss://broker.emqx.io:8084/mqtt');
@@ -302,9 +331,8 @@
       }
     }
 
-    // PROTOKÓŁ FOTOGRAFICZNY
     function triggerCamera(slotIndex) {
-      if (vehiclePhotos[slotIndex]) return; // Jeśli zdjęcie już jest, nie uruchamiaj aparatu
+      if (vehiclePhotos[slotIndex]) return;
       activeSlotIndex = slotIndex;
       document.getElementById('cameraInput').click();
     }
@@ -315,8 +343,7 @@
 
       const reader = new FileReader();
       reader.onload = function(evt) {
-        const base64 = evt.target.result;
-        vehiclePhotos[activeSlotIndex] = base64;
+        vehiclePhotos[activeSlotIndex] = evt.target.result;
         renderPhotoSlots();
       };
       reader.readAsDataURL(file);
@@ -426,6 +453,12 @@
       document.getElementById("packetsMetric").innerText = pingCount;
     }
 
+    async function keepScreenAwake() {
+      try {
+        if ('wakeLock' in navigator) await navigator.wakeLock.request('screen');
+      } catch (err) {}
+    }
+
     function toggleGps() {
       const btn = document.getElementById("toggleBtn");
       const liveDot = document.getElementById("liveDot");
@@ -437,6 +470,7 @@
           return;
         }
 
+        keepScreenAwake();
         startTime = Date.now();
         durationTimer = setInterval(() => {
           const sec = Math.floor((Date.now() - startTime) / 1000);
