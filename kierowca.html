@@ -3,40 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panel Kierowcy - Gdzie jest wypadek</title>
+  <title>Panel Kierowcy - Pomoc Drogowa</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
-    body { font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 20px; background: #0f172a; color: #fff; text-align: center; }
-    .card { background: #1e293b; padding: 24px; border-radius: 12px; max-width: 420px; margin: 20px auto; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-    input { width: 90%; padding: 12px; margin-top: 8px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #fff; font-size: 16px; box-sizing: border-box; }
-    button { background: #22c55e; color: #000; border: none; padding: 16px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 15px; }
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 20px; background: #0f172a; color: #fff; text-align: center; }
+    .card { background: #1e293b; padding: 24px; border-radius: 12px; max-width: 420px; margin: 20px auto; }
+    input { width: 100%; padding: 12px; margin: 8px 0 16px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #fff; font-size: 16px; box-sizing: border-box; }
+    button { background: #22c55e; color: #000; border: none; padding: 16px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; }
     button.stop { background: #ef4444; color: #fff; }
     .status { margin-top: 15px; font-size: 15px; color: #94a3b8; }
-    .coords { font-family: monospace; color: #38bdf8; margin-top: 10px; font-size: 14px; }
+    .coords { font-family: monospace; color: #38bdf8; margin-top: 10px; }
   </style>
 </head>
 <body>
 
   <div class="card">
-    <h2>🚗 Nadajnik Pomocy Drogowej</h2>
-    <p style="color: #94a3b8; font-size: 14px;">Włącz nadawanie pozycji, aby klienci widzieli Cię na mapie w czasie rzeczywistym.</p>
+    <h2>🚗 Nadajnik GPS Lawety</h2>
+    <p style="color: #94a3b8; font-size: 14px;">Kliknij przycisk, aby zacząć transmitować swoją pozycję do klientów.</p>
     
-    <div style="text-align: left; margin-top: 15px;">
-      <label style="font-size: 14px; color: #cbd5e1;">Nazwa firmy / Lawety:</label>
-      <input type="text" id="driverName" value="Laweta SOS #1" />
+    <div style="text-align: left;">
+      <label style="font-size: 13px; color: #94a3b8;">Nazwa pojazdu:</label>
+      <input type="text" id="driverName" value="Laweta #1" />
     </div>
 
     <button id="toggleBtn" onclick="toggleGps()">🟢 Włącz nadawanie GPS</button>
 
-    <div class="status" id="statusText">Status: Bezczynny</div>
+    <div class="status" id="statusText">Status: Wyłączony</div>
     <div class="coords" id="coordsText">Lat: -- , Lng: --</div>
   </div>
 
   <script>
     const SUPABASE_URL = "https://pofvghphcfrdtalyqui.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_5ftuKj2b17oQkeyqDpsePg_kl3bgzhN"; 
+    const SUPABASE_KEY = "sb_publishable_5ftuKj2b17oQkeyqDpsePg_k13hgzhn";
 
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     let watchId = null;
     let driverId = localStorage.getItem("driver_id") || null;
 
@@ -47,13 +47,12 @@
 
       if (!watchId) {
         if (!navigator.geolocation) {
-          alert("Twoja przeglądarka nie obsługuje GPS.");
+          alert("Twoja przeglądarka nie wspiera GPS!");
           return;
         }
 
-        // Rejestracja lub pobranie kierowcy
         if (!driverId) {
-          const { data, error } = await supabaseClient
+          const { data } = await client
             .from('drivers')
             .insert([{ name: driverName, is_available: true }])
             .select()
@@ -65,33 +64,30 @@
           }
         }
 
-        // Pobieranie pozycji na żywo
         watchId = navigator.geolocation.watchPosition(
           async (pos) => {
             const { latitude, longitude } = pos.coords;
             document.getElementById("coordsText").innerText = `Lat: ${latitude.toFixed(5)}, Lng: ${longitude.toFixed(5)}`;
-            status.innerText = "Status: Nadawanie na żywo 📡";
+            status.innerText = "Status: Transmisja aktywna 📡";
 
-            await supabaseClient.from('drivers').update({
+            await client.from('drivers').update({
               lat: latitude,
               lng: longitude,
               is_available: true,
               updated_at: new Date().toISOString()
             }).eq('id', driverId);
           },
-          (err) => {
-            alert("Błąd pobierania GPS: " + err.message);
-          },
-          { enableHighAccuracy: true, maximumAge: 0, timeout: 10000 }
+          (err) => alert("Błąd GPS: " + err.message),
+          { enableHighAccuracy: true, maximumAge: 0, timeout: 5000 }
         );
 
-        btn.innerText = "🔴 Wyłącz nadawanie GPS";
+        btn.innerText = "🔴 Zatrzymaj nadawanie";
         btn.classList.add("stop");
       } else {
         navigator.geolocation.clearWatch(watchId);
         watchId = null;
         if (driverId) {
-          await supabaseClient.from('drivers').update({ is_available: false }).eq('id', driverId);
+          await client.from('drivers').update({ is_available: false }).eq('id', driverId);
         }
         btn.innerText = "🟢 Włącz nadawanie GPS";
         btn.classList.remove("stop");
