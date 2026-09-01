@@ -13,13 +13,14 @@
     button.stop { background: #ef4444; color: #fff; }
     .status { margin-top: 15px; font-size: 15px; color: #94a3b8; }
     .coords { font-family: monospace; color: #38bdf8; margin-top: 10px; }
+    .pulse-dot { display: inline-block; width: 8px; height: 8px; background: #22c55e; border-radius: 50%; margin-right: 6px; }
   </style>
 </head>
 <body>
 
   <div class="card">
     <h2>🚗 Nadajnik GPS Lawety</h2>
-    <p style="color: #94a3b8; font-size: 14px;">Włącz nadawanie, aby pojawić się na mapie u klientów.</p>
+    <p style="color: #94a3b8; font-size: 14px;">Pozostaw ten ekran włączony podczas trasy.</p>
     
     <div style="text-align: left;">
       <label style="font-size: 13px; color: #94a3b8;">Nazwa pojazdu:</label>
@@ -30,62 +31,77 @@
 
     <div class="status" id="statusText">Status: Gotowy do połączenia</div>
     <div class="coords" id="coordsText">Lat: -- , Lng: --</div>
+    <div id="pingText" style="font-size: 12px; color: #64748b; margin-top: 8px;"></div>
   </div>
 
   <script>
     const client = mqtt.connect('wss://broker.emqx.io:8084/mqtt');
-    let watchId = null;
     let isConnected = false;
+    let timerId = null;
+    let currentLat = null;
+    let currentLng = null;
+    let pingCount = 0;
 
     client.on('connect', () => {
       isConnected = true;
-      document.getElementById("statusText").innerText = "Połączono z siecią satelitarną ✔️";
+      document.getElementById("statusText").innerText = "Połączono z serwerem satelitarnym ✔️";
     });
+
+    function broadcastPosition() {
+      if (!currentLat || !currentLng || !isConnected) return;
+
+      const driverName = document.getElementById("driverName").value;
+      const payload = JSON.stringify({
+        id: "laweta-1",
+        name: driverName,
+        lat: currentLat,
+        lng: currentLng,
+        active: true,
+        time: new Date().toLocaleTimeString()
+      });
+
+      client.publish('pomoc-drogowa/gps', payload, { retain: true });
+      pingCount++;
+      document.getElementById("pingText").innerText = `Wysłano pakietów: ${pingCount} (ostatni: ${new Date().toLocaleTimeString()})`;
+    }
 
     function toggleGps() {
       const btn = document.getElementById("toggleBtn");
       const status = document.getElementById("statusText");
-      const driverName = document.getElementById("driverName").value;
 
-      if (!watchId) {
+      if (!timerId) {
         if (!navigator.geolocation) {
           alert("Brak obsługi GPS w urządzeniu.");
           return;
         }
 
-        status.innerText = "Uruchamianie GPS...";
+        status.innerText = "Pobieranie pozycji z satelity...";
 
-        watchId = navigator.geolocation.watchPosition(
+        // Ciągłe odczytywanie pozycji
+        navigator.geolocation.watchPosition(
           (pos) => {
-            const lat = pos.coords.latitude;
-            const lng = pos.coords.longitude;
-            document.getElementById("coordsText").innerText = `Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}`;
-            status.innerText = "Status: Transmisja aktywna na żywo 📡";
-
-            const payload = JSON.stringify({
-              id: "laweta-1",
-              name: driverName,
-              lat: lat,
-              lng: lng,
-              active: true
-            });
-
-            if (isConnected) {
-              client.publish('pomoc-drogowa/gps', payload, { retain: true });
-            }
+            currentLat = pos.coords.latitude;
+            currentLng = pos.coords.longitude;
+            document.getElementById("coordsText").innerText = `Lat: ${currentLat.toFixed(5)}, Lng: ${currentLng.toFixed(5)}`;
+            status.innerHTML = `<span class="pulse-dot"></span>Nadawanie na żywo 📡`;
+            broadcastPosition();
           },
           (err) => {
-            alert("Błąd GPS: " + err.message);
             status.innerText = "Błąd GPS: " + err.message;
           },
-          { enableHighAccuracy: true, maximumAge: 0, timeout: 10000 }
+          { enableHighAccuracy: true, maximumAge: 0, timeout: 5000 }
         );
+
+        // Wymuszone wysyłanie pulsu co 2 sekundy
+        timerId = setInterval(() => {
+          broadcastPosition();
+        }, 2000);
 
         btn.innerText = "🔴 Zatrzymaj nadawanie";
         btn.classList.add("stop");
       } else {
-        navigator.geolocation.clearWatch(watchId);
-        watchId = null;
+        clearInterval(timerId);
+        timerId = null;
 
         if (isConnected) {
           client.publish('pomoc-drogowa/gps', JSON.stringify({ id: "laweta-1", active: false }), { retain: true });
@@ -94,6 +110,7 @@
         btn.innerText = "🟢 Włącz nadawanie GPS";
         btn.classList.remove("stop");
         status.innerText = "Status: Zatrzymany";
+        document.getElementById("pingText").innerText = "";
       }
     }
   </script>
