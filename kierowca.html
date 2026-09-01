@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>Kokpit Kierowcy - Pomoc Drogowa</title>
   
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -17,6 +20,8 @@
       --success: #22c55e;
       --warning: #f59e0b;
       --danger: #ef4444;
+      --waze: #00d8ff;
+      --gmaps: #4285f4;
       --text: #f8fafc;
       --subtext: #94a3b8;
     }
@@ -35,7 +40,10 @@
     .btn-success { background: var(--success); color: #052e16; }
     .btn-warning { background: var(--warning); color: #451a03; }
     .btn-danger { background: var(--danger); color: #fff; }
-    .btn-nav { background: #6366f1; color: #fff; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 10px; padding: 14px; font-weight: bold; font-size: 15px; margin-top: 10px; }
+    
+    .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+    .btn-nav-gmaps { background: var(--gmaps); color: #fff; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px; border-radius: 10px; padding: 12px; font-weight: bold; font-size: 13px; text-align: center; }
+    .btn-nav-waze { background: #1c2738; color: var(--waze); border: 1px solid var(--waze); text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px; border-radius: 10px; padding: 12px; font-weight: bold; font-size: 13px; text-align: center; }
     
     .hidden { display: none !important; }
 
@@ -66,7 +74,7 @@
 </head>
 <body>
 
-  <!-- 1. EKRAN LOGOWANIA KIEROWCY -->
+  <!-- 1. EKRAN LOGOWANIA -->
   <div class="auth-container" id="loginBox">
     <div class="card">
       <h2 style="text-align:center; margin-bottom:6px;">🔐 Portal Kierowcy</h2>
@@ -111,6 +119,7 @@
         <input type="text" id="customPlateInput" class="hidden" placeholder="Wpisz numer rejestracyjny" style="margin-top: 8px;" />
       </div>
 
+      <!-- KARTA ZLECENIA ZE SKRÓTAMI NAWIGACJI -->
       <div class="order-card" id="orderBox">
         <div class="order-header">
           <span class="order-badge">🚨 AKTYWNE ZLECENIE</span>
@@ -121,8 +130,18 @@
         <div class="order-detail"><span>Pojazd:</span> <strong id="orderVehicle">Audi A4 (Awaria koła)</strong></div>
         <div class="order-detail"><span>Lokalizacja:</span> <strong id="orderAddress">ul. Bukowska 307, Poznań</strong></div>
 
-        <a id="navBtn" href="https://maps.google.com/?q=52.40637,16.92516" target="_blank" class="btn-nav">
-          🗺️ Nawiguj w Google Maps
+        <!-- PRZYCISKI NAWIGACJI: GOOGLE MAPS + WAZE -->
+        <div class="nav-grid">
+          <a id="gmapsBtn" href="https://www.google.com/maps/dir/?api=1&destination=52.40637,16.92516" target="_blank" class="btn-nav-gmaps">
+            🗺️ Google Maps
+          </a>
+          <a id="wazeBtn" href="https://waze.com/ul?ll=52.40637,16.92516&navigate=yes" target="_blank" class="btn-nav-waze">
+            🚙 Nawiguj w Waze
+          </a>
+        </div>
+
+        <a id="callBtn" href="tel:600700800" style="text-decoration:none;">
+          <button class="btn-primary" style="margin-top:8px;">📞 Zadzwoń do poszkodowanego</button>
         </a>
 
         <div style="margin-top: 12px; display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
@@ -163,7 +182,6 @@
   </div>
 
   <script>
-    // BAZA AUTORYZOWANYCH KIEROWCÓW (Weryfikacja natychmiastowa)
     const VERIFIED_DRIVERS = [
       {
         name: "Jadwiga Matuszak",
@@ -192,7 +210,19 @@
     let currentJobStatus = "W drodze do klienta";
 
     const client = mqtt.connect('wss://broker.emqx.io:8084/mqtt');
-    client.on('connect', () => { isConnected = true; });
+    client.on('connect', () => { 
+      isConnected = true; 
+      client.subscribe('pomoc-drogowa/nowe-zlecenie');
+    });
+
+    client.on('message', (topic, msg) => {
+      if (topic === 'pomoc-drogowa/nowe-zlecenie') {
+        try {
+          const order = JSON.parse(msg.toString());
+          updateOrderDetails(order);
+        } catch(e) {}
+      }
+    });
 
     if (activeSession) {
       showTrackerView(activeSession);
@@ -222,14 +252,29 @@
       return selector.value;
     }
 
-    // LOGOWANIE BEZPOŚREDNIE (Gwarantowane na każdym smartfonie)
+    function updateOrderDetails(order) {
+      if (order.client_name) document.getElementById("orderClientName").innerText = order.client_name;
+      if (order.client_phone) {
+        document.getElementById("orderClientPhone").innerText = order.client_phone;
+        document.getElementById("callBtn").href = `tel:${order.client_phone}`;
+      }
+      if (order.car_model || order.issue) {
+        document.getElementById("orderVehicle").innerText = `${order.car_model || 'Pojazd'} (${order.issue || 'Awaria'})`;
+      }
+      if (order.address) document.getElementById("orderAddress").innerText = order.address;
+
+      if (order.lat && order.lng) {
+        document.getElementById("gmapsBtn").href = `https://www.google.com/maps/dir/?api=1&destination=${order.lat},${order.lng}`;
+        document.getElementById("wazeBtn").href = `https://waze.com/ul?ll=${order.lat},${order.lng}&navigate=yes`;
+      }
+    }
+
     function handleLogin(e) {
       e.preventDefault();
       const phoneInput = document.getElementById("loginPhone").value.replace(/\s+/g, '').replace('+48', '');
       const passInput = document.getElementById("loginPass").value.trim();
       const loginMsg = document.getElementById("loginMsg");
 
-      // Sprawdzenie czy kierowca jest na liście autoryzowanych pracowników
       const driver = VERIFIED_DRIVERS.find(d => d.phone.includes(phoneInput));
 
       if (driver) {
