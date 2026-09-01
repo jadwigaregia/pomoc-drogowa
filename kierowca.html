@@ -3,21 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portal Kierowcy - Weryfikacja i Nadajnik</title>
+  <title>Portal Kierowcy - Pomoc Drogowa</title>
   <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
   <style>
     * { box-sizing: border-box; }
     body { font-family: system-ui, sans-serif; margin: 0; padding: 20px; background: #0f172a; color: #fff; text-align: center; }
-    .card { background: #1e293b; padding: 24px; border-radius: 12px; max-width: 440px; margin: 20px auto; box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
-    input { width: 100%; padding: 12px; margin: 6px 0 14px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #fff; font-size: 15px; }
-    button { background: #38bdf8; color: #0f172a; border: none; padding: 14px; font-size: 15px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 8px; }
+    .card { background: #1e293b; padding: 24px; border-radius: 12px; max-width: 440px; margin: 20px auto; box-shadow: 0 8px 20px rgba(0,0,0,0.4); text-align: left; }
+    h2, p { text-align: center; }
+    label { font-size: 12px; color: #94a3b8; display: block; margin-top: 10px; }
+    input, select { width: 100%; padding: 12px; margin-top: 4px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #fff; font-size: 15px; }
+    button { background: #38bdf8; color: #0f172a; border: none; padding: 14px; font-size: 15px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 16px; }
     button.success { background: #22c55e; color: #000; }
     button.stop { background: #ef4444; color: #fff; }
-    .toggle-link { color: #38bdf8; font-size: 13px; margin-top: 14px; cursor: pointer; display: block; text-decoration: underline; }
+    .toggle-link { color: #38bdf8; font-size: 13px; margin-top: 14px; cursor: pointer; display: block; text-align: center; text-decoration: underline; }
     .hidden { display: none; }
-    .status-badge { padding: 8px; border-radius: 6px; font-size: 13px; margin-top: 12px; }
-    .approved { background: #16a34a; color: #fff; }
-    .coords { font-family: monospace; color: #38bdf8; margin-top: 10px; }
+    .status-badge { padding: 8px; border-radius: 6px; font-size: 13px; text-align: center; margin-top: 10px; background: #16a34a; color: #fff; }
+    .coords { font-family: monospace; color: #38bdf8; margin-top: 10px; text-align: center; }
+    .vehicle-select-box { background: #0f172a; border: 1px solid #38bdf8; padding: 14px; border-radius: 8px; margin: 15px 0; }
   </style>
 </head>
 <body>
@@ -25,62 +27,79 @@
   <!-- EKRAN LOGOWANIA -->
   <div class="card" id="loginBox">
     <h2>🔐 Logowanie Kierowcy</h2>
-    <p style="color: #94a3b8; font-size: 13px;">Wprowadź numer telefonu i hasło</p>
+    <p style="color: #94a3b8; font-size: 13px;">Wprowadź dane dostępowe</p>
     
-    <div style="text-align: left;">
-      <label style="font-size: 12px; color: #94a3b8;">Numer telefonu:</label>
-      <input type="tel" id="loginPhone" placeholder="np. 500100200" />
+    <form onsubmit="handleLogin(event)">
+      <label for="loginPhone">Numer telefonu:</label>
+      <input type="tel" id="loginPhone" name="username" autocomplete="username" placeholder="np. 500100200" required />
       
-      <label style="font-size: 12px; color: #94a3b8;">Hasło:</label>
-      <input type="password" id="loginPass" placeholder="Wpisz hasło" />
-    </div>
+      <label for="loginPass">Hasło:</label>
+      <input type="password" id="loginPass" name="password" autocomplete="current-password" placeholder="Wpisz hasło" required />
 
-    <button onclick="handleLogin()">Zaloguj się</button>
-    <span class="toggle-link" onclick="switchView('registerBox')">Nie masz konta? Zarejestruj się i zweryfikuj dane</span>
-    <div id="loginMsg" style="color: #ef4444; font-size: 13px; margin-top: 10px;"></div>
+      <button type="submit">Zaloguj się</button>
+    </form>
+
+    <span class="toggle-link" onclick="switchView('registerBox')">Pierwszy raz? Zarejestruj się i zweryfikuj dane</span>
+    <div id="loginMsg" style="color: #ef4444; font-size: 13px; margin-top: 10px; text-align: center;"></div>
   </div>
 
-  <!-- EKRAN WERYFIKACJI DOKUMENTÓW -->
+  <!-- EKRAN REJESTRACJI I DOKUMENTÓW -->
   <div class="card hidden" id="registerBox">
-    <h2>🪪 Weryfikacja Dokumentów</h2>
-    <p style="color: #94a3b8; font-size: 13px;">Podaj dane do weryfikacji uprawnień lawety</p>
+    <h2>🪪 Rejestracja i Weryfikacja</h2>
+    <p style="color: #94a3b8; font-size: 13px;">Jednorazowa weryfikacja uprawnień kierowcy</p>
     
-    <div style="text-align: left;">
-      <label style="font-size: 12px; color: #94a3b8;">Imię i Nazwisko:</label>
-      <input type="text" id="regName" placeholder="Jan Kowalski" />
+    <form onsubmit="handleRegister(event)">
+      <label for="regName">Imię i Nazwisko:</label>
+      <input type="text" id="regName" placeholder="Jan Kowalski" required />
 
-      <label style="font-size: 12px; color: #94a3b8;">Numer telefonu:</label>
-      <input type="tel" id="regPhone" placeholder="np. 500100200" />
+      <label for="regPhone">Numer telefonu (Twój login):</label>
+      <input type="tel" id="regPhone" name="username" autocomplete="username" placeholder="np. 500100200" required />
 
-      <label style="font-size: 12px; color: #94a3b8;">Seria i nr Dowodu Osobistego / PESEL:</label>
-      <input type="text" id="regId" placeholder="np. ABC 123456" />
+      <label for="regId">Seria i nr Dowodu Osobistego / PESEL:</label>
+      <input type="text" id="regId" placeholder="np. ABC 123456" required />
 
-      <label style="font-size: 12px; color: #94a3b8;">Numer Prawa Jazdy (Kat. B+E / C):</label>
-      <input type="text" id="regLicense" placeholder="np. 12345/67/8901" />
+      <label for="regLicense">Numer Prawa Jazdy (Kat. B+E / C):</label>
+      <input type="text" id="regLicense" placeholder="np. 12345/67/8901" required />
 
-      <label style="font-size: 12px; color: #94a3b8;">Numer rejestracyjny lawety:</label>
-      <input type="text" id="regPlate" placeholder="np. PO 12345" />
+      <label for="regPlate">Domyślny nr rejestracyjny pojazdu:</label>
+      <input type="text" id="regPlate" placeholder="np. PO 12345" required />
 
-      <label style="font-size: 12px; color: #94a3b8;">Hasło do logowania:</label>
-      <input type="password" id="regPass" placeholder="Minimum 6 znaków" />
-    </div>
+      <label for="regPass">Ustal hasło do konta:</label>
+      <input type="password" id="regPass" name="new-password" autocomplete="new-password" placeholder="Minimum 6 znaków" required />
 
-    <button class="success" onclick="handleRegister()">Prześlij do bazy</button>
+      <button type="submit" class="success">Zarejestruj konto</button>
+    </form>
+
     <span class="toggle-link" onclick="switchView('loginBox')">Wróć do logowania</span>
-    <div id="regMsg" style="margin-top: 10px; font-size: 13px;"></div>
+    <div id="regMsg" style="margin-top: 10px; font-size: 13px; text-align: center;"></div>
   </div>
 
-  <!-- EKRAN NADAJNIKA GPS DLA ZALOGOWANEGO KIEROWCY -->
+  <!-- EKRAN NADAJNIKA GPS I WYBORU LAWETY -->
   <div class="card hidden" id="trackerBox">
     <h2>🚗 Nadajnik GPS Lawety</h2>
     <p id="welcomeDriver" style="color: #38bdf8; font-size: 14px; font-weight: bold;"></p>
     
-    <div class="status-badge approved" id="accountStatus">Status: Kierowca zweryfikowany ✔️</div>
+    <div class="status-badge">Kierowca zweryfikowany ✔️</div>
 
-    <button id="toggleBtn" class="success" onclick="toggleGps()" style="margin-top: 20px;">🟢 Włącz nadawanie GPS</button>
+    <div class="vehicle-select-box">
+      <label style="color: #38bdf8; font-weight: bold; margin-top: 0;">🚐 Wybierz lawetę na dzisiejszy dyżur:</label>
+      <select id="vehicleSelector" onchange="updateVehicleChoice()">
+        <option value="Laweta #1 (PO 12345)">Laweta #1 (PO 12345)</option>
+        <option value="Laweta #2 (PO 67890)">Laweta #2 (PO 67890)</option>
+        <option value="Laweta #3 - Ciężarowa (PO 11223)">Laweta #3 - Ciężarowa (PO 11223)</option>
+        <option value="custom">Inny pojazd (wpisz ręcznie)...</option>
+      </select>
+
+      <div id="customPlateBox" class="hidden" style="margin-top: 8px;">
+        <label>Wpisz numer rejestracyjny / nazwę:</label>
+        <input type="text" id="customPlateInput" placeholder="np. PO 99881" />
+      </div>
+    </div>
+
+    <button id="toggleBtn" class="success" onclick="toggleGps()">🟢 Rozpocznij kurs (Włącz GPS)</button>
 
     <div class="coords" id="coordsText">Lat: -- , Lng: --</div>
-    <div id="pingText" style="font-size: 12px; color: #64748b; margin-top: 8px;"></div>
+    <div id="pingText" style="font-size: 12px; color: #64748b; margin-top: 8px; text-align: center;"></div>
 
     <button onclick="handleLogout()" style="background: transparent; border: 1px solid #475569; color: #94a3b8; margin-top: 20px;">Wyloguj</button>
   </div>
@@ -100,7 +119,27 @@
       document.getElementById(viewId).classList.remove('hidden');
     }
 
-    async function handleRegister() {
+    function updateVehicleChoice() {
+      const selector = document.getElementById("vehicleSelector");
+      const customBox = document.getElementById("customPlateBox");
+      if (selector.value === "custom") {
+        customBox.classList.remove("hidden");
+      } else {
+        customBox.classList.add("hidden");
+      }
+    }
+
+    function getActiveVehicleName() {
+      const selector = document.getElementById("vehicleSelector");
+      if (selector.value === "custom") {
+        const customVal = document.getElementById("customPlateInput").value.trim();
+        return customVal || activeSession.vehicle_plate || "Laweta";
+      }
+      return selector.value;
+    }
+
+    async function handleRegister(e) {
+      e.preventDefault();
       const full_name = document.getElementById("regName").value.trim();
       const phone = document.getElementById("regPhone").value.trim();
       const id_number = document.getElementById("regId").value.trim();
@@ -108,12 +147,6 @@
       const vehicle_plate = document.getElementById("regPlate").value.trim();
       const password = document.getElementById("regPass").value.trim();
       const regMsg = document.getElementById("regMsg");
-
-      if (!full_name || !phone || !id_number || !driving_license || !vehicle_plate || !password) {
-        regMsg.style.color = "#ef4444";
-        regMsg.innerText = "Uzupełnij wszystkie wymagane pola!";
-        return;
-      }
 
       regMsg.style.color = "#38bdf8";
       regMsg.innerText = "Rejestracja w toku...";
@@ -127,48 +160,38 @@
             "Content-Type": "application/json",
             "Prefer": "return=representation"
           },
-          body: JSON.stringify({
-            full_name, phone, id_number, driving_license, vehicle_plate, password, status: 'approved'
-          })
+          body: JSON.stringify({ full_name, phone, id_number, driving_license, vehicle_plate, password, status: 'approved' })
         });
 
-        if (!res.ok) throw new Error("Błąd zapisu");
+        if (!res.ok) throw new Error("Błąd");
 
         regMsg.style.color = "#22c55e";
-        regMsg.innerText = "Rejestracja zakończona sukcesem! Możesz się zalogować.";
+        regMsg.innerText = "Konto utworzone! Możesz się zalogować.";
         setTimeout(() => switchView('loginBox'), 1200);
       } catch (err) {
         regMsg.style.color = "#ef4444";
-        regMsg.innerText = "Błąd rejestracji (być może ten numer telefonu już istnieje).";
+        regMsg.innerText = "Błąd rejestracji (numer telefonu może już istnieć).";
       }
     }
 
-    async function handleLogin() {
+    async function handleLogin(e) {
+      e.preventDefault();
       const phone = document.getElementById("loginPhone").value.trim();
       const password = document.getElementById("loginPass").value.trim();
       const loginMsg = document.getElementById("loginMsg");
-
-      if (!phone || !password) {
-        loginMsg.innerText = "Podaj numer telefonu i hasło.";
-        return;
-      }
 
       loginMsg.style.color = "#38bdf8";
       loginMsg.innerText = "Sprawdzanie danych...";
 
       try {
         const res = await fetch(`${REST_URL}?phone=eq.${encodeURIComponent(phone)}&password=eq.${encodeURIComponent(password)}&select=*`, {
-          headers: {
-            "apikey": API_KEY,
-            "Authorization": `Bearer ${API_KEY}`
-          }
+          headers: { "apikey": API_KEY, "Authorization": `Bearer ${API_KEY}` }
         });
 
         const users = await res.json();
-
         if (!users || users.length === 0) {
           loginMsg.style.color = "#ef4444";
-          loginMsg.innerText = "Niepoprawny numer telefonu lub hasło.";
+          loginMsg.innerText = "Niepoprawny telefon lub hasło.";
           return;
         }
 
@@ -177,14 +200,14 @@
         showTrackerView(user);
       } catch (err) {
         loginMsg.style.color = "#ef4444";
-        loginMsg.innerText = "Błąd połączenia podczas logowania.";
+        loginMsg.innerText = "Błąd połączenia z bazą.";
       }
     }
 
     function showTrackerView(user) {
       activeSession = user;
       switchView('trackerBox');
-      document.getElementById("welcomeDriver").innerText = `Kierowca: ${user.full_name} (${user.vehicle_plate})`;
+      document.getElementById("welcomeDriver").innerText = `Kierowca: ${user.full_name}`;
     }
 
     function handleLogout() {
@@ -206,9 +229,11 @@
     function broadcastPosition() {
       if (!currentLat || !currentLng || !isConnected || !activeSession) return;
 
+      const vehicleLabel = getActiveVehicleName();
+
       const payload = JSON.stringify({
         id: "laweta-1",
-        name: `${activeSession.full_name} (${activeSession.vehicle_plate})`,
+        name: `${activeSession.full_name} [${vehicleLabel}]`,
         lat: currentLat,
         lng: currentLng,
         active: true,
@@ -225,7 +250,7 @@
 
       if (!timerId) {
         if (!navigator.geolocation) {
-          alert("Brak obsługi GPS w urządzeniu.");
+          alert("Brak GPS w urządzeniu.");
           return;
         }
 
@@ -241,7 +266,7 @@
         );
 
         timerId = setInterval(broadcastPosition, 2000);
-        btn.innerText = "🔴 Zatrzymaj nadawanie";
+        btn.innerText = "🔴 Zakończ kurs (Wyłącz GPS)";
         btn.className = "stop";
       } else {
         clearInterval(timerId);
@@ -249,7 +274,7 @@
         if (isConnected) {
           client.publish('pomoc-drogowa/gps', JSON.stringify({ id: "laweta-1", active: false }), { retain: true });
         }
-        btn.innerText = "🟢 Włącz nadawanie GPS";
+        btn.innerText = "🟢 Rozpocznij kurs (Włącz GPS)";
         btn.className = "success";
         document.getElementById("pingText").innerText = "";
       }
