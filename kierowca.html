@@ -43,7 +43,7 @@
     <div id="loginMsg" style="color: #ef4444; font-size: 13px; margin-top: 10px; text-align: center;"></div>
   </div>
 
-  <!-- EKRAN REJESTRACJI I DOKUMENTÓW -->
+  <!-- EKRAN REJESTRACJI I DOKUMENTÓW (BEZ REJESTRACJI POJAZDU) -->
   <div class="card hidden" id="registerBox">
     <h2>🪪 Rejestracja i Weryfikacja</h2>
     <p style="color: #94a3b8; font-size: 13px;">Jednorazowa weryfikacja uprawnień kierowcy</p>
@@ -60,9 +60,6 @@
 
       <label for="regLicense">Numer Prawa Jazdy (Kat. B+E / C):</label>
       <input type="text" id="regLicense" placeholder="np. 12345/67/8901" required />
-
-      <label for="regPlate">Domyślny nr rejestracyjny pojazdu:</label>
-      <input type="text" id="regPlate" placeholder="np. PO 12345" required />
 
       <label for="regPass">Ustal hasło do konta:</label>
       <input type="password" id="regPass" name="new-password" autocomplete="new-password" placeholder="Minimum 6 znaków" required />
@@ -82,7 +79,7 @@
     <div class="status-badge">Kierowca zweryfikowany ✔️</div>
 
     <div class="vehicle-select-box">
-      <label style="color: #38bdf8; font-weight: bold; margin-top: 0;">🚐 Wybierz lawetę na dzisiejszy dyżur:</label>
+      <label style="color: #38bdf8; font-weight: bold; margin-top: 0;">🚐 Wybierz pojazd na dzisiejszy dyżur:</label>
       <select id="vehicleSelector" onchange="updateVehicleChoice()">
         <option value="Laweta #1 (PO 12345)">Laweta #1 (PO 12345)</option>
         <option value="Laweta #2 (PO 67890)">Laweta #2 (PO 67890)</option>
@@ -133,7 +130,7 @@
       const selector = document.getElementById("vehicleSelector");
       if (selector.value === "custom") {
         const customVal = document.getElementById("customPlateInput").value.trim();
-        return customVal || activeSession.vehicle_plate || "Laweta";
+        return customVal || "Laweta";
       }
       return selector.value;
     }
@@ -144,7 +141,6 @@
       const phone = document.getElementById("regPhone").value.trim();
       const id_number = document.getElementById("regId").value.trim();
       const driving_license = document.getElementById("regLicense").value.trim();
-      const vehicle_plate = document.getElementById("regPlate").value.trim();
       const password = document.getElementById("regPass").value.trim();
       const regMsg = document.getElementById("regMsg");
 
@@ -160,7 +156,7 @@
             "Content-Type": "application/json",
             "Prefer": "return=representation"
           },
-          body: JSON.stringify({ full_name, phone, id_number, driving_license, vehicle_plate, password, status: 'approved' })
+          body: JSON.stringify({ full_name, phone, id_number, driving_license, password, status: 'approved' })
         });
 
         if (!res.ok) throw new Error("Błąd");
