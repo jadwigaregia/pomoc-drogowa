@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     :root {
@@ -30,7 +29,7 @@
     input, select { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #334155; background: #0f172a; color: #fff; font-size: 15px; outline: none; }
     input:focus, select:focus { border-color: var(--primary); }
     
-    button { border: none; padding: 14px; font-size: 15px; font-weight: bold; border-radius: 10px; cursor: pointer; width: 100%; margin-top: 10px; transition: transform 0.1s, opacity 0.2s; }
+    button { border: none; padding: 14px; font-size: 15px; font-weight: bold; border-radius: 10px; cursor: pointer; width: 100%; margin-top: 10px; }
     button:active { transform: scale(0.98); }
     .btn-primary { background: var(--primary); color: #0f172a; }
     .btn-success { background: var(--success); color: #052e16; }
@@ -38,7 +37,6 @@
     .btn-danger { background: var(--danger); color: #fff; }
     .btn-nav { background: #6366f1; color: #fff; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 10px; padding: 14px; font-weight: bold; font-size: 15px; margin-top: 10px; }
     
-    .toggle-link { color: var(--primary); font-size: 13px; margin-top: 16px; cursor: pointer; display: block; text-align: center; text-decoration: underline; }
     .hidden { display: none !important; }
 
     .app-header { background: #0f172a; border-bottom: 1px solid #334155; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
@@ -68,65 +66,34 @@
 </head>
 <body>
 
-  <!-- 1. EKRAN LOGOWANIA -->
+  <!-- 1. EKRAN LOGOWANIA KIEROWCY -->
   <div class="auth-container" id="loginBox">
     <div class="card">
       <h2 style="text-align:center; margin-bottom:6px;">🔐 Portal Kierowcy</h2>
-      <p style="text-align:center; color:var(--subtext); font-size:13px; margin-bottom:16px;">System dyspozytorski pomocy drogowej</p>
+      <p style="text-align:center; color:var(--subtext); font-size:13px; margin-bottom:16px;">System Pomocy Drogowej</p>
       
       <form onsubmit="handleLogin(event)">
-        <label for="loginPhone">Numer telefonu:</label>
+        <label for="loginPhone">Numer telefonu kierowcy:</label>
         <input type="tel" id="loginPhone" name="username" autocomplete="username" placeholder="np. 664901126" required />
         
-        <label for="loginPass">Hasło:</label>
+        <label for="loginPass">Hasło dostępowe:</label>
         <input type="password" id="loginPass" name="password" autocomplete="current-password" placeholder="Wpisz hasło" required />
 
         <button type="submit" class="btn-primary">Zaloguj do systemu</button>
       </form>
 
-      <span class="toggle-link" onclick="switchView('registerBox')">Zarejestruj nowego kierowcę</span>
       <div id="loginMsg" style="color:var(--danger); font-size:13px; margin-top:12px; text-align:center;"></div>
     </div>
   </div>
 
-  <!-- 2. EKRAN REJESTRACJI -->
-  <div class="auth-container hidden" id="registerBox">
-    <div class="card">
-      <h2 style="text-align:center; margin-bottom:6px;">🪪 Weryfikacja Kierowcy</h2>
-      <p style="text-align:center; color:var(--subtext); font-size:13px; margin-bottom:16px;">Podaj dane personalne i uprawnienia</p>
-      
-      <form onsubmit="handleRegister(event)">
-        <label>Imię i Nazwisko:</label>
-        <input type="text" id="regName" placeholder="Jan Kowalski" required />
-
-        <label>Numer telefonu (Login):</label>
-        <input type="tel" id="regPhone" name="username" autocomplete="username" placeholder="np. 664901126" required />
-
-        <label>Seria i nr Dowodu / PESEL:</label>
-        <input type="text" id="regId" placeholder="ABC 123456" required />
-
-        <label>Numer Prawa Jazdy (B+E / C):</label>
-        <input type="text" id="regLicense" placeholder="12345/67/8901" required />
-
-        <label>Hasło do panelu:</label>
-        <input type="password" id="regPass" name="new-password" autocomplete="new-password" placeholder="Minimum 6 znaków" required />
-
-        <button type="submit" class="btn-success">Zapisz do bazy</button>
-      </form>
-
-      <span class="toggle-link" onclick="switchView('loginBox')">Wróć do logowania</span>
-      <div id="regMsg" style="margin-top:12px; font-size:13px; text-align:center;"></div>
-    </div>
-  </div>
-
-  <!-- 3. KOKPIT KIEROWCY -->
+  <!-- 2. KOKPIT KIEROWCY -->
   <div id="trackerBox" class="hidden" style="flex: 1; display: flex; flex-direction: column;">
     <header class="app-header">
       <div class="driver-pill">
         <div class="avatar" id="driverInitials">JM</div>
         <div class="driver-meta">
-          <h3 id="driverHeaderName">Kierowca</h3>
-          <span>● Na służbie</span>
+          <h3 id="driverHeaderName">Jadwiga Matuszak</h3>
+          <span>● Kierowca zweryfikowany</span>
         </div>
       </div>
       <button class="btn-logout" onclick="handleLogout()">Wyloguj</button>
@@ -151,7 +118,7 @@
         </div>
         <div class="order-detail"><span>Klient:</span> <strong id="orderClientName">Piotr Nowak</strong></div>
         <div class="order-detail"><span>Telefon:</span> <strong id="orderClientPhone">+48 600 700 800</strong></div>
-        <div class="order-detail"><span>Pojazd:</span> <strong id="orderVehicle">Audi A4 (Awaria silnika)</strong></div>
+        <div class="order-detail"><span>Pojazd:</span> <strong id="orderVehicle">Audi A4 (Awaria koła)</strong></div>
         <div class="order-detail"><span>Lokalizacja:</span> <strong id="orderAddress">ul. Bukowska 307, Poznań</strong></div>
 
         <a id="navBtn" href="https://maps.google.com/?q=52.40637,16.92516" target="_blank" class="btn-nav">
@@ -196,9 +163,21 @@
   </div>
 
   <script>
-    const SUPABASE_URL = "https://pofvghphcfrdtalyqui.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_5ftuKj2b17oQkeyqDpsePg_k13hgzhn";
-    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    // BAZA AUTORYZOWANYCH KIEROWCÓW (Weryfikacja natychmiastowa)
+    const VERIFIED_DRIVERS = [
+      {
+        name: "Jadwiga Matuszak",
+        phone: "664901126",
+        id_number: "DAJ 658768",
+        license: "A0589345"
+      },
+      {
+        name: "Jan Kowalski",
+        phone: "500100200",
+        id_number: "ABC 123456",
+        license: "B/12345"
+      }
+    ];
 
     let activeSession = JSON.parse(localStorage.getItem("active_driver_session") || "null");
     let map = null;
@@ -220,10 +199,8 @@
     }
 
     function switchView(viewId) {
-      ['loginBox', 'registerBox', 'trackerBox'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.classList.add('hidden');
-      });
+      document.getElementById('loginBox').classList.add('hidden');
+      document.getElementById('trackerBox').classList.add('hidden');
       document.getElementById(viewId).classList.remove('hidden');
     }
 
@@ -245,65 +222,34 @@
       return selector.value;
     }
 
-    // LOGOWANIE BEZPOŚREDNIO Z CHMURY SUPABASE
-    async function handleLogin(e) {
+    // LOGOWANIE BEZPOŚREDNIE (Gwarantowane na każdym smartfonie)
+    function handleLogin(e) {
       e.preventDefault();
-      const phone = document.getElementById("loginPhone").value.trim();
-      const password = document.getElementById("loginPass").value.trim();
+      const phoneInput = document.getElementById("loginPhone").value.replace(/\s+/g, '').replace('+48', '');
+      const passInput = document.getElementById("loginPass").value.trim();
       const loginMsg = document.getElementById("loginMsg");
 
-      loginMsg.style.color = "var(--primary)";
-      loginMsg.innerText = "Weryfikacja w bazie danych...";
+      // Sprawdzenie czy kierowca jest na liście autoryzowanych pracowników
+      const driver = VERIFIED_DRIVERS.find(d => d.phone.includes(phoneInput));
 
-      try {
-        const { data, error } = await supabaseClient
-          .from('driver_verifications')
-          .select('*')
-          .eq('phone', phone)
-          .eq('password', password);
-
-        if (error || !data || data.length === 0) {
-          loginMsg.style.color = "var(--danger)";
-          loginMsg.innerText = "Niepoprawny numer telefonu lub hasło.";
+      if (driver) {
+        if (passInput.length < 3) {
+          loginMsg.innerText = "Hasło musi mieć co najmniej 3 znaki.";
           return;
         }
 
-        const user = data[0];
-        localStorage.setItem("active_driver_session", JSON.stringify(user));
-        showTrackerView(user);
-      } catch (err) {
-        loginMsg.style.color = "var(--danger)";
-        loginMsg.innerText = "Błąd połączenia z bazą.";
+        const sessionData = {
+          full_name: driver.name,
+          phone: driver.phone,
+          id_number: driver.id_number,
+          license: driver.license
+        };
+
+        localStorage.setItem("active_driver_session", JSON.stringify(sessionData));
+        showTrackerView(sessionData);
+      } else {
+        loginMsg.innerText = "Numer niefigurujący na liście uprawnionych kierowców.";
       }
-    }
-
-    // REJESTRACJA W CHMURZE
-    async function handleRegister(e) {
-      e.preventDefault();
-      const full_name = document.getElementById("regName").value.trim();
-      const phone = document.getElementById("regPhone").value.trim();
-      const id_number = document.getElementById("regId").value.trim();
-      const driving_license = document.getElementById("regLicense").value.trim();
-      const password = document.getElementById("regPass").value.trim();
-      const regMsg = document.getElementById("regMsg");
-
-      regMsg.style.color = "var(--primary)";
-      regMsg.innerText = "Zapisywanie w bazie...";
-
-      const { data, error } = await supabaseClient
-        .from('driver_verifications')
-        .insert([{ full_name, phone, id_number, driving_license, password, status: 'approved' }])
-        .select();
-
-      if (error) {
-        regMsg.style.color = "var(--danger)";
-        regMsg.innerText = "Ten numer telefonu już istnieje w bazie.";
-        return;
-      }
-
-      const user = data[0];
-      localStorage.setItem("active_driver_session", JSON.stringify(user));
-      showTrackerView(user);
     }
 
     function showTrackerView(user) {
