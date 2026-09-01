@@ -15,6 +15,7 @@
       --card-bg: #1e293b;
       --primary: #38bdf8;
       --success: #22c55e;
+      --warning: #f59e0b;
       --danger: #ef4444;
       --text: #f8fafc;
       --subtext: #94a3b8;
@@ -22,21 +23,23 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
     
-    /* STYLE LOGOWANIA / REJESTRACJI */
     .auth-container { max-width: 440px; margin: auto; padding: 24px; width: 100%; }
-    .card { background: var(--card-bg); padding: 24px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border: 1px solid #334155; }
+    .card { background: var(--card-bg); padding: 20px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border: 1px solid #334155; }
     label { font-size: 13px; color: var(--subtext); display: block; margin-top: 12px; margin-bottom: 4px; }
     input, select { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #334155; background: #0f172a; color: #fff; font-size: 15px; outline: none; }
     input:focus, select:focus { border-color: var(--primary); }
-    button { border: none; padding: 16px; font-size: 16px; font-weight: bold; border-radius: 10px; cursor: pointer; width: 100%; margin-top: 18px; transition: transform 0.1s, opacity 0.2s; }
+    
+    button { border: none; padding: 14px; font-size: 15px; font-weight: bold; border-radius: 10px; cursor: pointer; width: 100%; margin-top: 10px; transition: transform 0.1s, opacity 0.2s; }
     button:active { transform: scale(0.98); }
     .btn-primary { background: var(--primary); color: #0f172a; }
     .btn-success { background: var(--success); color: #052e16; }
+    .btn-warning { background: var(--warning); color: #451a03; }
     .btn-danger { background: var(--danger); color: #fff; }
+    .btn-nav { background: #6366f1; color: #fff; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 10px; padding: 14px; font-weight: bold; font-size: 15px; margin-top: 10px; }
+    
     .toggle-link { color: var(--primary); font-size: 13px; margin-top: 16px; cursor: pointer; display: block; text-align: center; text-decoration: underline; }
     .hidden { display: none !important; }
 
-    /* KOKPIT KIEROWCY (PO ZALOGOWANIU) */
     .app-header { background: #0f172a; border-bottom: 1px solid #334155; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
     .driver-pill { display: flex; align-items: center; gap: 10px; }
     .avatar { width: 38px; height: 38px; border-radius: 50%; background: #0284c7; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px; }
@@ -44,28 +47,30 @@
     .driver-meta span { font-size: 12px; color: var(--success); font-weight: 500; }
     .btn-logout { width: auto; margin: 0; padding: 8px 14px; font-size: 12px; background: #334155; color: #cbd5e1; border-radius: 8px; }
 
-    .cockpit-content { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 16px; max-width: 600px; margin: 0 auto; width: 100%; }
+    .cockpit-content { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 14px; max-width: 600px; margin: 0 auto; width: 100%; }
 
-    /* METRYKI DASHBOARDU */
-    .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .metric-card { background: var(--card-bg); padding: 14px; border-radius: 12px; border: 1px solid #334155; text-align: center; }
-    .metric-value { font-size: 20px; font-weight: bold; color: var(--primary); font-family: monospace; }
-    .metric-title { font-size: 11px; text-transform: uppercase; color: var(--subtext); margin-top: 4px; letter-spacing: 0.5px; }
+    /* KARTA ZLECENIA */
+    .order-card { background: #1e1b4b; border: 2px solid #6366f1; border-radius: 14px; padding: 16px; animation: glow 2s infinite alternate; }
+    @keyframes glow { from { border-color: #6366f1; box-shadow: 0 0 10px rgba(99,102,241,0.3); } to { border-color: var(--primary); box-shadow: 0 0 20px rgba(56,189,248,0.6); } }
+    .order-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .order-badge { background: #4f46e5; color: #fff; font-size: 11px; padding: 4px 8px; border-radius: 6px; font-weight: bold; }
+    .order-detail { font-size: 14px; margin-bottom: 6px; display: flex; justify-content: space-between; }
+    .order-detail span { color: var(--subtext); }
 
-    /* PODGLĄD MAPY */
-    #driverMiniMap { height: 220px; width: 100%; border-radius: 14px; border: 1px solid #334155; z-index: 10; }
+    .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .metric-card { background: var(--card-bg); padding: 12px; border-radius: 12px; border: 1px solid #334155; text-align: center; }
+    .metric-value { font-size: 18px; font-weight: bold; color: var(--primary); font-family: monospace; }
+    .metric-title { font-size: 11px; text-transform: uppercase; color: var(--subtext); margin-top: 4px; }
 
-    /* STATUS I STEROWANIE */
-    .control-box { background: var(--card-bg); padding: 16px; border-radius: 14px; border: 1px solid #334155; }
-    .live-indicator { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; font-weight: 600; margin-bottom: 12px; }
-    .pulse-dot { width: 10px; height: 10px; border-radius: 50%; background: #64748b; }
-    .pulse-dot.active { background: var(--success); box-shadow: 0 0 10px var(--success); animation: pulseAnim 1.5s infinite; }
-    @keyframes pulseAnim { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    #driverMiniMap { height: 200px; width: 100%; border-radius: 14px; border: 1px solid #334155; }
+
+    .pulse-dot { width: 10px; height: 10px; border-radius: 50%; background: #64748b; display: inline-block; }
+    .pulse-dot.active { background: var(--success); box-shadow: 0 0 10px var(--success); }
   </style>
 </head>
 <body>
 
-  <!-- 1. EKRAN LOGOWANIA -->
+  <!-- EKRAN LOGOWANIA -->
   <div class="auth-container" id="loginBox">
     <div class="card">
       <h2 style="text-align:center; margin-bottom:6px;">🔐 Portal Kierowcy</h2>
@@ -81,16 +86,16 @@
         <button type="submit" class="btn-primary">Zaloguj do systemu</button>
       </form>
 
-      <span class="toggle-link" onclick="switchView('registerBox')">Nowy pracownik? Zarejestruj się i zweryfikuj</span>
+      <span class="toggle-link" onclick="switchView('registerBox')">Nowy pracownik? Zarejestruj się</span>
       <div id="loginMsg" style="color:var(--danger); font-size:13px; margin-top:12px; text-align:center;"></div>
     </div>
   </div>
 
-  <!-- 2. EKRAN REJESTRACJI -->
+  <!-- EKRAN REJESTRACJI -->
   <div class="auth-container hidden" id="registerBox">
     <div class="card">
-      <h2 style="text-align:center; margin-bottom:6px;">🪪 Weryfikacja Dokumentów</h2>
-      <p style="text-align:center; color:var(--subtext); font-size:13px; margin-bottom:16px;">Wprowadź dane uprawnień i tożsamości</p>
+      <h2 style="text-align:center; margin-bottom:6px;">🪪 Weryfikacja Kierowcy</h2>
+      <p style="text-align:center; color:var(--subtext); font-size:13px; margin-bottom:16px;">Podaj dane personalne i uprawnienia</p>
       
       <form onsubmit="handleRegister(event)">
         <label>Imię i Nazwisko:</label>
@@ -99,7 +104,7 @@
         <label>Numer telefonu (Login):</label>
         <input type="tel" id="regPhone" name="username" autocomplete="username" placeholder="np. 500100200" required />
 
-        <label>Seria i nr Dowodu Osobistego / PESEL:</label>
+        <label>Seria i nr Dowodu / PESEL:</label>
         <input type="text" id="regId" placeholder="ABC 123456" required />
 
         <label>Numer Prawa Jazdy (B+E / C):</label>
@@ -108,7 +113,7 @@
         <label>Hasło do panelu:</label>
         <input type="password" id="regPass" name="new-password" autocomplete="new-password" placeholder="Minimum 6 znaków" required />
 
-        <button type="submit" class="btn-success">Zatwierdź i Utwórz Konto</button>
+        <button type="submit" class="btn-success">Utwórz Konto Kierowcy</button>
       </form>
 
       <span class="toggle-link" onclick="switchView('loginBox')">Wróć do logowania</span>
@@ -116,40 +121,70 @@
     </div>
   </div>
 
-  <!-- 3. ZAAWANSOWANY KOKPIT KIEROWCY (PO ZALOGOWANIU) -->
+  <!-- KOKPIT KIEROWCY -->
   <div id="trackerBox" class="hidden" style="flex: 1; display: flex; flex-direction: column;">
     
-    <!-- Pasek górny -->
     <header class="app-header">
       <div class="driver-pill">
         <div class="avatar" id="driverInitials">JK</div>
         <div class="driver-meta">
           <h3 id="driverHeaderName">Jan Kowalski</h3>
-          <span>● Zweryfikowany kierowca</span>
+          <span>● Na służbie</span>
         </div>
       </div>
       <button class="btn-logout" onclick="handleLogout()">Wyloguj</button>
     </header>
 
-    <!-- Zawartość kokpitu -->
     <div class="cockpit-content">
       
-      <!-- Panel konfiguracji pojazdu -->
-      <div class="control-box">
-        <label style="margin-top: 0;">🚐 Aktywny pojazd na ten kurs:</label>
+      <!-- WYBÓR POJAZDU -->
+      <div class="card" style="padding: 12px 16px;">
+        <label style="margin-top:0;">🚐 Wybierz pojazd:</label>
         <select id="vehicleSelector" onchange="updateVehicleChoice()">
           <option value="Laweta #1 (PO 12345)">Laweta #1 (PO 12345)</option>
           <option value="Laweta #2 (PO 67890)">Laweta #2 (PO 67890)</option>
           <option value="Laweta #3 - Ciężarowa (PO 11223)">Laweta #3 - Ciężarowa (PO 11223)</option>
-          <option value="custom">Inny pojazd (wpisz z ręki)...</option>
+          <option value="custom">Inny pojazd (wpisz tablice)...</option>
         </select>
         <input type="text" id="customPlateInput" class="hidden" placeholder="Wpisz numer rejestracyjny" style="margin-top: 8px;" />
       </div>
 
-      <!-- Minimapa z aktualną pozycją kierowcy -->
+      <!-- KARTA AKTYWNEGO ZLECENIA -->
+      <div class="order-card" id="orderBox">
+        <div class="order-header">
+          <span class="order-badge">🚨 NOWE ZGŁOSZENIE</span>
+          <span id="orderTime" style="font-size:12px; color:var(--primary);">Przed chwilą</span>
+        </div>
+        
+        <div class="order-detail"><span>Klient:</span> <strong id="orderClientName">Piotr Nowak</strong></div>
+        <div class="order-detail"><span>Telefon:</span> <strong id="orderClientPhone">+48 600 700 800</strong></div>
+        <div class="order-detail"><span>Pojazd:</span> <strong id="orderVehicle">Audi A4 (Awaria silnika)</strong></div>
+        <div class="order-detail"><span>Lokalizacja:</span> <strong id="orderAddress">ul. Bukowska 307, Poznań</strong></div>
+
+        <!-- Przycisk Google Maps -->
+        <a id="navBtn" href="https://maps.google.com/?q=52.40637,16.92516" target="_blank" class="btn-nav">
+          🗺️ Nawiguj w Google Maps
+        </a>
+
+        <!-- Szybki telefon -->
+        <a id="callBtn" href="tel:600700800" style="text-decoration:none;">
+          <button class="btn-primary" style="margin-top:8px;">📞 Zadzwoń do poszkodowanego</button>
+        </a>
+
+        <!-- KROKOWY STATUS ZLECENIA -->
+        <div style="margin-top: 12px;">
+          <label>Zmień status dla klienta:</label>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+            <button class="btn-warning" onclick="setJobStatus('Na miejscu / Załadunek')">🏗️ Na miejscu</button>
+            <button class="btn-success" onclick="setJobStatus('Zlecenie zrealizowane')">🏁 Zakończ kurs</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- MINIMAPA -->
       <div id="driverMiniMap"></div>
 
-      <!-- Kafelki telemetryczne -->
+      <!-- METRYKI -->
       <div class="dashboard-grid">
         <div class="metric-card">
           <div class="metric-value" id="speedMetric">0.0 km/h</div>
@@ -160,22 +195,22 @@
           <div class="metric-title">Wysłane pakiety</div>
         </div>
         <div class="metric-card">
-          <div class="metric-value" id="coordsMetric">-- , --</div>
-          <div class="metric-title">Współrzędne</div>
+          <div class="metric-value" id="currentJobStatusText" style="font-size:14px; color:var(--warning);">W trasie 🚗</div>
+          <div class="metric-title">Status zlecenia</div>
         </div>
         <div class="metric-card">
           <div class="metric-value" id="timeMetric">00:00:00</div>
-          <div class="metric-title">Czas trasy</div>
+          <div class="metric-title">Czas kursu</div>
         </div>
       </div>
 
-      <!-- Główny przycisk startu/stopu -->
-      <div class="control-box" style="text-align: center;">
-        <div class="live-indicator">
+      <!-- WŁĄCZNIK GPS -->
+      <div class="card" style="text-align:center;">
+        <div style="display:flex; align-items:center; justify-content:center; gap:8px; font-size:14px; font-weight:600; margin-bottom:10px;">
           <div class="pulse-dot" id="liveDot"></div>
-          <span id="liveStatusText" style="color: var(--subtext);">Nadajnik wyłączony</span>
+          <span id="liveStatusText" style="color:var(--subtext);">Nadajnik zatrzymany</span>
         </div>
-        <button id="toggleBtn" class="btn-success" onclick="toggleGps()">🟢 Rozpocznij kurs (Włącz GPS)</button>
+        <button id="toggleBtn" class="btn-success" onclick="toggleGps()">🟢 Włącz nadawanie GPS</button>
       </div>
 
     </div>
@@ -184,7 +219,8 @@
   <script>
     let activeSession = JSON.parse(localStorage.getItem("active_driver_session") || "null");
     let map = null;
-    let marker = null;
+    let driverMarker = null;
+    let clientMarker = null;
     let timerId = null;
     let durationTimer = null;
     let startTime = null;
@@ -192,10 +228,26 @@
     let currentLat = null;
     let currentLng = null;
     let isConnected = false;
+    let wakeLock = null;
+    let currentJobStatus = "W drodze do klienta";
 
-    // Inicjalizacja MQTT
     const client = mqtt.connect('wss://broker.emqx.io:8084/mqtt');
-    client.on('connect', () => { isConnected = true; });
+
+    client.on('connect', () => {
+      isConnected = true;
+      // Nasłuchiwanie nowych zgłoszeń od klientów
+      client.subscribe('pomoc-drogowa/nowe-zlecenie');
+    });
+
+    // Odbieranie zlecenia od klienta w czasie rzeczywistym
+    client.on('message', (topic, msg) => {
+      if (topic === 'pomoc-drogowa/nowe-zlecenie') {
+        try {
+          const order = JSON.parse(msg.toString());
+          displayNewOrder(order);
+        } catch(e) {}
+      }
+    });
 
     if (activeSession) {
       showTrackerView(activeSession);
@@ -253,7 +305,7 @@
       setTimeout(() => {
         localStorage.setItem("active_driver_session", JSON.stringify(newDriver));
         showTrackerView(newDriver);
-      }, 1000);
+      }, 800);
     }
 
     function handleLogin(e) {
@@ -282,15 +334,54 @@
       const initials = user.full_name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
       document.getElementById("driverInitials").innerText = initials;
 
-      // Inicjalizacja minimapy
       setTimeout(() => {
         if (!map) {
-          map = L.map('driverMiniMap', { zoomControl: false }).setView([52.40637, 16.92516], 14);
+          map = L.map('driverMiniMap', { zoomControl: false }).setView([52.40637, 16.92516], 13);
           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+          
+          // Domyślna pinezka klienta (testowa)
+          clientMarker = L.marker([52.414, 16.891]).addTo(map).bindPopup("📍 Miejsce awarii klienta");
         } else {
           map.invalidateSize();
         }
       }, 200);
+    }
+
+    function displayNewOrder(order) {
+      document.getElementById("orderClientName").innerText = order.client_name || "Poszkodowany";
+      document.getElementById("orderClientPhone").innerText = order.client_phone || "--";
+      document.getElementById("orderVehicle").innerText = `${order.car_model || 'Pojazd'} (${order.issue || 'Awaria'})`;
+      document.getElementById("orderAddress").innerText = order.address || "Poznań";
+      document.getElementById("callBtn").href = `tel:${order.client_phone}`;
+      
+      if (order.lat && order.lng) {
+        document.getElementById("navBtn").href = `https://www.google.com/maps/dir/?api=1&destination=${order.lat},${order.lng}`;
+        if (clientMarker) clientMarker.setLatLng([order.lat, order.lng]);
+      }
+
+      // Dźwięk powiadomienia
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        osc.connect(audioCtx.destination);
+        osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.3);
+      } catch(e) {}
+    }
+
+    function setJobStatus(status) {
+      currentJobStatus = status;
+      document.getElementById("currentJobStatusText").innerText = status;
+      broadcastPosition();
+    }
+
+    async function keepScreenAwake() {
+      try {
+        if ('wakeLock' in navigator) {
+          wakeLock = await navigator.wakeLock.request('screen');
+        }
+      } catch (err) {}
     }
 
     function handleLogout() {
@@ -308,6 +399,7 @@
         name: `${activeSession.full_name} [${vehicleLabel}]`,
         lat: currentLat,
         lng: currentLng,
+        status: currentJobStatus,
         active: true,
         time: new Date().toLocaleTimeString()
       });
@@ -328,6 +420,8 @@
           return;
         }
 
+        keepScreenAwake();
+
         startTime = Date.now();
         durationTimer = setInterval(() => {
           const sec = Math.floor((Date.now() - startTime) / 1000);
@@ -344,15 +438,14 @@
             const speed = pos.coords.speed ? (pos.coords.speed * 3.6).toFixed(1) : "0.0";
             
             document.getElementById("speedMetric").innerText = `${speed} km/h`;
-            document.getElementById("coordsMetric").innerText = `${currentLat.toFixed(3)}, ${currentLng.toFixed(3)}`;
 
             if (map) {
-              if (!marker) {
-                marker = L.marker([currentLat, currentLng]).addTo(map);
+              if (!driverMarker) {
+                driverMarker = L.marker([currentLat, currentLng]).addTo(map);
               } else {
-                marker.setLatLng([currentLat, currentLng]);
+                driverMarker.setLatLng([currentLat, currentLng]);
               }
-              map.setView([currentLat, currentLng], 15);
+              map.setView([currentLat, currentLng], 14);
             }
 
             broadcastPosition();
