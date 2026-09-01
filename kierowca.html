@@ -19,7 +19,7 @@
 
   <div class="card">
     <h2>🚗 Nadajnik GPS Lawety</h2>
-    <p style="color: #94a3b8; font-size: 14px;">Kliknij przycisk, aby zacząć transmitować swoją pozycję do klientów.</p>
+    <p style="color: #94a3b8; font-size: 14px;">Włącz nadawanie, aby pojawić się na mapie u klientów.</p>
     
     <div style="text-align: left;">
       <label style="font-size: 13px; color: #94a3b8;">Nazwa pojazdu:</label>
@@ -36,7 +36,7 @@
     const SUPABASE_URL = "https://pofvghphcfrdtalyqui.supabase.co";
     const SUPABASE_KEY = "sb_publishable_5ftuKj2b17oQkeyqDpsePg_k13hgzhn";
 
-    const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     let watchId = null;
     let driverId = localStorage.getItem("driver_id") || null;
 
@@ -47,16 +47,24 @@
 
       if (!watchId) {
         if (!navigator.geolocation) {
-          alert("Twoja przeglądarka nie wspiera GPS!");
+          alert("Twoja przeglądarka nie obsługuje lokalizacji GPS.");
           return;
         }
 
+        status.innerText = "Rejestracja pojazdu w bazie...";
+
         if (!driverId) {
-          const { data } = await client
+          const { data, error } = await supabase
             .from('drivers')
-            .insert([{ name: driverName, is_available: true }])
+            .insert([{ name: driverName, is_available: true, lat: 52.40637, lng: 16.92516 }])
             .select()
             .single();
+
+          if (error) {
+            alert("Błąd bazy: " + error.message);
+            status.innerText = "Błąd bazy: " + error.message;
+            return;
+          }
 
           if (data) {
             driverId = data.id;
@@ -70,15 +78,18 @@
             document.getElementById("coordsText").innerText = `Lat: ${latitude.toFixed(5)}, Lng: ${longitude.toFixed(5)}`;
             status.innerText = "Status: Transmisja aktywna 📡";
 
-            await client.from('drivers').update({
+            await supabase.from('drivers').update({
               lat: latitude,
               lng: longitude,
               is_available: true,
               updated_at: new Date().toISOString()
             }).eq('id', driverId);
           },
-          (err) => alert("Błąd GPS: " + err.message),
-          { enableHighAccuracy: true, maximumAge: 0, timeout: 5000 }
+          (err) => {
+            alert("Błąd GPS: " + err.message);
+            status.innerText = "Błąd GPS: " + err.message;
+          },
+          { enableHighAccuracy: true, maximumAge: 0, timeout: 10000 }
         );
 
         btn.innerText = "🔴 Zatrzymaj nadawanie";
@@ -87,7 +98,7 @@
         navigator.geolocation.clearWatch(watchId);
         watchId = null;
         if (driverId) {
-          await client.from('drivers').update({ is_available: false }).eq('id', driverId);
+          await supabase.from('drivers').update({ is_available: false }).eq('id', driverId);
         }
         btn.innerText = "🟢 Włącz nadawanie GPS";
         btn.classList.remove("stop");
