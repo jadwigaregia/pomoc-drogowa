@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     :root {
@@ -49,9 +50,7 @@
 
     .cockpit-content { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 14px; max-width: 600px; margin: 0 auto; width: 100%; }
 
-    /* KARTA ZLECENIA */
-    .order-card { background: #1e1b4b; border: 2px solid #6366f1; border-radius: 14px; padding: 16px; animation: glow 2s infinite alternate; }
-    @keyframes glow { from { border-color: #6366f1; box-shadow: 0 0 10px rgba(99,102,241,0.3); } to { border-color: var(--primary); box-shadow: 0 0 20px rgba(56,189,248,0.6); } }
+    .order-card { background: #1e1b4b; border: 2px solid #6366f1; border-radius: 14px; padding: 16px; }
     .order-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     .order-badge { background: #4f46e5; color: #fff; font-size: 11px; padding: 4px 8px; border-radius: 6px; font-weight: bold; }
     .order-detail { font-size: 14px; margin-bottom: 6px; display: flex; justify-content: space-between; }
@@ -63,14 +62,13 @@
     .metric-title { font-size: 11px; text-transform: uppercase; color: var(--subtext); margin-top: 4px; }
 
     #driverMiniMap { height: 200px; width: 100%; border-radius: 14px; border: 1px solid #334155; }
-
     .pulse-dot { width: 10px; height: 10px; border-radius: 50%; background: #64748b; display: inline-block; }
     .pulse-dot.active { background: var(--success); box-shadow: 0 0 10px var(--success); }
   </style>
 </head>
 <body>
 
-  <!-- EKRAN LOGOWANIA -->
+  <!-- 1. EKRAN LOGOWANIA -->
   <div class="auth-container" id="loginBox">
     <div class="card">
       <h2 style="text-align:center; margin-bottom:6px;">🔐 Portal Kierowcy</h2>
@@ -78,7 +76,7 @@
       
       <form onsubmit="handleLogin(event)">
         <label for="loginPhone">Numer telefonu:</label>
-        <input type="tel" id="loginPhone" name="username" autocomplete="username" placeholder="np. 500100200" required />
+        <input type="tel" id="loginPhone" name="username" autocomplete="username" placeholder="np. 664901126" required />
         
         <label for="loginPass">Hasło:</label>
         <input type="password" id="loginPass" name="password" autocomplete="current-password" placeholder="Wpisz hasło" required />
@@ -86,12 +84,12 @@
         <button type="submit" class="btn-primary">Zaloguj do systemu</button>
       </form>
 
-      <span class="toggle-link" onclick="switchView('registerBox')">Nowy pracownik? Zarejestruj się</span>
+      <span class="toggle-link" onclick="switchView('registerBox')">Zarejestruj nowego kierowcę</span>
       <div id="loginMsg" style="color:var(--danger); font-size:13px; margin-top:12px; text-align:center;"></div>
     </div>
   </div>
 
-  <!-- EKRAN REJESTRACJI -->
+  <!-- 2. EKRAN REJESTRACJI -->
   <div class="auth-container hidden" id="registerBox">
     <div class="card">
       <h2 style="text-align:center; margin-bottom:6px;">🪪 Weryfikacja Kierowcy</h2>
@@ -102,7 +100,7 @@
         <input type="text" id="regName" placeholder="Jan Kowalski" required />
 
         <label>Numer telefonu (Login):</label>
-        <input type="tel" id="regPhone" name="username" autocomplete="username" placeholder="np. 500100200" required />
+        <input type="tel" id="regPhone" name="username" autocomplete="username" placeholder="np. 664901126" required />
 
         <label>Seria i nr Dowodu / PESEL:</label>
         <input type="text" id="regId" placeholder="ABC 123456" required />
@@ -113,7 +111,7 @@
         <label>Hasło do panelu:</label>
         <input type="password" id="regPass" name="new-password" autocomplete="new-password" placeholder="Minimum 6 znaków" required />
 
-        <button type="submit" class="btn-success">Utwórz Konto Kierowcy</button>
+        <button type="submit" class="btn-success">Zapisz do bazy</button>
       </form>
 
       <span class="toggle-link" onclick="switchView('loginBox')">Wróć do logowania</span>
@@ -121,14 +119,13 @@
     </div>
   </div>
 
-  <!-- KOKPIT KIEROWCY -->
+  <!-- 3. KOKPIT KIEROWCY -->
   <div id="trackerBox" class="hidden" style="flex: 1; display: flex; flex-direction: column;">
-    
     <header class="app-header">
       <div class="driver-pill">
-        <div class="avatar" id="driverInitials">JK</div>
+        <div class="avatar" id="driverInitials">JM</div>
         <div class="driver-meta">
-          <h3 id="driverHeaderName">Jan Kowalski</h3>
+          <h3 id="driverHeaderName">Kierowca</h3>
           <span>● Na służbie</span>
         </div>
       </div>
@@ -136,8 +133,6 @@
     </header>
 
     <div class="cockpit-content">
-      
-      <!-- WYBÓR POJAZDU -->
       <div class="card" style="padding: 12px 16px;">
         <label style="margin-top:0;">🚐 Wybierz pojazd:</label>
         <select id="vehicleSelector" onchange="updateVehicleChoice()">
@@ -149,42 +144,28 @@
         <input type="text" id="customPlateInput" class="hidden" placeholder="Wpisz numer rejestracyjny" style="margin-top: 8px;" />
       </div>
 
-      <!-- KARTA AKTYWNEGO ZLECENIA -->
       <div class="order-card" id="orderBox">
         <div class="order-header">
-          <span class="order-badge">🚨 NOWE ZGŁOSZENIE</span>
-          <span id="orderTime" style="font-size:12px; color:var(--primary);">Przed chwilą</span>
+          <span class="order-badge">🚨 AKTYWNE ZLECENIE</span>
+          <span id="orderTime" style="font-size:12px; color:var(--primary);">Aktywne</span>
         </div>
-        
         <div class="order-detail"><span>Klient:</span> <strong id="orderClientName">Piotr Nowak</strong></div>
         <div class="order-detail"><span>Telefon:</span> <strong id="orderClientPhone">+48 600 700 800</strong></div>
         <div class="order-detail"><span>Pojazd:</span> <strong id="orderVehicle">Audi A4 (Awaria silnika)</strong></div>
         <div class="order-detail"><span>Lokalizacja:</span> <strong id="orderAddress">ul. Bukowska 307, Poznań</strong></div>
 
-        <!-- Przycisk Google Maps -->
         <a id="navBtn" href="https://maps.google.com/?q=52.40637,16.92516" target="_blank" class="btn-nav">
           🗺️ Nawiguj w Google Maps
         </a>
 
-        <!-- Szybki telefon -->
-        <a id="callBtn" href="tel:600700800" style="text-decoration:none;">
-          <button class="btn-primary" style="margin-top:8px;">📞 Zadzwoń do poszkodowanego</button>
-        </a>
-
-        <!-- KROKOWY STATUS ZLECENIA -->
-        <div style="margin-top: 12px;">
-          <label>Zmień status dla klienta:</label>
-          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
-            <button class="btn-warning" onclick="setJobStatus('Na miejscu / Załadunek')">🏗️ Na miejscu</button>
-            <button class="btn-success" onclick="setJobStatus('Zlecenie zrealizowane')">🏁 Zakończ kurs</button>
-          </div>
+        <div style="margin-top: 12px; display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+          <button class="btn-warning" onclick="setJobStatus('Na miejscu / Załadunek')">🏗️ Na miejscu</button>
+          <button class="btn-success" onclick="setJobStatus('Zlecenie zrealizowane')">🏁 Zakończ kurs</button>
         </div>
       </div>
 
-      <!-- MINIMAPA -->
       <div id="driverMiniMap"></div>
 
-      <!-- METRYKI -->
       <div class="dashboard-grid">
         <div class="metric-card">
           <div class="metric-value" id="speedMetric">0.0 km/h</div>
@@ -195,8 +176,8 @@
           <div class="metric-title">Wysłane pakiety</div>
         </div>
         <div class="metric-card">
-          <div class="metric-value" id="currentJobStatusText" style="font-size:14px; color:var(--warning);">W trasie 🚗</div>
-          <div class="metric-title">Status zlecenia</div>
+          <div class="metric-value" id="currentJobStatusText" style="font-size:13px; color:var(--warning);">W trasie 🚗</div>
+          <div class="metric-title">Status trasy</div>
         </div>
         <div class="metric-card">
           <div class="metric-value" id="timeMetric">00:00:00</div>
@@ -204,7 +185,6 @@
         </div>
       </div>
 
-      <!-- WŁĄCZNIK GPS -->
       <div class="card" style="text-align:center;">
         <div style="display:flex; align-items:center; justify-content:center; gap:8px; font-size:14px; font-weight:600; margin-bottom:10px;">
           <div class="pulse-dot" id="liveDot"></div>
@@ -212,15 +192,17 @@
         </div>
         <button id="toggleBtn" class="btn-success" onclick="toggleGps()">🟢 Włącz nadawanie GPS</button>
       </div>
-
     </div>
   </div>
 
   <script>
+    const SUPABASE_URL = "https://pofvghphcfrdtalyqui.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_5ftuKj2b17oQkeyqDpsePg_k13hgzhn";
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
     let activeSession = JSON.parse(localStorage.getItem("active_driver_session") || "null");
     let map = null;
     let driverMarker = null;
-    let clientMarker = null;
     let timerId = null;
     let durationTimer = null;
     let startTime = null;
@@ -228,26 +210,10 @@
     let currentLat = null;
     let currentLng = null;
     let isConnected = false;
-    let wakeLock = null;
     let currentJobStatus = "W drodze do klienta";
 
     const client = mqtt.connect('wss://broker.emqx.io:8084/mqtt');
-
-    client.on('connect', () => {
-      isConnected = true;
-      // Nasłuchiwanie nowych zgłoszeń od klientów
-      client.subscribe('pomoc-drogowa/nowe-zlecenie');
-    });
-
-    // Odbieranie zlecenia od klienta w czasie rzeczywistym
-    client.on('message', (topic, msg) => {
-      if (topic === 'pomoc-drogowa/nowe-zlecenie') {
-        try {
-          const order = JSON.parse(msg.toString());
-          displayNewOrder(order);
-        } catch(e) {}
-      }
-    });
+    client.on('connect', () => { isConnected = true; });
 
     if (activeSession) {
       showTrackerView(activeSession);
@@ -279,7 +245,40 @@
       return selector.value;
     }
 
-    function handleRegister(e) {
+    // LOGOWANIE BEZPOŚREDNIO Z CHMURY SUPABASE
+    async function handleLogin(e) {
+      e.preventDefault();
+      const phone = document.getElementById("loginPhone").value.trim();
+      const password = document.getElementById("loginPass").value.trim();
+      const loginMsg = document.getElementById("loginMsg");
+
+      loginMsg.style.color = "var(--primary)";
+      loginMsg.innerText = "Weryfikacja w bazie danych...";
+
+      try {
+        const { data, error } = await supabaseClient
+          .from('driver_verifications')
+          .select('*')
+          .eq('phone', phone)
+          .eq('password', password);
+
+        if (error || !data || data.length === 0) {
+          loginMsg.style.color = "var(--danger)";
+          loginMsg.innerText = "Niepoprawny numer telefonu lub hasło.";
+          return;
+        }
+
+        const user = data[0];
+        localStorage.setItem("active_driver_session", JSON.stringify(user));
+        showTrackerView(user);
+      } catch (err) {
+        loginMsg.style.color = "var(--danger)";
+        loginMsg.innerText = "Błąd połączenia z bazą.";
+      }
+    }
+
+    // REJESTRACJA W CHMURZE
+    async function handleRegister(e) {
       e.preventDefault();
       const full_name = document.getElementById("regName").value.trim();
       const phone = document.getElementById("regPhone").value.trim();
@@ -288,40 +287,21 @@
       const password = document.getElementById("regPass").value.trim();
       const regMsg = document.getElementById("regMsg");
 
-      const drivers = JSON.parse(localStorage.getItem("registered_drivers") || "[]");
-      if (drivers.find(d => d.phone === phone)) {
+      regMsg.style.color = "var(--primary)";
+      regMsg.innerText = "Zapisywanie w bazie...";
+
+      const { data, error } = await supabaseClient
+        .from('driver_verifications')
+        .insert([{ full_name, phone, id_number, driving_license, password, status: 'approved' }])
+        .select();
+
+      if (error) {
         regMsg.style.color = "var(--danger)";
-        regMsg.innerText = "Numer telefonu jest już w bazie!";
+        regMsg.innerText = "Ten numer telefonu już istnieje w bazie.";
         return;
       }
 
-      const newDriver = { full_name, phone, id_number, driving_license, password };
-      drivers.push(newDriver);
-      localStorage.setItem("registered_drivers", JSON.stringify(drivers));
-
-      regMsg.style.color = "var(--success)";
-      regMsg.innerText = "Weryfikacja pomyślna! Logowanie...";
-
-      setTimeout(() => {
-        localStorage.setItem("active_driver_session", JSON.stringify(newDriver));
-        showTrackerView(newDriver);
-      }, 800);
-    }
-
-    function handleLogin(e) {
-      e.preventDefault();
-      const phone = document.getElementById("loginPhone").value.trim();
-      const password = document.getElementById("loginPass").value.trim();
-      const loginMsg = document.getElementById("loginMsg");
-
-      const drivers = JSON.parse(localStorage.getItem("registered_drivers") || "[]");
-      const user = drivers.find(d => d.phone === phone && d.password === password);
-
-      if (!user) {
-        loginMsg.innerText = "Niepoprawny numer telefonu lub hasło.";
-        return;
-      }
-
+      const user = data[0];
       localStorage.setItem("active_driver_session", JSON.stringify(user));
       showTrackerView(user);
     }
@@ -338,50 +318,16 @@
         if (!map) {
           map = L.map('driverMiniMap', { zoomControl: false }).setView([52.40637, 16.92516], 13);
           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
-          
-          // Domyślna pinezka klienta (testowa)
-          clientMarker = L.marker([52.414, 16.891]).addTo(map).bindPopup("📍 Miejsce awarii klienta");
         } else {
           map.invalidateSize();
         }
       }, 200);
     }
 
-    function displayNewOrder(order) {
-      document.getElementById("orderClientName").innerText = order.client_name || "Poszkodowany";
-      document.getElementById("orderClientPhone").innerText = order.client_phone || "--";
-      document.getElementById("orderVehicle").innerText = `${order.car_model || 'Pojazd'} (${order.issue || 'Awaria'})`;
-      document.getElementById("orderAddress").innerText = order.address || "Poznań";
-      document.getElementById("callBtn").href = `tel:${order.client_phone}`;
-      
-      if (order.lat && order.lng) {
-        document.getElementById("navBtn").href = `https://www.google.com/maps/dir/?api=1&destination=${order.lat},${order.lng}`;
-        if (clientMarker) clientMarker.setLatLng([order.lat, order.lng]);
-      }
-
-      // Dźwięk powiadomienia
-      try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = audioCtx.createOscillator();
-        osc.connect(audioCtx.destination);
-        osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.3);
-      } catch(e) {}
-    }
-
     function setJobStatus(status) {
       currentJobStatus = status;
       document.getElementById("currentJobStatusText").innerText = status;
       broadcastPosition();
-    }
-
-    async function keepScreenAwake() {
-      try {
-        if ('wakeLock' in navigator) {
-          wakeLock = await navigator.wakeLock.request('screen');
-        }
-      } catch (err) {}
     }
 
     function handleLogout() {
@@ -419,8 +365,6 @@
           alert("Brak GPS w urządzeniu.");
           return;
         }
-
-        keepScreenAwake();
 
         startTime = Date.now();
         durationTimer = setInterval(() => {
@@ -470,7 +414,7 @@
           client.publish('pomoc-drogowa/gps', JSON.stringify({ id: "laweta-1", active: false }), { retain: true });
         }
 
-        btn.innerText = "🟢 Rozpocznij kurs (Włącz GPS)";
+        btn.innerText = "🟢 Włącz nadawanie GPS";
         btn.className = "btn-success";
         liveDot.classList.remove("active");
         liveStatus.innerText = "Nadajnik zatrzymany";
