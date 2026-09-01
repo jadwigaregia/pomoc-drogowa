@@ -3,75 +3,101 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gdzie jest pomoc? - Śledzenie na żywo</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <title>Panel Kierowcy - Gdzie jest wypadek</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
-    body, html { margin: 0; padding: 0; height: 100%; font-family: system-ui, sans-serif; }
-    #map { width: 100%; height: 100vh; }
-    .overlay {
-      position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
-      background: white; padding: 12px 20px; border-radius: 30px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 1000; font-weight: bold;
-    }
+    body { font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 20px; background: #0f172a; color: #fff; text-align: center; }
+    .card { background: #1e293b; padding: 24px; border-radius: 12px; max-width: 420px; margin: 20px auto; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+    input { width: 90%; padding: 12px; margin-top: 8px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #fff; font-size: 16px; box-sizing: border-box; }
+    button { background: #22c55e; color: #000; border: none; padding: 16px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 15px; }
+    button.stop { background: #ef4444; color: #fff; }
+    .status { margin-top: 15px; font-size: 15px; color: #94a3b8; }
+    .coords { font-family: monospace; color: #38bdf8; margin-top: 10px; font-size: 14px; }
   </style>
 </head>
 <body>
 
-  <div class="overlay" id="statusBox">🔍 Szukanie dostępnych lawet w pobliżu...</div>
-  <div id="map"></div>
+  <div class="card">
+    <h2>🚗 Nadajnik Pomocy Drogowej</h2>
+    <p style="color: #94a3b8; font-size: 14px;">Włącz nadawanie pozycji, aby klienci widzieli Cię na mapie w czasie rzeczywistym.</p>
+    
+    <div style="text-align: left; margin-top: 15px;">
+      <label style="font-size: 14px; color: #cbd5e1;">Nazwa firmy / Lawety:</label>
+      <input type="text" id="driverName" value="Laweta SOS #1" />
+    </div>
+
+    <button id="toggleBtn" onclick="toggleGps()">🟢 Włącz nadawanie GPS</button>
+
+    <div class="status" id="statusText">Status: Bezczynny</div>
+    <div class="coords" id="coordsText">Lat: -- , Lng: --</div>
+  </div>
 
   <script>
     const SUPABASE_URL = "https://pofvghphcfrdtalyqui.supabase.co";
-    const SUPABASE_KEY = "TUTAJ_WKLEJ_SWOJ_KLUCZ_SB_PUBLISHABLE";
+    const SUPABASE_KEY = "TUTAJ_WKLEJ_SWOJ_KLUCZ_SB_PUBLISHABLE"; 
 
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    let watchId = null;
+    let driverId = localStorage.getItem("driver_id") || null;
 
-    // Inicjalizacja darmowej mapy OpenStreetMap
-    const map = L.map('map').setView([52.2297, 21.0122], 12);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap'
-    }).addTo(map);
+    async function toggleGps() {
+      const btn = document.getElementById("toggleBtn");
+      const status = document.getElementById("statusText");
+      const driverName = document.getElementById("driverName").value;
 
-    let markers = {};
+      if (!watchId) {
+        if (!navigator.geolocation) {
+          alert("Twoja przeglądarka nie obsługuje GPS.");
+          return;
+        }
 
-    // Pobranie pozycji poszkodowanego
-    navigator.geolocation.getCurrentPosition((pos) => {
-      const { latitude, longitude } = pos.coords;
-      map.setView([latitude, longitude], 13);
-      L.marker([latitude, longitude]).addTo(map).bindPopup("📍 Twoja lokalizacja (Miejsce zdarzenia)").openPopup();
-    });
+        // Rejestracja lub pobranie kierowcy
+        if (!driverId) {
+          const { data, error } = await supabaseClient
+            .from('drivers')
+            .insert([{ name: driverName, is_available: true }])
+            .select()
+            .single();
 
-    // Pobranie aktualnych pozycji kierowców
-    async function fetchDrivers() {
-      const { data: drivers } = await supabaseClient.from('drivers').select('*').eq('is_available', true);
-      if (drivers && drivers.length > 0) {
-        document.getElementById("statusBox").innerText = `🚗 Lawety na mapie: ${drivers.length}`;
-        drivers.forEach(updateDriverMarker);
-      }
-    }
+          if (data) {
+            driverId = data.id;
+            localStorage.setItem("driver_id", driverId);
+          }
+        }
 
-    function updateDriverMarker(driver) {
-      if (!driver.lat || !driver.lng) return;
+        // Pobieranie pozycji na żywo
+        watchId = navigator.geolocation.watchPosition(
+          async (pos) => {
+            const { latitude, longitude } = pos.coords;
+            document.getElementById("coordsText").innerText = `Lat: ${latitude.toFixed(5)}, Lng: ${longitude.toFixed(5)}`;
+            status.innerText = "Status: Nadawanie na żywo 📡";
 
-      if (markers[driver.id]) {
-        markers[driver.id].setLatLng([driver.lat, driver.lng]);
+            await supabaseClient.from('drivers').update({
+              lat: latitude,
+              lng: longitude,
+              is_available: true,
+              updated_at: new Date().toISOString()
+            }).eq('id', driverId);
+          },
+          (err) => {
+            alert("Błąd pobierania GPS: " + err.message);
+          },
+          { enableHighAccuracy: true, maximumAge: 0, timeout: 10000 }
+        );
+
+        btn.innerText = "🔴 Wyłącz nadawanie GPS";
+        btn.classList.add("stop");
       } else {
-        markers[driver.id] = L.marker([driver.lat, driver.lng]).addTo(map)
-          .bindPopup(`<b>${driver.name}</b><br>W drodze / Dostępny`);
+        navigator.geolocation.clearWatch(watchId);
+        watchId = null;
+        if (driverId) {
+          await supabaseClient.from('drivers').update({ is_available: false }).eq('id', driverId);
+        }
+        btn.innerText = "🟢 Włącz nadawanie GPS";
+        btn.classList.remove("stop");
+        status.innerText = "Status: Zatrzymany";
       }
     }
-
-    // Nasłuchiwanie zmian na żywo (Realtime)
-    supabaseClient
-      .channel('public:drivers')
-      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'drivers' }, (payload) => {
-        updateDriverMarker(payload.new);
-      })
-      .subscribe();
-
-    fetchDrivers();
   </script>
 </body>
 </html>
