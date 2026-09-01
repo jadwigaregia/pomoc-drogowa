@@ -23,7 +23,7 @@
     
     <div style="text-align: left;">
       <label style="font-size: 13px; color: #94a3b8;">Nazwa pojazdu:</label>
-      <input type="text" id="driverName" value="Laweta #1" />
+      <input type="text" id="driverName" value="Jadwiga Matuszak" />
     </div>
 
     <button id="toggleBtn" onclick="toggleGps()">🟢 Włącz nadawanie GPS</button>
@@ -36,7 +36,7 @@
     const SUPABASE_URL = "https://pofvghphcfrdtalyqui.supabase.co";
     const SUPABASE_KEY = "sb_publishable_5ftuKj2b17oQkeyqDpsePg_k13hgzhn";
 
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const dbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     let watchId = null;
     let driverId = localStorage.getItem("driver_id") || null;
 
@@ -54,14 +54,14 @@
         status.innerText = "Rejestracja pojazdu w bazie...";
 
         if (!driverId) {
-          const { data, error } = await supabase
+          const { data, error } = await dbClient
             .from('drivers')
             .insert([{ name: driverName, is_available: true, lat: 52.40637, lng: 16.92516 }])
             .select()
             .single();
 
           if (error) {
-            alert("Błąd bazy: " + error.message);
+            alert("Błąd zapisu w bazie: " + error.message);
             status.innerText = "Błąd bazy: " + error.message;
             return;
           }
@@ -78,7 +78,7 @@
             document.getElementById("coordsText").innerText = `Lat: ${latitude.toFixed(5)}, Lng: ${longitude.toFixed(5)}`;
             status.innerText = "Status: Transmisja aktywna 📡";
 
-            await supabase.from('drivers').update({
+            await dbClient.from('drivers').update({
               lat: latitude,
               lng: longitude,
               is_available: true,
@@ -98,7 +98,7 @@
         navigator.geolocation.clearWatch(watchId);
         watchId = null;
         if (driverId) {
-          await supabase.from('drivers').update({ is_available: false }).eq('id', driverId);
+          await dbClient.from('drivers').update({ is_available: false }).eq('id', driverId);
         }
         btn.innerText = "🟢 Włącz nadawanie GPS";
         btn.classList.remove("stop");
