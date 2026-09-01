@@ -36,7 +36,16 @@
     const SUPABASE_URL = "https://pofvghphcfrdtalyqui.supabase.co";
     const SUPABASE_KEY = "sb_publishable_5ftuKj2b17oQkeyqDpsePg_k13hgzhn";
 
-    const dbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const dbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+      auth: { persistSession: false },
+      global: {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`
+        }
+      }
+    });
+
     let watchId = null;
     let driverId = localStorage.getItem("driver_id") || null;
 
