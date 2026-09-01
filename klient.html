@@ -7,7 +7,7 @@
   
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -15,30 +15,30 @@
     #map { width: 100vw; height: 100vh; z-index: 1; }
     .overlay {
       position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
-      background: rgba(15, 23, 42, 0.9); color: #fff; padding: 12px 24px;
+      background: rgba(15, 23, 42, 0.95); color: #fff; padding: 12px 24px;
       border-radius: 30px; font-weight: 600; font-size: 14px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 1000;
-      backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.1);
-      display: flex; align-items: center; gap: 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4); z-index: 1000;
+      border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; gap: 8px;
     }
     .pulse { width: 10px; height: 10px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 8px #22c55e; }
+    .driver-badge {
+      background: #eab308; color: #000; font-weight: bold; border-radius: 20px;
+      padding: 6px 14px; border: 2px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      white-space: nowrap; font-size: 13px; text-align: center;
+    }
   </style>
 </head>
 <body>
 
   <div class="overlay">
     <div class="pulse"></div>
-    <span id="statusBox">Szukanie aktywnych lawet...</span>
+    <span id="statusBox">Nawiązywanie połączenia...</span>
   </div>
 
   <div id="map"></div>
 
   <script>
-    const SUPABASE_URL = "https://pofvghphcfrdtalyqui.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_5ftuKj2b17oQkeyqDpsePg_k13hgzhn";
-
-    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-    const map = L.map('map').setView([52.40637, 16.92516], 12);
+    const map = L.map('map').setView([52.40637, 16.92516], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
@@ -47,7 +47,6 @@
 
     let markers = {};
 
-    // Pobranie pozycji klienta
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (pos) => {
@@ -59,46 +58,50 @@
             .bindPopup("<b>📍 Twoja lokalizacja</b><br>Miejsce wezwania pomocy")
             .openPopup();
         },
-        () => console.log("Brak zgody na pozycję klienta"),
+        () => console.log("Brak zgody na pozycję"),
         { enableHighAccuracy: true }
       );
     }
 
-    const channel = supabaseClient.channel('tracking-room');
+    const client = mqtt.connect('wss://broker.emqx.io:8084/mqtt');
 
-    // Nasłuchiwanie stanu wszystkich aktywnych pojazdów na bieżąco
-    channel
-      .on('presence', { event: 'sync' }, () => {
-        const state = channel.presenceState();
-        const driverKeys = Object.keys(state);
+    client.on('connect', () => {
+      document.getElementById("statusBox").innerText = "Oczekiwanie na sygnał z lawety...";
+      client.subscribe('pomoc-drogowa/gps');
+    });
 
-        if (driverKeys.length === 0) {
-          document.getElementById("statusBox").innerText = "Oczekiwanie na aktywne lawety...";
+    client.on('message', (topic, message) => {
+      try {
+        const d = JSON.parse(message.toString());
+
+        if (d.active === false) {
+          if (markers[d.id]) {
+            map.removeLayer(markers[d.id]);
+            delete markers[d.id];
+          }
+          document.getElementById("statusBox").innerText = "Laweta zakończyła dyżur.";
           return;
         }
 
-        document.getElementById("statusBox").innerText = `Dostępne lawety na żywo: ${driverKeys.length}`;
+        document.getElementById("statusBox").innerText = `🚗 Laweta w trasie: ${d.name}`;
 
-        driverKeys.forEach((key) => {
-          const driverInfo = state[key][0];
-          if (!driverInfo || !driverInfo.lat || !driverInfo.lng) return;
-
-          if (markers[key]) {
-            markers[key].setLatLng([driverInfo.lat, driverInfo.lng]);
-          } else {
-            const m = L.marker([driverInfo.lat, driverInfo.lng]).addTo(map);
-            m.bindPopup(`<b>🚗 ${driverInfo.name || 'Laweta'}</b><br>Aktywna na żywo`).openPopup();
-            markers[key] = m;
-          }
+        const customIcon = L.divIcon({
+          className: 'driver-icon-container',
+          html: `<div class="driver-badge">🛞 ${d.name || 'Laweta'}</div>`,
+          iconSize: [120, 30],
+          iconAnchor: [60, 15]
         });
-      })
-      .on('presence', { event: 'leave' }, ({ key }) => {
-        if (markers[key]) {
-          map.removeLayer(markers[key]);
-          delete markers[key];
+
+        if (markers[d.id]) {
+          markers[d.id].setLatLng([d.lat, d.lng]);
+        } else {
+          markers[d.id] = L.marker([d.lat, d.lng], { icon: customIcon }).addTo(map);
+          markers[d.id].bindPopup(`<b>🚗 ${d.name}</b><br>Pozycja na żywo`).openPopup();
         }
-      })
-      .subscribe();
+      } catch (e) {
+        console.error("Błąd przetwarzania danych GPS:", e);
+      }
+    });
   </script>
 </body>
 </html>
