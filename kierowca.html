@@ -40,6 +40,7 @@
     .btn-success { background: var(--success); color: #052e16; }
     .btn-warning { background: var(--warning); color: #451a03; }
     .btn-danger { background: var(--danger); color: #fff; }
+    .btn-photo { background: #334155; color: #38bdf8; border: 1px dashed #38bdf8; }
     
     .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
     .btn-nav-gmaps { background: var(--gmaps); color: #fff; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px; border-radius: 10px; padding: 12px; font-weight: bold; font-size: 13px; text-align: center; }
@@ -62,12 +63,20 @@
     .order-detail { font-size: 14px; margin-bottom: 6px; display: flex; justify-content: space-between; }
     .order-detail span { color: var(--subtext); }
 
+    /* PROTOKÓŁ ZDJĘĆ */
+    .photo-protocol { background: var(--card-bg); border: 1px solid #334155; border-radius: 14px; padding: 16px; }
+    .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+    .photo-slot { aspect-ratio: 4/3; background: #0f172a; border: 1px dashed #475569; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .photo-slot img { width: 100%; height: 100%; object-fit: cover; }
+    .photo-label { font-size: 11px; color: var(--subtext); text-align: center; margin-top: 4px; }
+    .remove-photo { position: absolute; top: 4px; right: 4px; background: rgba(239, 68, 68, 0.85); color: white; border: none; border-radius: 50%; width: 22px; height: 22px; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; margin: 0; padding: 0; }
+
     .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .metric-card { background: var(--card-bg); padding: 12px; border-radius: 12px; border: 1px solid #334155; text-align: center; }
     .metric-value { font-size: 18px; font-weight: bold; color: var(--primary); font-family: monospace; }
     .metric-title { font-size: 11px; text-transform: uppercase; color: var(--subtext); margin-top: 4px; }
 
-    #driverMiniMap { height: 200px; width: 100%; border-radius: 14px; border: 1px solid #334155; }
+    #driverMiniMap { height: 180px; width: 100%; border-radius: 14px; border: 1px solid #334155; }
     .pulse-dot { width: 10px; height: 10px; border-radius: 50%; background: #64748b; display: inline-block; }
     .pulse-dot.active { background: var(--success); box-shadow: 0 0 10px var(--success); }
   </style>
@@ -119,7 +128,7 @@
         <input type="text" id="customPlateInput" class="hidden" placeholder="Wpisz numer rejestracyjny" style="margin-top: 8px;" />
       </div>
 
-      <!-- KARTA ZLECENIA ZE SKRÓTAMI NAWIGACJI -->
+      <!-- KARTA ZLECENIA -->
       <div class="order-card" id="orderBox">
         <div class="order-header">
           <span class="order-badge">🚨 AKTYWNE ZLECENIE</span>
@@ -130,13 +139,12 @@
         <div class="order-detail"><span>Pojazd:</span> <strong id="orderVehicle">Audi A4 (Awaria koła)</strong></div>
         <div class="order-detail"><span>Lokalizacja:</span> <strong id="orderAddress">ul. Bukowska 307, Poznań</strong></div>
 
-        <!-- PRZYCISKI NAWIGACJI: GOOGLE MAPS + WAZE -->
         <div class="nav-grid">
           <a id="gmapsBtn" href="https://www.google.com/maps/dir/?api=1&destination=52.40637,16.92516" target="_blank" class="btn-nav-gmaps">
             🗺️ Google Maps
           </a>
           <a id="wazeBtn" href="https://waze.com/ul?ll=52.40637,16.92516&navigate=yes" target="_blank" class="btn-nav-waze">
-            🚙 Nawiguj w Waze
+            🚙 Waze
           </a>
         </div>
 
@@ -147,6 +155,37 @@
         <div style="margin-top: 12px; display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
           <button class="btn-warning" onclick="setJobStatus('Na miejscu / Załadunek')">🏗️ Na miejscu</button>
           <button class="btn-success" onclick="setJobStatus('Zlecenie zrealizowane')">🏁 Zakończ kurs</button>
+        </div>
+      </div>
+
+      <!-- PROTOKÓŁ FOTOGRAFICZNY SZKÓD -->
+      <div class="photo-protocol">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <strong style="font-size:14px; color:var(--primary);">📸 Protokół stanu pojazdu</strong>
+          <span id="photoCount" style="font-size:12px; color:var(--subtext);">0/4 zdjęć</span>
+        </div>
+        <p style="font-size:12px; color:var(--subtext); margin-top:2px;">Udokumentuj stan i rysy przed wciągnięciem na lawetę</p>
+
+        <!-- Ukryte pole input aparatu -->
+        <input type="file" id="cameraInput" accept="image/*" capture="environment" class="hidden" onchange="handlePhotoUpload(event)" />
+
+        <div class="photo-grid">
+          <div class="photo-slot" id="slot0" onclick="triggerCamera(0)">
+            <span style="font-size:24px;">📷</span>
+            <span class="photo-label">Przód / Zderzak</span>
+          </div>
+          <div class="photo-slot" id="slot1" onclick="triggerCamera(1)">
+            <span style="font-size:24px;">📷</span>
+            <span class="photo-label">Bok lewy</span>
+          </div>
+          <div class="photo-slot" id="slot2" onclick="triggerCamera(2)">
+            <span style="font-size:24px;">📷</span>
+            <span class="photo-label">Bok prawy</span>
+          </div>
+          <div class="photo-slot" id="slot3" onclick="triggerCamera(3)">
+            <span style="font-size:24px;">📷</span>
+            <span class="photo-label">Tył / Uszkodzenia</span>
+          </div>
         </div>
       </div>
 
@@ -183,18 +222,8 @@
 
   <script>
     const VERIFIED_DRIVERS = [
-      {
-        name: "Jadwiga Matuszak",
-        phone: "664901126",
-        id_number: "DAJ 658768",
-        license: "A0589345"
-      },
-      {
-        name: "Jan Kowalski",
-        phone: "500100200",
-        id_number: "ABC 123456",
-        license: "B/12345"
-      }
+      { name: "Jadwiga Matuszak", phone: "664901126", id_number: "DAJ 658768", license: "A0589345" },
+      { name: "Jan Kowalski", phone: "500100200", id_number: "ABC 123456", license: "B/12345" }
     ];
 
     let activeSession = JSON.parse(localStorage.getItem("active_driver_session") || "null");
@@ -208,6 +237,10 @@
     let currentLng = null;
     let isConnected = false;
     let currentJobStatus = "W drodze do klienta";
+    let activeSlotIndex = null;
+    const vehiclePhotos = [null, null, null, null];
+
+    const slotLabels = ["Przód / Zderzak", "Bok lewy", "Bok prawy", "Tył / Uszkodzenia"];
 
     const client = mqtt.connect('wss://broker.emqx.io:8084/mqtt');
     client.on('connect', () => { 
@@ -267,6 +300,53 @@
         document.getElementById("gmapsBtn").href = `https://www.google.com/maps/dir/?api=1&destination=${order.lat},${order.lng}`;
         document.getElementById("wazeBtn").href = `https://waze.com/ul?ll=${order.lat},${order.lng}&navigate=yes`;
       }
+    }
+
+    // PROTOKÓŁ FOTOGRAFICZNY
+    function triggerCamera(slotIndex) {
+      if (vehiclePhotos[slotIndex]) return; // Jeśli zdjęcie już jest, nie uruchamiaj aparatu
+      activeSlotIndex = slotIndex;
+      document.getElementById('cameraInput').click();
+    }
+
+    function handlePhotoUpload(e) {
+      const file = e.target.files[0];
+      if (!file || activeSlotIndex === null) return;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const base64 = evt.target.result;
+        vehiclePhotos[activeSlotIndex] = base64;
+        renderPhotoSlots();
+      };
+      reader.readAsDataURL(file);
+      e.target.value = "";
+    }
+
+    function removePhoto(slotIndex, event) {
+      event.stopPropagation();
+      vehiclePhotos[slotIndex] = null;
+      renderPhotoSlots();
+    }
+
+    function renderPhotoSlots() {
+      let count = 0;
+      vehiclePhotos.forEach((photo, idx) => {
+        const slotEl = document.getElementById(`slot${idx}`);
+        if (photo) {
+          count++;
+          slotEl.innerHTML = `
+            <img src="${photo}" alt="${slotLabels[idx]}" />
+            <button class="remove-photo" onclick="removePhoto(${idx}, event)">✕</button>
+          `;
+        } else {
+          slotEl.innerHTML = `
+            <span style="font-size:24px;">📷</span>
+            <span class="photo-label">${slotLabels[idx]}</span>
+          `;
+        }
+      });
+      document.getElementById('photoCount').innerText = `${count}/4 zdjęć`;
     }
 
     function handleLogin(e) {
