@@ -1,0 +1,17 @@
+{
+  "name": "Pomoc Drogowa - Kierowca",
+  "short_name": "Kierowca",
+  "start_url": "/pomoc-drogowa/kierowca.html",
+  "display": "standalone",
+  "background_color": "#0b1120",
+  "theme_color": "#0b1120",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3202/3202926.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
