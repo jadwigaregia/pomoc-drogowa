@@ -2,132 +2,227 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portal Kierowcy - Pomoc Drogowa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Kokpit Kierowcy - Pomoc Drogowa</title>
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+
   <style>
-    * { box-sizing: border-box; }
-    body { font-family: system-ui, sans-serif; margin: 0; padding: 20px; background: #0f172a; color: #fff; text-align: center; }
-    .card { background: #1e293b; padding: 24px; border-radius: 12px; max-width: 440px; margin: 20px auto; box-shadow: 0 8px 20px rgba(0,0,0,0.4); text-align: left; }
-    h2, p { text-align: center; }
-    label { font-size: 12px; color: #94a3b8; display: block; margin-top: 10px; }
-    input, select { width: 100%; padding: 12px; margin-top: 4px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #fff; font-size: 15px; }
-    button { background: #38bdf8; color: #0f172a; border: none; padding: 14px; font-size: 15px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 16px; }
-    button.success { background: #22c55e; color: #000; }
-    button.stop { background: #ef4444; color: #fff; }
-    .toggle-link { color: #38bdf8; font-size: 13px; margin-top: 14px; cursor: pointer; display: block; text-align: center; text-decoration: underline; }
-    .hidden { display: none; }
-    .status-badge { padding: 8px; border-radius: 6px; font-size: 13px; text-align: center; margin-top: 10px; background: #16a34a; color: #fff; font-weight: bold; }
-    .coords { font-family: monospace; color: #38bdf8; margin-top: 10px; text-align: center; }
-    .vehicle-select-box { background: #0f172a; border: 1px solid #38bdf8; padding: 14px; border-radius: 8px; margin: 15px 0; }
+    :root {
+      --bg: #0b1120;
+      --card-bg: #1e293b;
+      --primary: #38bdf8;
+      --success: #22c55e;
+      --danger: #ef4444;
+      --text: #f8fafc;
+      --subtext: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+    
+    /* STYLE LOGOWANIA / REJESTRACJI */
+    .auth-container { max-width: 440px; margin: auto; padding: 24px; width: 100%; }
+    .card { background: var(--card-bg); padding: 24px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border: 1px solid #334155; }
+    label { font-size: 13px; color: var(--subtext); display: block; margin-top: 12px; margin-bottom: 4px; }
+    input, select { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #334155; background: #0f172a; color: #fff; font-size: 15px; outline: none; }
+    input:focus, select:focus { border-color: var(--primary); }
+    button { border: none; padding: 16px; font-size: 16px; font-weight: bold; border-radius: 10px; cursor: pointer; width: 100%; margin-top: 18px; transition: transform 0.1s, opacity 0.2s; }
+    button:active { transform: scale(0.98); }
+    .btn-primary { background: var(--primary); color: #0f172a; }
+    .btn-success { background: var(--success); color: #052e16; }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .toggle-link { color: var(--primary); font-size: 13px; margin-top: 16px; cursor: pointer; display: block; text-align: center; text-decoration: underline; }
+    .hidden { display: none !important; }
+
+    /* KOKPIT KIEROWCY (PO ZALOGOWANIU) */
+    .app-header { background: #0f172a; border-bottom: 1px solid #334155; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
+    .driver-pill { display: flex; align-items: center; gap: 10px; }
+    .avatar { width: 38px; height: 38px; border-radius: 50%; background: #0284c7; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px; }
+    .driver-meta h3 { font-size: 15px; font-weight: 600; }
+    .driver-meta span { font-size: 12px; color: var(--success); font-weight: 500; }
+    .btn-logout { width: auto; margin: 0; padding: 8px 14px; font-size: 12px; background: #334155; color: #cbd5e1; border-radius: 8px; }
+
+    .cockpit-content { padding: 16px; flex: 1; display: flex; flex-direction: column; gap: 16px; max-width: 600px; margin: 0 auto; width: 100%; }
+
+    /* METRYKI DASHBOARDU */
+    .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .metric-card { background: var(--card-bg); padding: 14px; border-radius: 12px; border: 1px solid #334155; text-align: center; }
+    .metric-value { font-size: 20px; font-weight: bold; color: var(--primary); font-family: monospace; }
+    .metric-title { font-size: 11px; text-transform: uppercase; color: var(--subtext); margin-top: 4px; letter-spacing: 0.5px; }
+
+    /* PODGLĄD MAPY */
+    #driverMiniMap { height: 220px; width: 100%; border-radius: 14px; border: 1px solid #334155; z-index: 10; }
+
+    /* STATUS I STEROWANIE */
+    .control-box { background: var(--card-bg); padding: 16px; border-radius: 14px; border: 1px solid #334155; }
+    .live-indicator { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+    .pulse-dot { width: 10px; height: 10px; border-radius: 50%; background: #64748b; }
+    .pulse-dot.active { background: var(--success); box-shadow: 0 0 10px var(--success); animation: pulseAnim 1.5s infinite; }
+    @keyframes pulseAnim { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
   </style>
 </head>
 <body>
 
-  <!-- EKRAN LOGOWANIA -->
-  <div class="card" id="loginBox">
-    <h2>🔐 Logowanie Kierowcy</h2>
-    <p style="color: #94a3b8; font-size: 13px;">Wprowadź dane dostępowe</p>
-    
-    <form onsubmit="handleLogin(event)">
-      <label for="loginPhone">Numer telefonu:</label>
-      <input type="tel" id="loginPhone" name="username" autocomplete="username" placeholder="np. 500100200" required />
+  <!-- 1. EKRAN LOGOWANIA -->
+  <div class="auth-container" id="loginBox">
+    <div class="card">
+      <h2 style="text-align:center; margin-bottom:6px;">🔐 Portal Kierowcy</h2>
+      <p style="text-align:center; color:var(--subtext); font-size:13px; margin-bottom:16px;">System dyspozytorski pomocy drogowej</p>
       
-      <label for="loginPass">Hasło:</label>
-      <input type="password" id="loginPass" name="password" autocomplete="current-password" placeholder="Wpisz hasło" required />
+      <form onsubmit="handleLogin(event)">
+        <label for="loginPhone">Numer telefonu:</label>
+        <input type="tel" id="loginPhone" name="username" autocomplete="username" placeholder="np. 500100200" required />
+        
+        <label for="loginPass">Hasło:</label>
+        <input type="password" id="loginPass" name="password" autocomplete="current-password" placeholder="Wpisz hasło" required />
 
-      <button type="submit">Zaloguj się</button>
-    </form>
+        <button type="submit" class="btn-primary">Zaloguj do systemu</button>
+      </form>
 
-    <span class="toggle-link" onclick="switchView('registerBox')">Pierwszy raz? Zarejestruj się i zweryfikuj uprawnienia</span>
-    <div id="loginMsg" style="color: #ef4444; font-size: 13px; margin-top: 10px; text-align: center;"></div>
-  </div>
-
-  <!-- EKRAN REJESTRACJI I WERYFIKACJI -->
-  <div class="card hidden" id="registerBox">
-    <h2>🪪 Rejestracja Kierowcy</h2>
-    <p style="color: #94a3b8; font-size: 13px;">Weryfikacja danych personalnych i uprawnień</p>
-    
-    <form onsubmit="handleRegister(event)">
-      <label for="regName">Imię i Nazwisko:</label>
-      <input type="text" id="regName" placeholder="np. Jan Kowalski" required />
-
-      <label for="regPhone">Numer telefonu (Login):</label>
-      <input type="tel" id="regPhone" name="username" autocomplete="username" placeholder="np. 500100200" required />
-
-      <label for="regId">Seria i nr Dowodu Osobistego / PESEL:</label>
-      <input type="text" id="regId" placeholder="np. ABC 123456" required />
-
-      <label for="regLicense">Numer Prawa Jazdy (Kat. B+E / C):</label>
-      <input type="text" id="regLicense" placeholder="np. 12345/67/8901" required />
-
-      <label for="regPass">Ustal hasło do konta:</label>
-      <input type="password" id="regPass" name="new-password" autocomplete="new-password" placeholder="Minimum 6 znaków" required />
-
-      <button type="submit" class="success">Zarejestruj i zweryfikuj</button>
-    </form>
-
-    <span class="toggle-link" onclick="switchView('loginBox')">Wróć do logowania</span>
-    <div id="regMsg" style="margin-top: 10px; font-size: 13px; text-align: center;"></div>
-  </div>
-
-  <!-- EKRAN NADAJNIKA GPS DLA ZALOGOWANEGO KIEROWCY -->
-  <div class="card hidden" id="trackerBox">
-    <h2>🚗 Nadajnik GPS Lawety</h2>
-    <p id="welcomeDriver" style="color: #38bdf8; font-size: 14px; font-weight: bold;"></p>
-    
-    <div class="status-badge">Kierowca zweryfikowany ✔️</div>
-
-    <div class="vehicle-select-box">
-      <label style="color: #38bdf8; font-weight: bold; margin-top: 0;">🚐 Wybierz pojazd na ten kurs:</label>
-      <select id="vehicleSelector" onchange="updateVehicleChoice()">
-        <option value="Laweta #1 (PO 12345)">Laweta #1 (PO 12345)</option>
-        <option value="Laweta #2 (PO 67890)">Laweta #2 (PO 67890)</option>
-        <option value="Laweta #3 - Ciężarowa (PO 11223)">Laweta #3 - Ciężarowa (PO 11223)</option>
-        <option value="custom">Inny pojazd (wpisz ręcznie)...</option>
-      </select>
-
-      <div id="customPlateBox" class="hidden" style="margin-top: 8px;">
-        <label>Wpisz numer rejestracyjny / nazwę pojazdu:</label>
-        <input type="text" id="customPlateInput" placeholder="np. PO 99881" />
-      </div>
+      <span class="toggle-link" onclick="switchView('registerBox')">Nowy pracownik? Zarejestruj się i zweryfikuj</span>
+      <div id="loginMsg" style="color:var(--danger); font-size:13px; margin-top:12px; text-align:center;"></div>
     </div>
+  </div>
 
-    <button id="toggleBtn" class="success" onclick="toggleGps()">🟢 Rozpocznij kurs (Włącz GPS)</button>
+  <!-- 2. EKRAN REJESTRACJI -->
+  <div class="auth-container hidden" id="registerBox">
+    <div class="card">
+      <h2 style="text-align:center; margin-bottom:6px;">🪪 Weryfikacja Dokumentów</h2>
+      <p style="text-align:center; color:var(--subtext); font-size:13px; margin-bottom:16px;">Wprowadź dane uprawnień i tożsamości</p>
+      
+      <form onsubmit="handleRegister(event)">
+        <label>Imię i Nazwisko:</label>
+        <input type="text" id="regName" placeholder="Jan Kowalski" required />
 
-    <div class="coords" id="coordsText">Lat: -- , Lng: --</div>
-    <div id="pingText" style="font-size: 12px; color: #64748b; margin-top: 8px; text-align: center;"></div>
+        <label>Numer telefonu (Login):</label>
+        <input type="tel" id="regPhone" name="username" autocomplete="username" placeholder="np. 500100200" required />
 
-    <button onclick="handleLogout()" style="background: transparent; border: 1px solid #475569; color: #94a3b8; margin-top: 20px;">Wyloguj</button>
+        <label>Seria i nr Dowodu Osobistego / PESEL:</label>
+        <input type="text" id="regId" placeholder="ABC 123456" required />
+
+        <label>Numer Prawa Jazdy (B+E / C):</label>
+        <input type="text" id="regLicense" placeholder="12345/67/8901" required />
+
+        <label>Hasło do panelu:</label>
+        <input type="password" id="regPass" name="new-password" autocomplete="new-password" placeholder="Minimum 6 znaków" required />
+
+        <button type="submit" class="btn-success">Zatwierdź i Utwórz Konto</button>
+      </form>
+
+      <span class="toggle-link" onclick="switchView('loginBox')">Wróć do logowania</span>
+      <div id="regMsg" style="margin-top:12px; font-size:13px; text-align:center;"></div>
+    </div>
+  </div>
+
+  <!-- 3. ZAAWANSOWANY KOKPIT KIEROWCY (PO ZALOGOWANIU) -->
+  <div id="trackerBox" class="hidden" style="flex: 1; display: flex; flex-direction: column;">
+    
+    <!-- Pasek górny -->
+    <header class="app-header">
+      <div class="driver-pill">
+        <div class="avatar" id="driverInitials">JK</div>
+        <div class="driver-meta">
+          <h3 id="driverHeaderName">Jan Kowalski</h3>
+          <span>● Zweryfikowany kierowca</span>
+        </div>
+      </div>
+      <button class="btn-logout" onclick="handleLogout()">Wyloguj</button>
+    </header>
+
+    <!-- Zawartość kokpitu -->
+    <div class="cockpit-content">
+      
+      <!-- Panel konfiguracji pojazdu -->
+      <div class="control-box">
+        <label style="margin-top: 0;">🚐 Aktywny pojazd na ten kurs:</label>
+        <select id="vehicleSelector" onchange="updateVehicleChoice()">
+          <option value="Laweta #1 (PO 12345)">Laweta #1 (PO 12345)</option>
+          <option value="Laweta #2 (PO 67890)">Laweta #2 (PO 67890)</option>
+          <option value="Laweta #3 - Ciężarowa (PO 11223)">Laweta #3 - Ciężarowa (PO 11223)</option>
+          <option value="custom">Inny pojazd (wpisz z ręki)...</option>
+        </select>
+        <input type="text" id="customPlateInput" class="hidden" placeholder="Wpisz numer rejestracyjny" style="margin-top: 8px;" />
+      </div>
+
+      <!-- Minimapa z aktualną pozycją kierowcy -->
+      <div id="driverMiniMap"></div>
+
+      <!-- Kafelki telemetryczne -->
+      <div class="dashboard-grid">
+        <div class="metric-card">
+          <div class="metric-value" id="speedMetric">0.0 km/h</div>
+          <div class="metric-title">Prędkość GPS</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value" id="packetsMetric">0</div>
+          <div class="metric-title">Wysłane pakiety</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value" id="coordsMetric">-- , --</div>
+          <div class="metric-title">Współrzędne</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value" id="timeMetric">00:00:00</div>
+          <div class="metric-title">Czas trasy</div>
+        </div>
+      </div>
+
+      <!-- Główny przycisk startu/stopu -->
+      <div class="control-box" style="text-align: center;">
+        <div class="live-indicator">
+          <div class="pulse-dot" id="liveDot"></div>
+          <span id="liveStatusText" style="color: var(--subtext);">Nadajnik wyłączony</span>
+        </div>
+        <button id="toggleBtn" class="btn-success" onclick="toggleGps()">🟢 Rozpocznij kurs (Włącz GPS)</button>
+      </div>
+
+    </div>
   </div>
 
   <script>
     let activeSession = JSON.parse(localStorage.getItem("active_driver_session") || "null");
+    let map = null;
+    let marker = null;
+    let timerId = null;
+    let durationTimer = null;
+    let startTime = null;
+    let pingCount = 0;
+    let currentLat = null;
+    let currentLng = null;
+    let isConnected = false;
+
+    // Inicjalizacja MQTT
+    const client = mqtt.connect('wss://broker.emqx.io:8084/mqtt');
+    client.on('connect', () => { isConnected = true; });
 
     if (activeSession) {
       showTrackerView(activeSession);
     }
 
     function switchView(viewId) {
-      ['loginBox', 'registerBox', 'trackerBox'].forEach(id => document.getElementById(id).classList.add('hidden'));
+      ['loginBox', 'registerBox', 'trackerBox'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('hidden');
+      });
       document.getElementById(viewId).classList.remove('hidden');
     }
 
     function updateVehicleChoice() {
       const selector = document.getElementById("vehicleSelector");
-      const customBox = document.getElementById("customPlateBox");
+      const customInput = document.getElementById("customPlateInput");
       if (selector.value === "custom") {
-        customBox.classList.remove("hidden");
+        customInput.classList.remove("hidden");
       } else {
-        customBox.classList.add("hidden");
+        customInput.classList.add("hidden");
       }
     }
 
     function getActiveVehicleName() {
       const selector = document.getElementById("vehicleSelector");
       if (selector.value === "custom") {
-        const customVal = document.getElementById("customPlateInput").value.trim();
-        return customVal || "Laweta";
+        return document.getElementById("customPlateInput").value.trim() || "Laweta";
       }
       return selector.value;
     }
@@ -142,11 +237,9 @@
       const regMsg = document.getElementById("regMsg");
 
       const drivers = JSON.parse(localStorage.getItem("registered_drivers") || "[]");
-
-      const existing = drivers.find(d => d.phone === phone);
-      if (existing) {
-        regMsg.style.color = "#ef4444";
-        regMsg.innerText = "Konto z tym numerem już istnieje! Przejdź do logowania.";
+      if (drivers.find(d => d.phone === phone)) {
+        regMsg.style.color = "var(--danger)";
+        regMsg.innerText = "Numer telefonu jest już w bazie!";
         return;
       }
 
@@ -154,8 +247,8 @@
       drivers.push(newDriver);
       localStorage.setItem("registered_drivers", JSON.stringify(drivers));
 
-      regMsg.style.color = "#22c55e";
-      regMsg.innerText = "Konto zweryfikowane pomyślnie! Logowanie...";
+      regMsg.style.color = "var(--success)";
+      regMsg.innerText = "Weryfikacja pomyślna! Logowanie...";
 
       setTimeout(() => {
         localStorage.setItem("active_driver_session", JSON.stringify(newDriver));
@@ -173,7 +266,6 @@
       const user = drivers.find(d => d.phone === phone && d.password === password);
 
       if (!user) {
-        loginMsg.style.color = "#ef4444";
         loginMsg.innerText = "Niepoprawny numer telefonu lub hasło.";
         return;
       }
@@ -185,7 +277,20 @@
     function showTrackerView(user) {
       activeSession = user;
       switchView('trackerBox');
-      document.getElementById("welcomeDriver").innerText = `Kierowca: ${user.full_name}`;
+      
+      document.getElementById("driverHeaderName").innerText = user.full_name;
+      const initials = user.full_name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+      document.getElementById("driverInitials").innerText = initials;
+
+      // Inicjalizacja minimapy
+      setTimeout(() => {
+        if (!map) {
+          map = L.map('driverMiniMap', { zoomControl: false }).setView([52.40637, 16.92516], 14);
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+        } else {
+          map.invalidateSize();
+        }
+      }, 200);
     }
 
     function handleLogout() {
@@ -194,21 +299,10 @@
       location.reload();
     }
 
-    // MQTT GPS Transmisja
-    const client = mqtt.connect('wss://broker.emqx.io:8084/mqtt');
-    let isConnected = false;
-    let timerId = null;
-    let currentLat = null;
-    let currentLng = null;
-    let pingCount = 0;
-
-    client.on('connect', () => { isConnected = true; });
-
     function broadcastPosition() {
       if (!currentLat || !currentLng || !isConnected || !activeSession) return;
 
       const vehicleLabel = getActiveVehicleName();
-
       const payload = JSON.stringify({
         id: "laweta-1",
         name: `${activeSession.full_name} [${vehicleLabel}]`,
@@ -220,23 +314,47 @@
 
       client.publish('pomoc-drogowa/gps', payload, { retain: true });
       pingCount++;
-      document.getElementById("pingText").innerText = `Wysłano pakietów: ${pingCount} (${new Date().toLocaleTimeString()})`;
+      document.getElementById("packetsMetric").innerText = pingCount;
     }
 
     function toggleGps() {
       const btn = document.getElementById("toggleBtn");
+      const liveDot = document.getElementById("liveDot");
+      const liveStatus = document.getElementById("liveStatusText");
 
       if (!timerId) {
         if (!navigator.geolocation) {
-          alert("Brak modułu GPS w urządzeniu.");
+          alert("Brak GPS w urządzeniu.");
           return;
         }
+
+        startTime = Date.now();
+        durationTimer = setInterval(() => {
+          const sec = Math.floor((Date.now() - startTime) / 1000);
+          const h = String(Math.floor(sec / 3600)).padStart(2, '0');
+          const m = String(Math.floor((sec % 3600) / 60)).padStart(2, '0');
+          const s = String(sec % 60).padStart(2, '0');
+          document.getElementById("timeMetric").innerText = `${h}:${m}:${s}`;
+        }, 1000);
 
         navigator.geolocation.watchPosition(
           (pos) => {
             currentLat = pos.coords.latitude;
             currentLng = pos.coords.longitude;
-            document.getElementById("coordsText").innerText = `Lat: ${currentLat.toFixed(5)}, Lng: ${currentLng.toFixed(5)}`;
+            const speed = pos.coords.speed ? (pos.coords.speed * 3.6).toFixed(1) : "0.0";
+            
+            document.getElementById("speedMetric").innerText = `${speed} km/h`;
+            document.getElementById("coordsMetric").innerText = `${currentLat.toFixed(3)}, ${currentLng.toFixed(3)}`;
+
+            if (map) {
+              if (!marker) {
+                marker = L.marker([currentLat, currentLng]).addTo(map);
+              } else {
+                marker.setLatLng([currentLat, currentLng]);
+              }
+              map.setView([currentLat, currentLng], 15);
+            }
+
             broadcastPosition();
           },
           (err) => console.error(err),
@@ -244,17 +362,27 @@
         );
 
         timerId = setInterval(broadcastPosition, 2000);
+
         btn.innerText = "🔴 Zakończ kurs (Wyłącz GPS)";
-        btn.className = "stop";
+        btn.className = "btn-danger";
+        liveDot.classList.add("active");
+        liveStatus.innerText = "Transmisja aktywna na żywo 📡";
+        liveStatus.style.color = "var(--success)";
       } else {
         clearInterval(timerId);
+        clearInterval(durationTimer);
         timerId = null;
+
         if (isConnected) {
           client.publish('pomoc-drogowa/gps', JSON.stringify({ id: "laweta-1", active: false }), { retain: true });
         }
+
         btn.innerText = "🟢 Rozpocznij kurs (Włącz GPS)";
-        btn.className = "success";
-        document.getElementById("pingText").innerText = "";
+        btn.className = "btn-success";
+        liveDot.classList.remove("active");
+        liveStatus.innerText = "Nadajnik zatrzymany";
+        liveStatus.style.color = "var(--subtext)";
+        document.getElementById("speedMetric").innerText = "0.0 km/h";
       }
     }
   </script>
