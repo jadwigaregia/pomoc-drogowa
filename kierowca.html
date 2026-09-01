@@ -3,38 +3,197 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panel Kierowcy - Pomoc Drogowa</title>
+  <title>Portal Kierowcy - Weryfikacja i Nadajnik</title>
   <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
   <style>
+    * { box-sizing: border-box; }
     body { font-family: system-ui, sans-serif; margin: 0; padding: 20px; background: #0f172a; color: #fff; text-align: center; }
-    .card { background: #1e293b; padding: 24px; border-radius: 12px; max-width: 420px; margin: 20px auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-    input { width: 100%; padding: 12px; margin: 8px 0 16px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #fff; font-size: 16px; box-sizing: border-box; }
-    button { background: #22c55e; color: #000; border: none; padding: 16px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; }
+    .card { background: #1e293b; padding: 24px; border-radius: 12px; max-width: 440px; margin: 20px auto; box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
+    input { width: 100%; padding: 12px; margin: 6px 0 14px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #fff; font-size: 15px; }
+    button { background: #38bdf8; color: #0f172a; border: none; padding: 14px; font-size: 15px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 8px; }
+    button.success { background: #22c55e; color: #000; }
     button.stop { background: #ef4444; color: #fff; }
-    .status { margin-top: 15px; font-size: 15px; color: #94a3b8; }
+    .toggle-link { color: #38bdf8; font-size: 13px; margin-top: 14px; cursor: pointer; display: block; text-decoration: underline; }
+    .hidden { display: none; }
+    .status-badge { padding: 8px; border-radius: 6px; font-size: 13px; margin-top: 12px; }
+    .approved { background: #16a34a; color: #fff; }
     .coords { font-family: monospace; color: #38bdf8; margin-top: 10px; }
-    .pulse-dot { display: inline-block; width: 8px; height: 8px; background: #22c55e; border-radius: 50%; margin-right: 6px; }
   </style>
 </head>
 <body>
 
-  <div class="card">
-    <h2>🚗 Nadajnik GPS Lawety</h2>
-    <p style="color: #94a3b8; font-size: 14px;">Pozostaw ten ekran włączony podczas trasy.</p>
+  <!-- EKRAN LOGOWANIA -->
+  <div class="card" id="loginBox">
+    <h2>🔐 Logowanie Kierowcy</h2>
+    <p style="color: #94a3b8; font-size: 13px;">Wprowadź numer telefonu i hasło</p>
     
     <div style="text-align: left;">
-      <label style="font-size: 13px; color: #94a3b8;">Nazwa pojazdu:</label>
-      <input type="text" id="driverName" value="Jadwiga Matuszak (Laweta #1)" />
+      <label style="font-size: 12px; color: #94a3b8;">Numer telefonu:</label>
+      <input type="tel" id="loginPhone" placeholder="np. 500100200" />
+      
+      <label style="font-size: 12px; color: #94a3b8;">Hasło:</label>
+      <input type="password" id="loginPass" placeholder="Wpisz hasło" />
     </div>
 
-    <button id="toggleBtn" onclick="toggleGps()">🟢 Włącz nadawanie GPS</button>
+    <button onclick="handleLogin()">Zaloguj się</button>
+    <span class="toggle-link" onclick="switchView('registerBox')">Nie masz konta? Zarejestruj się i zweryfikuj dane</span>
+    <div id="loginMsg" style="color: #ef4444; font-size: 13px; margin-top: 10px;"></div>
+  </div>
 
-    <div class="status" id="statusText">Status: Gotowy do połączenia</div>
+  <!-- EKRAN WERYFIKACJI DOKUMENTÓW -->
+  <div class="card hidden" id="registerBox">
+    <h2>🪪 Weryfikacja Dokumentów</h2>
+    <p style="color: #94a3b8; font-size: 13px;">Podaj dane do weryfikacji uprawnień lawety</p>
+    
+    <div style="text-align: left;">
+      <label style="font-size: 12px; color: #94a3b8;">Imię i Nazwisko:</label>
+      <input type="text" id="regName" placeholder="Jan Kowalski" />
+
+      <label style="font-size: 12px; color: #94a3b8;">Numer telefonu:</label>
+      <input type="tel" id="regPhone" placeholder="np. 500100200" />
+
+      <label style="font-size: 12px; color: #94a3b8;">Seria i nr Dowodu Osobistego / PESEL:</label>
+      <input type="text" id="regId" placeholder="np. ABC 123456" />
+
+      <label style="font-size: 12px; color: #94a3b8;">Numer Prawa Jazdy (Kat. B+E / C):</label>
+      <input type="text" id="regLicense" placeholder="np. 12345/67/8901" />
+
+      <label style="font-size: 12px; color: #94a3b8;">Numer rejestracyjny lawety:</label>
+      <input type="text" id="regPlate" placeholder="np. PO 12345" />
+
+      <label style="font-size: 12px; color: #94a3b8;">Hasło do logowania:</label>
+      <input type="password" id="regPass" placeholder="Minimum 6 znaków" />
+    </div>
+
+    <button class="success" onclick="handleRegister()">Prześlij do bazy</button>
+    <span class="toggle-link" onclick="switchView('loginBox')">Wróć do logowania</span>
+    <div id="regMsg" style="margin-top: 10px; font-size: 13px;"></div>
+  </div>
+
+  <!-- EKRAN NADAJNIKA GPS DLA ZALOGOWANEGO KIEROWCY -->
+  <div class="card hidden" id="trackerBox">
+    <h2>🚗 Nadajnik GPS Lawety</h2>
+    <p id="welcomeDriver" style="color: #38bdf8; font-size: 14px; font-weight: bold;"></p>
+    
+    <div class="status-badge approved" id="accountStatus">Status: Kierowca zweryfikowany ✔️</div>
+
+    <button id="toggleBtn" class="success" onclick="toggleGps()" style="margin-top: 20px;">🟢 Włącz nadawanie GPS</button>
+
     <div class="coords" id="coordsText">Lat: -- , Lng: --</div>
     <div id="pingText" style="font-size: 12px; color: #64748b; margin-top: 8px;"></div>
+
+    <button onclick="handleLogout()" style="background: transparent; border: 1px solid #475569; color: #94a3b8; margin-top: 20px;">Wyloguj</button>
   </div>
 
   <script>
+    const REST_URL = "https://pofvghphcfrdtalyqui.supabase.co/rest/v1/driver_verifications";
+    const API_KEY = "sb_publishable_5ftuKj2b17oQkeyqDpsePg_k13hgzhn";
+
+    let activeSession = JSON.parse(localStorage.getItem("active_driver_session") || "null");
+
+    if (activeSession) {
+      showTrackerView(activeSession);
+    }
+
+    function switchView(viewId) {
+      ['loginBox', 'registerBox', 'trackerBox'].forEach(id => document.getElementById(id).classList.add('hidden'));
+      document.getElementById(viewId).classList.remove('hidden');
+    }
+
+    async function handleRegister() {
+      const full_name = document.getElementById("regName").value.trim();
+      const phone = document.getElementById("regPhone").value.trim();
+      const id_number = document.getElementById("regId").value.trim();
+      const driving_license = document.getElementById("regLicense").value.trim();
+      const vehicle_plate = document.getElementById("regPlate").value.trim();
+      const password = document.getElementById("regPass").value.trim();
+      const regMsg = document.getElementById("regMsg");
+
+      if (!full_name || !phone || !id_number || !driving_license || !vehicle_plate || !password) {
+        regMsg.style.color = "#ef4444";
+        regMsg.innerText = "Uzupełnij wszystkie wymagane pola!";
+        return;
+      }
+
+      regMsg.style.color = "#38bdf8";
+      regMsg.innerText = "Rejestracja w toku...";
+
+      try {
+        const res = await fetch(REST_URL, {
+          method: "POST",
+          headers: {
+            "apikey": API_KEY,
+            "Authorization": `Bearer ${API_KEY}`,
+            "Content-Type": "application/json",
+            "Prefer": "return=representation"
+          },
+          body: JSON.stringify({
+            full_name, phone, id_number, driving_license, vehicle_plate, password, status: 'approved'
+          })
+        });
+
+        if (!res.ok) throw new Error("Błąd zapisu");
+
+        regMsg.style.color = "#22c55e";
+        regMsg.innerText = "Rejestracja zakończona sukcesem! Możesz się zalogować.";
+        setTimeout(() => switchView('loginBox'), 1200);
+      } catch (err) {
+        regMsg.style.color = "#ef4444";
+        regMsg.innerText = "Błąd rejestracji (być może ten numer telefonu już istnieje).";
+      }
+    }
+
+    async function handleLogin() {
+      const phone = document.getElementById("loginPhone").value.trim();
+      const password = document.getElementById("loginPass").value.trim();
+      const loginMsg = document.getElementById("loginMsg");
+
+      if (!phone || !password) {
+        loginMsg.innerText = "Podaj numer telefonu i hasło.";
+        return;
+      }
+
+      loginMsg.style.color = "#38bdf8";
+      loginMsg.innerText = "Sprawdzanie danych...";
+
+      try {
+        const res = await fetch(`${REST_URL}?phone=eq.${encodeURIComponent(phone)}&password=eq.${encodeURIComponent(password)}&select=*`, {
+          headers: {
+            "apikey": API_KEY,
+            "Authorization": `Bearer ${API_KEY}`
+          }
+        });
+
+        const users = await res.json();
+
+        if (!users || users.length === 0) {
+          loginMsg.style.color = "#ef4444";
+          loginMsg.innerText = "Niepoprawny numer telefonu lub hasło.";
+          return;
+        }
+
+        const user = users[0];
+        localStorage.setItem("active_driver_session", JSON.stringify(user));
+        showTrackerView(user);
+      } catch (err) {
+        loginMsg.style.color = "#ef4444";
+        loginMsg.innerText = "Błąd połączenia podczas logowania.";
+      }
+    }
+
+    function showTrackerView(user) {
+      activeSession = user;
+      switchView('trackerBox');
+      document.getElementById("welcomeDriver").innerText = `Kierowca: ${user.full_name} (${user.vehicle_plate})`;
+    }
+
+    function handleLogout() {
+      if (timerId) toggleGps();
+      localStorage.removeItem("active_driver_session");
+      location.reload();
+    }
+
+    // --- NADAJNIK GPS MQTT ---
     const client = mqtt.connect('wss://broker.emqx.io:8084/mqtt');
     let isConnected = false;
     let timerId = null;
@@ -42,18 +201,14 @@
     let currentLng = null;
     let pingCount = 0;
 
-    client.on('connect', () => {
-      isConnected = true;
-      document.getElementById("statusText").innerText = "Połączono z serwerem satelitarnym ✔️";
-    });
+    client.on('connect', () => { isConnected = true; });
 
     function broadcastPosition() {
-      if (!currentLat || !currentLng || !isConnected) return;
+      if (!currentLat || !currentLng || !isConnected || !activeSession) return;
 
-      const driverName = document.getElementById("driverName").value;
       const payload = JSON.stringify({
         id: "laweta-1",
-        name: driverName,
+        name: `${activeSession.full_name} (${activeSession.vehicle_plate})`,
         lat: currentLat,
         lng: currentLng,
         active: true,
@@ -62,12 +217,11 @@
 
       client.publish('pomoc-drogowa/gps', payload, { retain: true });
       pingCount++;
-      document.getElementById("pingText").innerText = `Wysłano pakietów: ${pingCount} (ostatni: ${new Date().toLocaleTimeString()})`;
+      document.getElementById("pingText").innerText = `Wysłano pakietów: ${pingCount} (${new Date().toLocaleTimeString()})`;
     }
 
     function toggleGps() {
       const btn = document.getElementById("toggleBtn");
-      const status = document.getElementById("statusText");
 
       if (!timerId) {
         if (!navigator.geolocation) {
@@ -75,41 +229,28 @@
           return;
         }
 
-        status.innerText = "Pobieranie pozycji z satelity...";
-
-        // Ciągłe odczytywanie pozycji
         navigator.geolocation.watchPosition(
           (pos) => {
             currentLat = pos.coords.latitude;
             currentLng = pos.coords.longitude;
             document.getElementById("coordsText").innerText = `Lat: ${currentLat.toFixed(5)}, Lng: ${currentLng.toFixed(5)}`;
-            status.innerHTML = `<span class="pulse-dot"></span>Nadawanie na żywo 📡`;
             broadcastPosition();
           },
-          (err) => {
-            status.innerText = "Błąd GPS: " + err.message;
-          },
+          (err) => console.error(err),
           { enableHighAccuracy: true, maximumAge: 0, timeout: 5000 }
         );
 
-        // Wymuszone wysyłanie pulsu co 2 sekundy
-        timerId = setInterval(() => {
-          broadcastPosition();
-        }, 2000);
-
+        timerId = setInterval(broadcastPosition, 2000);
         btn.innerText = "🔴 Zatrzymaj nadawanie";
-        btn.classList.add("stop");
+        btn.className = "stop";
       } else {
         clearInterval(timerId);
         timerId = null;
-
         if (isConnected) {
           client.publish('pomoc-drogowa/gps', JSON.stringify({ id: "laweta-1", active: false }), { retain: true });
         }
-
         btn.innerText = "🟢 Włącz nadawanie GPS";
-        btn.classList.remove("stop");
-        status.innerText = "Status: Zatrzymany";
+        btn.className = "success";
         document.getElementById("pingText").innerText = "";
       }
     }
