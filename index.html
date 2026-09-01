@@ -1,4 +1,4 @@
-html_content = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -217,7 +217,7 @@ html_content = """<!DOCTYPE html>
             display: flex;
             flex-wrap: wrap;
             gap: 15px;
-            margin-bottom: 45px;
+            margin-bottom: 35px;
         }
 
         .btn-main-call {
@@ -259,6 +259,76 @@ html_content = """<!DOCTYPE html>
         .btn-secondary:hover {
             background: var(--bg-card-hover);
             border-color: #58a6ff;
+        }
+
+        /* Live App Box */
+        .live-app-box {
+            background: rgba(22, 27, 34, 0.9);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .live-app-box h3 {
+            color: var(--text-main);
+            font-size: 1.15rem;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .live-app-box p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            margin-bottom: 18px;
+        }
+
+        .live-app-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-app-client {
+            background: #2563eb;
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .btn-app-client:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .btn-app-driver {
+            background: #16a34a;
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .btn-app-driver:hover {
+            background: #15803d;
+            transform: translateY(-2px);
         }
 
         .hero-metrics {
@@ -675,6 +745,20 @@ html_content = """<!DOCTYPE html>
                 </a>
             </div>
 
+            <!-- Panel Aplikacji na Żywo (Klient / Kierowca) -->
+            <div class="live-app-box">
+                <h3><i class="fa-solid fa-location-crosshairs" style="color: var(--brand-yellow);"></i> Gdzie jest wypadek? (System Live GPS)</h3>
+                <p>Śledź trasę kierowcy w czasie rzeczywistym lub włącz nadawanie jako kierowca lawety:</p>
+                <div class="live-app-buttons">
+                    <a href="klient.html" class="btn-app-client">
+                        <i class="fa-solid fa-map-location-dot"></i> Śledź Lawetę na Żywo (Klient)
+                    </a>
+                    <a href="kierowca.html" class="btn-app-driver">
+                        <i class="fa-solid fa-truck-fast"></i> Panel Kierowcy (GPS)
+                    </a>
+                </div>
+            </div>
+
             <div class="hero-metrics">
                 <div class="metric-card">
                     <div class="num">15-25 min</div>
@@ -939,10 +1023,3 @@ html_content = """<!DOCTYPE html>
 
 </body>
 </html>
-"""
-
-file_path = "index.html"
-with open(file_path, "w", encoding="utf-8") as f:
-    f.write(html_content)
-
-print(f"Plik wygenerowany pomyślnie: {file_path}")
