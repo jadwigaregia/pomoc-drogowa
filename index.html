@@ -502,6 +502,202 @@
             max-width: 600px;
         }
 
+        /* Sekcja Party Driver */
+        .party-driver-section {
+            background: linear-gradient(180deg, #090d12 0%, #161b22 100%);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 80px 6%;
+            position: relative;
+        }
+
+        .party-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .party-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 184, 0, 0.15);
+            color: var(--brand-yellow);
+            border: 1px solid var(--brand-yellow);
+            padding: 7px 18px;
+            border-radius: 30px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 18px;
+        }
+
+        .party-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 14px;
+        }
+
+        .party-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 760px;
+            margin: 0 auto 45px auto;
+            line-height: 1.6;
+        }
+
+        .party-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 26px;
+            margin-bottom: 45px;
+            text-align: left;
+        }
+
+        .party-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px 26px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.25s, border-color 0.25s;
+        }
+
+        .party-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--brand-yellow);
+        }
+
+        .party-card.featured {
+            border: 2px solid var(--brand-yellow);
+            background: #1a1e27;
+            box-shadow: 0 10px 30px rgba(255, 184, 0, 0.15);
+        }
+
+        .card-tag {
+            position: absolute;
+            top: -12px;
+            right: 24px;
+            background: var(--brand-yellow);
+            color: #000;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 5px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .party-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .party-card h3 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .party-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .party-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 26px 0;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-party-call {
+            display: block;
+            text-align: center;
+            background: #21262d;
+            color: var(--brand-yellow);
+            border: 1px solid var(--border-color);
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 14px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-party-call.highlight {
+            background: var(--brand-yellow);
+            color: #000;
+            border: none;
+            box-shadow: 0 4px 15px var(--brand-yellow-glow);
+        }
+
+        .btn-party-call:hover {
+            transform: translateY(-2px);
+            opacity: 0.95;
+        }
+
+        .party-banner {
+            background: linear-gradient(135deg, #1c1500 0%, #2a2000 100%);
+            border: 1px solid rgba(255, 184, 0, 0.35);
+            border-radius: 16px;
+            padding: 28px 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            align-items: center;
+            justify-content: space-between;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .party-banner {
+                flex-direction: row;
+                text-align: left;
+            }
+        }
+
+        .party-banner .banner-text h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            color: var(--brand-yellow);
+            margin-bottom: 4px;
+        }
+
+        .party-banner .banner-text p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin: 0;
+        }
+
+        .btn-emergency {
+            background: var(--accent-red);
+            color: white;
+            font-weight: 800;
+            font-size: 1rem;
+            padding: 14px 26px;
+            border-radius: 10px;
+            text-decoration: none;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .btn-emergency:hover {
+            transform: scale(1.03);
+        }
+
         /* Coverage Areas */
         .coverage-container {
             background: var(--bg-card);
@@ -697,6 +893,7 @@
             .btn-main-call, .btn-secondary { width: 100%; justify-content: center; }
             .callout-banner { padding: 25px 20px; text-align: center; }
             .callout-banner .btn-main-call { width: 100%; }
+            .party-title { font-size: 2rem; }
         }
     </style>
 </head>
@@ -719,9 +916,9 @@
         </a>
 
         <div class="header-actions">
-            <a href="tel:+48600000000" class="btn-call-header">
+            <a href="tel:+48000000000" class="btn-call-header">
                 <i class="fa-solid fa-phone"></i>
-                <span>600 000 000</span>
+                <span>000 000 000</span>
             </a>
         </div>
     </header>
@@ -737,8 +934,8 @@
             <p>Awaria, kolizja, brak paliwa lub rozładowany akumulator? Nasza flota nowoczesnych autolawet dyżuruje całą dobę w Poznaniu, na autostradzie A2 oraz drogach ekspresowych S11 i S5.</p>
 
             <div class="hero-buttons">
-                <a href="tel:+48600000000" class="btn-main-call">
-                    <i class="fa-solid fa-phone-volume"></i> WEZWIJ POMOC: 600 000 000
+                <a href="tel:+48000000000" class="btn-main-call">
+                    <i class="fa-solid fa-phone-volume"></i> WEZWIJ POMOC: 000 000 000
                 </a>
                 <a href="#uslugi" class="btn-secondary">
                     <i class="fa-solid fa-list-check"></i> Nasze Usługi
@@ -873,14 +1070,66 @@
                 <h3>Potrzebujesz natychmiastowej lawety?</h3>
                 <p>Dyspozytor odbierze Twój telefon od razu i wyśle najbliższy wolny holownik w Twoją stronę.</p>
             </div>
-            <a href="tel:+48600000000" class="btn-main-call">
+            <a href="tel:+48000000000" class="btn-main-call">
                 <i class="fa-solid fa-phone"></i> Zadzwoń Teraz
             </a>
         </div>
     </section>
 
+    <!-- SEKCJA PARTY DRIVER -->
+    <section id="party-driver" class="party-driver-section">
+        <div class="party-container">
+            
+            <div class="party-badge">🍾🥂 USŁUGA NOCNA &amp; EVENTOWA 24/7</div>
+            <h2 class="party-title">🍾 Party Driver 🥂</h2>
+            <p class="party-subtitle">
+                Wypiłeś szampana, drinka lub piwo? Nie ryzykuj prawa jazdy, wysokich mandatów ani bezpieczeństwa. 
+                Nasz trzeźwy kierowca przyjedzie na miejsce i <strong>bezpiecznie odstawi Ciebie oraz Twoje auto prosto pod dom</strong>.
+            </p>
+
+            <div class="party-grid">
+                <!-- Opcja 1 -->
+                <div class="party-card">
+                    <div class="party-card-icon">🍾🚗</div>
+                    <h3>Kierowca Zastępczy (Odprowadzenie)</h3>
+                    <p>Przyjeżdżamy na imprezę – nasz doświadczony, trzeźwy kierowca siada za kółkiem Twojego samochodu i wiezie Cię bezpiecznie pod wskazany adres.</p>
+                    <ul class="party-features">
+                        <li>🥂 Twoje auto bezpiecznie pod domem rano</li>
+                        <li>🥂 Doświadczeni kierowcy z nienaganną kulturą</li>
+                        <li>🥂 100% dyskrecji, spokoju i profesjonalizmu</li>
+                    </ul>
+                    <a href="tel:+48000000000" class="btn-party-call">🍾 Zamów Party Drivera</a>
+                </div>
+
+                <!-- Opcja 2 -->
+                <div class="party-card featured">
+                    <div class="card-tag">VIP KOMFORT 🥂</div>
+                    <div class="party-card-icon">🥂🚛</div>
+                    <h3>VIP Transport Lawetą</h3>
+                    <p>Zero eksploatacji Twojego auta – wciągamy Twój pojazd na nowoczesną lawetę, a Ty wracasz z imprezy jako pasażer w czystej, komfortowej kabinie.</p>
+                    <ul class="party-features">
+                        <li>🍾 Idealne dla aut sportowych, luksusowych i klasyków</li>
+                        <li>🍾 Komfortowa i bezpieczna podróż w kabinie</li>
+                        <li>🍾 Zero ryzyka kontroli drogowej i punktów karnych</li>
+                    </ul>
+                    <a href="tel:+48000000000" class="btn-party-call highlight">🥂 Zamów VIP Lawetę</a>
+                </div>
+            </div>
+
+            <!-- Baner Szybkiego Wezwania -->
+            <div class="party-banner">
+                <div class="banner-text">
+                    <h4>🍾 Jesteś na imprezie, weselu lub w klubie?</h4>
+                    <p>Party Driver działa na terenie Poznania i okolic 24h na dobę, 7 dni w tygodniu.</p>
+                </div>
+                <a href="tel:+48000000000" class="btn-emergency">🥂 Zadzwoń: 000 000 000</a>
+            </div>
+
+        </div>
+    </section>
+
     <!-- Why Us -->
-    <section class="container" style="padding-top: 0;">
+    <section class="container">
         <div class="section-header">
             <span class="sub-badge">Dlaczego my?</span>
             <h2>Standard obsługi Pomoc Drogowa 24/7 Poland</h2>
@@ -969,7 +1218,7 @@
                 <h4>POMOC DROGOWA 24/7 POLAND</h4>
                 <p>Twój zaufany partner na drogach Poznania i Wielkopolski. Świadczymy usługi holowania, pomocy powypadkowej i awaryjnej 365 dni w roku, 7 dni w tygodniu, 24 godziny na dobę.</p>
                 <p style="margin-top: 15px; color: var(--brand-yellow); font-weight: 700;">
-                    <i class="fa-solid fa-phone"></i> Infolinia alarmowa: +48 600 000 000
+                    <i class="fa-solid fa-phone"></i> Infolinia alarmowa: +48 000 000 000
                 </p>
             </div>
             
@@ -977,6 +1226,7 @@
                 <h5>Usługi</h5>
                 <ul>
                     <li><a href="#uslugi">Autolaweta Poznań</a></li>
+                    <li><a href="#party-driver">🍾 Party Driver (Odprowadzanie)</a></li>
                     <li><a href="#uslugi">Holowanie A2 / S11 / S5</a></li>
                     <li><a href="#uslugi">Awaryjny Rozruch Akumulatora</a></li>
                     <li><a href="#uslugi">Mobilna Wulkanizacja</a></li>
@@ -1002,8 +1252,8 @@
 
     <!-- Fixed Mobile Bar for quick conversion -->
     <div class="mobile-bottom-bar">
-        <a href="tel:+48600000000">
-            <i class="fa-solid fa-phone-flip fa-shake"></i> SZYBKA LAWETA: 600 000 000
+        <a href="tel:+48000000000">
+            <i class="fa-solid fa-phone-flip fa-shake"></i> SZYBKA LAWETA: 000 000 000
         </a>
     </div>
 
