@@ -4,10 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Panel Kierowcy - Pomoc Drogowa</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     body { font-family: system-ui, sans-serif; margin: 0; padding: 20px; background: #0f172a; color: #fff; text-align: center; }
-    .card { background: #1e293b; padding: 24px; border-radius: 12px; max-width: 420px; margin: 20px auto; }
+    .card { background: #1e293b; padding: 24px; border-radius: 12px; max-width: 420px; margin: 20px auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
     input { width: 100%; padding: 12px; margin: 8px 0 16px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #fff; font-size: 16px; box-sizing: border-box; }
     button { background: #22c55e; color: #000; border: none; padding: 16px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; }
     button.stop { background: #ef4444; color: #fff; }
@@ -33,21 +32,30 @@
   </div>
 
   <script>
-    const SUPABASE_URL = "https://pofvghphcfrdtalyqui.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_5ftuKj2b17oQkeyqDpsePg_k13hgzhn";
-
-    const dbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
-      auth: { persistSession: false },
-      global: {
-        headers: {
-          apikey: SUPABASE_KEY,
-          Authorization: `Bearer ${SUPABASE_KEY}`
-        }
-      }
-    });
+    const REST_URL = "https://pofvghphcfrdtalyqui.supabase.co/rest/v1/drivers";
+    const API_KEY = "sb_publishable_5ftuKj2b17oQkeyqDpsePg_k13hgzhn";
 
     let watchId = null;
     let driverId = localStorage.getItem("driver_id") || null;
+
+    async function sendToSupabase(url, method, bodyData, extraHeaders = {}) {
+      const res = await fetch(url, {
+        method: method,
+        headers: {
+          "apikey": API_KEY,
+          "Authorization": `Bearer ${API_KEY}`,
+          "Content-Type": "application/json",
+          "Prefer": "return=representation",
+          ...extraHeaders
+        },
+        body: JSON.stringify(bodyData)
+      });
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(`HTTP ${res.status}: ${errText}`);
+      }
+      return await res.json();
+    }
 
     async function toggleGps() {
       const btn = document.getElementById("toggleBtn");
@@ -56,58 +64,56 @@
 
       if (!watchId) {
         if (!navigator.geolocation) {
-          alert("Twoja przeglądarka nie obsługuje lokalizacji GPS.");
+          alert("Brak obsługi GPS w przeglądarce.");
           return;
         }
 
-        status.innerText = "Rejestracja pojazdu w bazie...";
+        status.innerText = "Rejestracja w bazie...";
 
-        if (!driverId) {
-          const { data, error } = await dbClient
-            .from('drivers')
-            .insert([{ name: driverName, is_available: true, lat: 52.40637, lng: 16.92516 }])
-            .select()
-            .single();
-
-          if (error) {
-            alert("Błąd zapisu w bazie: " + error.message);
-            status.innerText = "Błąd bazy: " + error.message;
-            return;
-          }
-
-          if (data) {
-            driverId = data.id;
-            localStorage.setItem("driver_id", driverId);
-          }
-        }
-
-        watchId = navigator.geolocation.watchPosition(
-          async (pos) => {
-            const { latitude, longitude } = pos.coords;
-            document.getElementById("coordsText").innerText = `Lat: ${latitude.toFixed(5)}, Lng: ${longitude.toFixed(5)}`;
-            status.innerText = "Status: Transmisja aktywna 📡";
-
-            await dbClient.from('drivers').update({
-              lat: latitude,
-              lng: longitude,
+        try {
+          if (!driverId) {
+            const data = await sendToSupabase(REST_URL, "POST", {
+              name: driverName,
               is_available: true,
-              updated_at: new Date().toISOString()
-            }).eq('id', driverId);
-          },
-          (err) => {
-            alert("Błąd GPS: " + err.message);
-            status.innerText = "Błąd GPS: " + err.message;
-          },
-          { enableHighAccuracy: true, maximumAge: 0, timeout: 10000 }
-        );
+              lat: 52.40637,
+              lng: 16.92516
+            });
+            if (data && data.length > 0) {
+              driverId = data[0].id;
+              localStorage.setItem("driver_id", driverId);
+            }
+          }
 
-        btn.innerText = "🔴 Zatrzymaj nadawanie";
-        btn.classList.add("stop");
+          watchId = navigator.geolocation.watchPosition(
+            async (pos) => {
+              const { latitude, longitude } = pos.coords;
+              document.getElementById("coordsText").innerText = `Lat: ${latitude.toFixed(5)}, Lng: ${longitude.toFixed(5)}`;
+              status.innerText = "Status: Transmisja aktywna 📡";
+
+              await sendToSupabase(`${REST_URL}?id=eq.${driverId}`, "PATCH", {
+                lat: latitude,
+                lng: longitude,
+                is_available: true,
+                updated_at: new Date().toISOString()
+              });
+            },
+            (err) => {
+              status.innerText = "Błąd GPS: " + err.message;
+            },
+            { enableHighAccuracy: true, maximumAge: 0, timeout: 10000 }
+          );
+
+          btn.innerText = "🔴 Zatrzymaj nadawanie";
+          btn.classList.add("stop");
+        } catch (err) {
+          alert("Błąd połączenia: " + err.message);
+          status.innerText = "Błąd bazy: " + err.message;
+        }
       } else {
         navigator.geolocation.clearWatch(watchId);
         watchId = null;
         if (driverId) {
-          await dbClient.from('drivers').update({ is_available: false }).eq('id', driverId);
+          await sendToSupabase(`${REST_URL}?id=eq.${driverId}`, "PATCH", { is_available: false });
         }
         btn.innerText = "🟢 Włącz nadawanie GPS";
         btn.classList.remove("stop");
