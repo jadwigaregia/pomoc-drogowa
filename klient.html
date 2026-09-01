@@ -4,74 +4,112 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gdzie jest pomoc? - Śledzenie na żywo</title>
+  
+  <!-- Leaflet CSS & JS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+  <!-- Supabase JS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <style>
-    body, html { margin: 0; padding: 0; height: 100%; font-family: system-ui, sans-serif; }
-    #map { width: 100%; height: 100vh; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; font-family: system-ui, sans-serif; }
+    #map { width: 100vw; height: 100vh; z-index: 1; }
     .overlay {
-      position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
-      background: white; padding: 12px 20px; border-radius: 30px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 1000; font-weight: bold;
+      position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.9); color: #fff; padding: 12px 24px;
+      border-radius: 30px; font-weight: 600; font-size: 14px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 1000;
+      backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; gap: 8px;
     }
+    .pulse { width: 10px; height: 10px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 8px #22c55e; }
   </style>
 </head>
 <body>
 
-  <div class="overlay" id="statusBox">🔍 Szukanie dostępnych lawet w pobliżu...</div>
+  <div class="overlay">
+    <div class="pulse"></div>
+    <span id="statusBox">Szukanie pomocy drogowej w pobliżu...</span>
+  </div>
+
   <div id="map"></div>
 
   <script>
     const SUPABASE_URL = "https://pofvghphcfrdtalyqui.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_5ftuKj2b17oQkeyqDpsePg_kl3bgzhN";
+    const SUPABASE_KEY = "sb_publishable_5ftuKj2b17oQkeyqDpsePg_k13hgzhn";
 
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    // Prawidłowa inicjalizacja Supabase
+    const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    // Inicjalizacja darmowej mapy OpenStreetMap
-    const map = L.map('map').setView([52.2297, 21.0122], 12);
+    // Domyślny widok mapy (Polska)
+    const map = L.map('map').setView([52.0693, 19.4803], 6);
+
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
       attribution: '© OpenStreetMap'
     }).addTo(map);
 
     let markers = {};
 
     // Pobranie pozycji poszkodowanego
-    navigator.geolocation.getCurrentPosition((pos) => {
-      const { latitude, longitude } = pos.coords;
-      map.setView([latitude, longitude], 13);
-      L.marker([latitude, longitude]).addTo(map).bindPopup("📍 Twoja lokalizacja (Miejsce zdarzenia)").openPopup();
-    });
-
-    // Pobranie aktualnych pozycji kierowców
-    async function fetchDrivers() {
-      const { data: drivers } = await supabaseClient.from('drivers').select('*').eq('is_available', true);
-      if (drivers && drivers.length > 0) {
-        document.getElementById("statusBox").innerText = `🚗 Lawety na mapie: ${drivers.length}`;
-        drivers.forEach(updateDriverMarker);
-      }
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+          map.setView([lat, lng], 14);
+          L.marker([lat, lng])
+            .addTo(map)
+            .bindPopup("<b>📍 Twoja lokalizacja</b><br>Miejsce zgłoszenia")
+            .openPopup();
+        },
+        (err) => console.log("Brak zgody na GPS poszkodowanego:", err.message),
+        { enableHighAccuracy: true }
+      );
     }
 
-    function updateDriverMarker(driver) {
+    // Aktualizacja markera na mapie
+    function updateMarker(driver) {
       if (!driver.lat || !driver.lng) return;
 
       if (markers[driver.id]) {
         markers[driver.id].setLatLng([driver.lat, driver.lng]);
       } else {
-        markers[driver.id] = L.marker([driver.lat, driver.lng]).addTo(map)
-          .bindPopup(`<b>${driver.name}</b><br>W drodze / Dostępny`);
+        const marker = L.marker([driver.lat, driver.lng]).addTo(map);
+        marker.bindPopup(`<b>🚗 ${driver.name || 'Pomoc Drogowa'}</b><br>Status: Aktywny na żywo`);
+        markers[driver.id] = marker;
       }
     }
 
-    // Nasłuchiwanie zmian na żywo (Realtime)
-    supabaseClient
-      .channel('public:drivers')
-      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'drivers' }, (payload) => {
-        updateDriverMarker(payload.new);
+    // Pobranie aktualnie aktywnych kierowców
+    async function loadActiveDrivers() {
+      const { data, error } = await client
+        .from('drivers')
+        .select('*')
+        .eq('is_available', true);
+
+      if (data && data.length > 0) {
+        document.getElementById("statusBox").innerText = `Dostępne pojazdy: ${data.length}`;
+        data.forEach(updateMarker);
+      } else {
+        document.getElementById("statusBox").innerText = "Oczekiwanie na aktywne lawety...";
+      }
+    }
+
+    // Realtime - nasłuch pozycji
+    client
+      .channel('realtime:drivers')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'drivers' }, (payload) => {
+        if (payload.new) {
+          updateMarker(payload.new);
+          document.getElementById("statusBox").innerText = `Odebrano sygnał od: ${payload.new.name || 'Laweta'}`;
+        }
       })
       .subscribe();
 
-    fetchDrivers();
+    loadActiveDrivers();
   </script>
 </body>
 </html>
