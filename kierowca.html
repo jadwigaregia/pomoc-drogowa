@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Panel Kierowcy - Pomoc Drogowa</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
   <style>
     body { font-family: system-ui, sans-serif; margin: 0; padding: 20px; background: #0f172a; color: #fff; text-align: center; }
     .card { background: #1e293b; padding: 24px; border-radius: 12px; max-width: 420px; margin: 20px auto; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
@@ -22,64 +22,60 @@
     <p style="color: #94a3b8; font-size: 14px;">Włącz nadawanie, aby pojawić się na mapie u klientów.</p>
     
     <div style="text-align: left;">
-      <label style="font-size: 13px; color: #94a3b8;">Nazwa pojazdu / Kierowca:</label>
+      <label style="font-size: 13px; color: #94a3b8;">Nazwa pojazdu:</label>
       <input type="text" id="driverName" value="Jadwiga Matuszak (Laweta #1)" />
     </div>
 
     <button id="toggleBtn" onclick="toggleGps()">🟢 Włącz nadawanie GPS</button>
 
-    <div class="status" id="statusText">Status: Wyłączony</div>
+    <div class="status" id="statusText">Status: Gotowy do połączenia</div>
     <div class="coords" id="coordsText">Lat: -- , Lng: --</div>
   </div>
 
   <script>
-    const SUPABASE_URL = "https://pofvghphcfrdtalyqui.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_5ftuKj2b17oQkeyqDpsePg_k13hgzhn";
-
-    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-    const channel = supabaseClient.channel('tracking-room', {
-      config: { presence: { key: 'laweta-1' } }
-    });
-
-    let isSubscribed = false;
+    const client = mqtt.connect('wss://broker.emqx.io:8084/mqtt');
     let watchId = null;
+    let isConnected = false;
 
-    channel.subscribe((status) => {
-      if (status === 'SUBSCRIBED') {
-        isSubscribed = true;
-      }
+    client.on('connect', () => {
+      isConnected = true;
+      document.getElementById("statusText").innerText = "Połączono z siecią satelitarną ✔️";
     });
 
-    async function toggleGps() {
+    function toggleGps() {
       const btn = document.getElementById("toggleBtn");
       const status = document.getElementById("statusText");
       const driverName = document.getElementById("driverName").value;
 
       if (!watchId) {
         if (!navigator.geolocation) {
-          alert("Przeglądarka nie obsługuje lokalizacji.");
+          alert("Brak obsługi GPS w urządzeniu.");
           return;
         }
 
-        status.innerText = "Pobieranie pozycji GPS...";
+        status.innerText = "Uruchamianie GPS...";
 
         watchId = navigator.geolocation.watchPosition(
-          async (pos) => {
-            const { latitude, longitude } = pos.coords;
-            document.getElementById("coordsText").innerText = `Lat: ${latitude.toFixed(5)}, Lng: ${longitude.toFixed(5)}`;
-            status.innerText = "Status: Transmisja aktywna 📡";
+          (pos) => {
+            const lat = pos.coords.latitude;
+            const lng = pos.coords.longitude;
+            document.getElementById("coordsText").innerText = `Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}`;
+            status.innerText = "Status: Transmisja aktywna na żywo 📡";
 
-            // Wysyłanie stanu obecności i pozycji
-            if (isSubscribed) {
-              await channel.track({
-                name: driverName,
-                lat: latitude,
-                lng: longitude,
-                updatedAt: Date.now()
-              });
+            const payload = JSON.stringify({
+              id: "laweta-1",
+              name: driverName,
+              lat: lat,
+              lng: lng,
+              active: true
+            });
+
+            if (isConnected) {
+              client.publish('pomoc-drogowa/gps', payload, { retain: true });
             }
           },
           (err) => {
+            alert("Błąd GPS: " + err.message);
             status.innerText = "Błąd GPS: " + err.message;
           },
           { enableHighAccuracy: true, maximumAge: 0, timeout: 10000 }
@@ -90,7 +86,10 @@
       } else {
         navigator.geolocation.clearWatch(watchId);
         watchId = null;
-        await channel.untrack();
+
+        if (isConnected) {
+          client.publish('pomoc-drogowa/gps', JSON.stringify({ id: "laweta-1", active: false }), { retain: true });
+        }
 
         btn.innerText = "🟢 Włącz nadawanie GPS";
         btn.classList.remove("stop");
