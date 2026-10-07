@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Pomoc Drogowa 24/7 Poland | Autolaweta i Holowanie Poznań A2 S11 S5</title>
-    <meta name="description" content="Ekspresowa pomoc drogowa i autolaweta w Poznaniu oraz na trasach A2, S11, S5. Działamy 24h/7. Przewidywany dojazd w Poznaniu: 10–15 minut. Czas potwierdzamy podczas rozmowy. Holowanie, rozruch, wulkanizacja mobilna.">
+    <meta name="description" content="Pomoc drogowa i autolaweta w Poznaniu oraz na trasach A2, S11, S5. Działamy 24h/7. Przewidywany dojazd w Poznaniu: 10–15 minut. Czas i cenę potwierdzamy podczas rozmowy.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,14 +16,13 @@
         :root {
             --brand-yellow: #FFB800;
             --brand-yellow-dark: #E0A200;
-            --brand-yellow-glow: rgba(255, 184, 0, 0.25);
+            --brand-yellow-glow: rgba(255,184,0,.25);
             --bg-dark: #0D1117;
             --bg-card: #161B22;
             --bg-card-hover: #1F242C;
             --text-main: #FFFFFF;
             --text-muted: #8B949E;
             --text-light: #E6EDF3;
-            --accent-red: #EF4444;
             --accent-green: #10B981;
             --border-color: #30363D;
         }
@@ -32,24 +32,20 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            scroll-behavior: smooth;
         }
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            line-height: 1.6;
-            overflow-x: hidden;
-            padding-bottom: 70px;
-        }
+        html { scroll-behavior: smooth; }
+        body { background: var(--bg-dark); color: var(--text-light); line-height: 1.6; }
+        [id] { scroll-margin-top: 110px; }
+        a:focus-visible { outline: 3px solid #58a6ff; outline-offset: 4px; }
 
-        /* Górny pasek */
+        /* Pasek informacyjny */
         .top-status-bar {
             background: #1c1500;
-            border-bottom: 1px solid rgba(255, 184, 0, 0.3);
+            border-bottom: 1px solid rgba(255,184,0,.3);
             color: #ffda73;
             padding: 8px 15px;
-            font-size: 0.85rem;
+            font-size: .85rem;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -61,94 +57,61 @@
         .pulse-dot {
             width: 9px;
             height: 9px;
-            background-color: var(--accent-green);
+            flex-shrink: 0;
+            background: var(--accent-green);
             border-radius: 50%;
-            display: inline-block;
-            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
             animation: pulse-green 1.8s infinite;
         }
 
         @keyframes pulse-green {
-            0% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-            }
-            70% {
-                transform: scale(1);
-                box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
-            }
-            100% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
-            }
+            0% { box-shadow: 0 0 0 0 rgba(16,185,129,.7); }
+            70% { box-shadow: 0 0 0 8px rgba(16,185,129,0); }
+            100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
         }
 
         /* Nagłówek */
         header {
-            background: rgba(13, 17, 23, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 1000;
+            background: rgba(13,17,23,.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
             padding: 14px 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 15px;
         }
 
-        .logo-box {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-        }
-
+        .logo-box { display: flex; align-items: center; gap: 12px; text-decoration: none; }
         .logo-icon {
             background: var(--brand-yellow);
             color: var(--bg-dark);
             width: 44px;
             height: 44px;
+            flex-shrink: 0;
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.4rem;
-            font-weight: 800;
             box-shadow: 0 0 15px var(--brand-yellow-glow);
         }
 
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-        }
-
+        .logo-text { display: flex; flex-direction: column; }
         .logo-title {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 1.25rem;
             font-weight: 700;
             color: var(--text-main);
-            letter-spacing: -0.5px;
+            letter-spacing: -.5px;
             text-transform: uppercase;
         }
 
-        .logo-title span {
-            color: var(--brand-yellow);
-        }
-
-        .logo-sub {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+        .logo-title span { color: var(--brand-yellow); }
+        .logo-sub { font-size: .75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .header-actions { display: flex; align-items: center; }
 
         .btn-call-header {
             background: var(--brand-yellow);
@@ -159,24 +122,21 @@
             text-decoration: none;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
             font-size: 1rem;
-            transition: all 0.25s ease;
+            min-height: 44px;
             box-shadow: 0 4px 14px var(--brand-yellow-glow);
         }
 
-        .btn-call-header:hover {
-            background: var(--brand-yellow-dark);
-            transform: translateY(-2px);
-        }
+        .btn-call-header:hover { background: var(--brand-yellow-dark); }
 
-        /* Sekcja główna */
+        /* Pierwszy ekran */
         .hero {
-            position: relative;
-            padding: 85px 6% 90px;
+            padding: 75px 6% 70px;
             background:
-                radial-gradient(circle at 80% 20%, rgba(255, 184, 0, 0.08) 0%, transparent 50%),
-                linear-gradient(180deg, rgba(13, 17, 23, 0.7) 0%, var(--bg-dark) 100%),
+                radial-gradient(circle at 80% 20%, rgba(255,184,0,.08), transparent 50%),
+                linear-gradient(180deg, rgba(13,17,23,.7), var(--bg-dark)),
                 url('https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=1400') center/cover no-repeat;
             border-bottom: 1px solid var(--border-color);
         }
@@ -185,191 +145,132 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255, 184, 0, 0.12);
-            border: 1px solid rgba(255, 184, 0, 0.35);
+            background: rgba(255,184,0,.12);
+            border: 1px solid rgba(255,184,0,.35);
             color: var(--brand-yellow);
             padding: 6px 14px;
             border-radius: 30px;
-            font-size: 0.85rem;
+            font-size: .85rem;
             font-weight: 700;
             margin-bottom: 24px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: .5px;
         }
 
-        .hero-content {
-            max-width: 820px;
-        }
-
+        .hero-content { max-width: 820px; }
         .hero h1 {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 3.2rem;
             line-height: 1.15;
-            font-weight: 700;
             color: var(--text-main);
             margin-bottom: 20px;
         }
 
-        .hero h1 span {
-            color: var(--brand-yellow);
-            position: relative;
-        }
-
-        .hero p {
-            font-size: 1.18rem;
-            color: var(--text-muted);
-            margin-bottom: 35px;
-            max-width: 680px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 35px;
-        }
+        .hero h1 span { color: var(--brand-yellow); }
+        .hero p { font-size: 1.18rem; color: var(--text-muted); margin-bottom: 30px; max-width: 680px; }
+        .hero-buttons { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; }
 
         .btn-main-call {
             background: var(--brand-yellow);
             color: #000;
-            padding: 18px 36px;
+            padding: 18px 30px;
             border-radius: 12px;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 800;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 12px;
-            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-            box-shadow: 0 8px 25px rgba(255, 184, 0, 0.35);
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(255,184,0,.3);
         }
 
-        .btn-main-call:hover {
-            background: var(--brand-yellow-dark);
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 12px 30px rgba(255, 184, 0, 0.5);
-        }
+        .btn-main-call:hover { background: var(--brand-yellow-dark); }
 
         .btn-secondary {
             background: var(--bg-card);
             color: var(--text-main);
             border: 1px solid var(--border-color);
-            padding: 18px 28px;
+            padding: 16px 24px;
             border-radius: 12px;
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 600;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
-            transition: all 0.2s;
+            text-align: center;
         }
 
-        .btn-secondary:hover {
-            background: var(--bg-card-hover);
-            border-color: #58a6ff;
+        .btn-secondary:hover { background: var(--bg-card-hover); border-color: var(--brand-yellow); }
+        .hero .arrival-note { font-size: .95rem; margin-bottom: 24px; }
+
+        /* Cena i płatności przy głównym kontakcie */
+        .price-box {
+            margin-bottom: 30px;
+            padding: 24px;
+            background: #1c200e;
+            border: 1px solid #726021;
+            border-radius: 14px;
         }
+
+        .price-box h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+            color: var(--brand-yellow);
+            margin-bottom: 8px;
+        }
+
+        .price-box p { font-size: 1rem; margin-bottom: 16px; color: var(--text-light); }
+        .payment-tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; }
+        .payment-tags li { padding: 6px 12px; border: 1px solid #726021; border-radius: 8px; font-size: .85rem; }
 
         .hero-metrics {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(100%,170px),1fr));
             gap: 16px;
             padding-top: 30px;
             border-top: 1px solid var(--border-color);
         }
 
-        .metric-card {
-            background: rgba(22, 27, 34, 0.8);
-            border: 1px solid var(--border-color);
-            padding: 16px 20px;
-            border-radius: 10px;
-        }
+        .metric-card { background: rgba(22,27,34,.8); border: 1px solid var(--border-color); padding: 16px 20px; border-radius: 10px; }
+        .metric-card .num { font-family: 'Space Grotesk', sans-serif; font-size: 1.7rem; font-weight: 700; color: var(--brand-yellow); }
+        .metric-card .label { font-size: .85rem; color: var(--text-muted); }
 
-        .metric-card .num {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.7rem;
-            font-weight: 700;
-            color: var(--brand-yellow);
-        }
-
-        .metric-card .label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        /* Sekcje */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 70px 6%;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
+        /* Wspólne sekcje */
+        .container { max-width: 1200px; margin: 0 auto; padding: 65px 6%; }
+        .section-header { text-align: center; margin-bottom: 36px; }
         .section-header .sub-badge {
             color: var(--brand-yellow);
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: .85rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             margin-bottom: 8px;
             display: block;
         }
 
-        .section-header h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.3rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
+        .section-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2.3rem; color: var(--text-main); }
+        .section-description { margin-top: 14px; color: var(--text-muted); }
 
         /* Usługi */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
-        }
-
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,320px),1fr)); gap: 24px; }
         .service-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 14px;
             padding: 30px 25px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            transition: border-color .2s;
+            min-width: 0;
         }
 
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--brand-yellow), transparent);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .service-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(255, 184, 0, 0.4);
-            background: var(--bg-card-hover);
-        }
-
-        .service-card:hover::before {
-            opacity: 1;
-        }
-
+        .service-card:hover { border-color: var(--brand-yellow); }
         .service-icon-wrap {
             width: 60px;
             height: 60px;
-            background: rgba(255, 184, 0, 0.1);
+            background: rgba(255,184,0,.1);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -379,500 +280,215 @@
             margin-bottom: 20px;
         }
 
-        .service-card h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: var(--text-main);
-        }
+        .service-card h3 { font-size: 1.3rem; margin-bottom: 12px; color: var(--text-main); }
+        .service-card p { font-size: .95rem; color: var(--text-muted); margin-bottom: 16px; }
+        .service-features { list-style: none; border-top: 1px solid rgba(255,255,255,.06); padding-top: 14px; }
+        .service-features li { font-size: .85rem; margin-bottom: 8px; display: flex; align-items: baseline; gap: 8px; }
+        .service-features i { color: var(--brand-yellow); font-size: .75rem; }
 
-        .service-card p {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-            line-height: 1.55;
-        }
-
-        .service-features {
-            list-style: none;
-            border-top: 1px solid rgba(255,255,255,0.06);
-            padding-top: 14px;
-        }
-
-        .service-features li {
-            font-size: 0.85rem;
-            color: var(--text-light);
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .service-features li i {
-            color: var(--brand-yellow);
-            font-size: 0.75rem;
-        }
-
-        /* Baner kontaktowy */
         .callout-banner {
-            background: linear-gradient(135deg, #1c1500 0%, #2a2000 100%);
-            border: 1px solid rgba(255, 184, 0, 0.4);
+            background: linear-gradient(135deg,#1c1500,#2a2000);
+            border: 1px solid rgba(255,184,0,.4);
             border-radius: 16px;
-            padding: 40px;
+            padding: 35px;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
             gap: 25px;
-            margin: 40px 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-top: 35px;
         }
 
-        .callout-text h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.8rem;
-            color: var(--brand-yellow);
-            margin-bottom: 8px;
-        }
+        .callout-text h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; color: var(--brand-yellow); margin-bottom: 8px; }
+        .callout-text p { max-width: 600px; }
 
-        .callout-text p {
-            color: var(--text-light);
-            font-size: 1.05rem;
-            max-width: 600px;
-        }
-
-        /* Party Driver */
-        .party-driver-section {
-            background: linear-gradient(180deg, #090d12 0%, #161b22 100%);
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-            padding: 80px 6%;
-            position: relative;
-        }
-
-        .party-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .party-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 184, 0, 0.15);
-            color: var(--brand-yellow);
-            border: 1px solid var(--brand-yellow);
-            padding: 7px 18px;
-            border-radius: 30px;
-            font-size: 0.88rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            margin-bottom: 18px;
-        }
-
-        .party-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.6rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 14px;
-        }
-
-        .party-subtitle {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            max-width: 760px;
-            margin: 0 auto 45px auto;
-            line-height: 1.6;
-        }
-
-        .party-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 26px;
-            margin-bottom: 45px;
-            text-align: left;
-        }
-
-        .party-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 32px 26px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.25s, border-color 0.25s;
-        }
-
-        .party-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--brand-yellow);
-        }
-
-        .party-card.featured {
-            border: 2px solid var(--brand-yellow);
-            background: #1a1e27;
-            box-shadow: 0 10px 30px rgba(255, 184, 0, 0.15);
-        }
-
-        .card-tag {
-            position: absolute;
-            top: -12px;
-            right: 24px;
-            background: var(--brand-yellow);
-            color: #000;
-            font-size: 0.75rem;
-            font-weight: 800;
-            padding: 5px 12px;
-            border-radius: 20px;
-            letter-spacing: 0.5px;
-        }
-
-        .party-card-icon {
-            font-size: 2.5rem;
-            margin-bottom: 16px;
-        }
-
-        .party-card h3 {
-            font-size: 1.35rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 12px;
-        }
-
-        .party-card p {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .party-features {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 26px 0;
-            font-size: 0.9rem;
-            color: var(--text-light);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .btn-party-call {
+        /* Cztery kafelki lawet */
+        .fleet-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 18px; }
+        .fleet-card { overflow: hidden; border: 1px solid var(--border-color); border-radius: 14px; background: var(--bg-card); }
+        .fleet-card svg,
+        .fleet-card img {
             display: block;
-            text-align: center;
-            background: #21262d;
-            color: var(--brand-yellow);
-            border: 1px solid var(--border-color);
-            font-weight: 700;
-            font-size: 1rem;
-            padding: 14px;
-            border-radius: 10px;
-            text-decoration: none;
-            transition: all 0.2s;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            background: #202b3b;
         }
 
-        .btn-party-call.highlight {
-            background: var(--brand-yellow);
-            color: #000;
-            border: none;
-            box-shadow: 0 4px 15px var(--brand-yellow-glow);
-        }
+        .fleet-card figcaption { padding: 16px; font-size: .95rem; font-weight: 700; }
+        .fleet-note { margin-top: 14px; color: var(--text-muted); font-size: .88rem; }
 
-        .btn-party-call:hover {
-            transform: translateY(-2px);
-            opacity: 0.95;
-        }
+        /* Informacje o obsłudze */
+        .why-us-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,260px),1fr)); gap: 20px; }
+        .why-box { background: var(--bg-card); border: 1px solid var(--border-color); padding: 25px; border-radius: 12px; }
+        .why-box i { color: var(--brand-yellow); font-size: 1.5rem; margin-bottom: 15px; }
+        .why-box h3 { font-size: 1.15rem; margin-bottom: 10px; color: var(--text-main); }
+        .why-box p { font-size: .9rem; color: var(--text-muted); }
 
-        .party-banner {
-            background: linear-gradient(135deg, #1c1500 0%, #2a2000 100%);
-            border: 1px solid rgba(255, 184, 0, 0.35);
-            border-radius: 16px;
-            padding: 28px 32px;
+        /* Gdzie pomagamy */
+        .coverage-container { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 30px; }
+        .highway-cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,200px),1fr)); gap: 15px; margin-bottom: 30px; }
+        .hw-card { background: #090d12; border: 1px solid var(--border-color); border-radius: 10px; padding: 16px; display: flex; align-items: center; gap: 14px; min-width: 0; }
+        .hw-badge { background: #1e3a8a; color: #fff; font-weight: 800; padding: 6px 10px; border-radius: 6px; flex-shrink: 0; }
+        .hw-badge.s-road { background: #b91c1c; }
+        .hw-info .title { font-weight: 700; font-size: .95rem; color: var(--text-main); }
+        .hw-info .desc { font-size: .8rem; color: var(--text-muted); }
+        .district-title { margin-bottom: 12px; font-size: 1.05rem; }
+        .district-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+        .d-tag { background: #1f242c; border: 1px solid rgba(255,255,255,.08); padding: 8px 16px; border-radius: 30px; font-size: .88rem; }
+
+        /* Krótka sekcja Party Driver na dole */
+        .party-small {
             display: flex;
-            flex-direction: column;
-            gap: 18px;
             align-items: center;
             justify-content: space-between;
-            text-align: center;
-        }
-
-        @media (min-width: 768px) {
-            .party-banner {
-                flex-direction: row;
-                text-align: left;
-            }
-        }
-
-        .party-banner .banner-text h4 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.25rem;
-            color: var(--brand-yellow);
-            margin-bottom: 4px;
-        }
-
-        .party-banner .banner-text p {
-            font-size: 0.95rem;
-            color: var(--text-light);
-            margin: 0;
-        }
-
-        .btn-emergency {
-            background: var(--accent-red);
-            color: white;
-            font-weight: 800;
-            font-size: 1rem;
-            padding: 14px 26px;
-            border-radius: 10px;
-            text-decoration: none;
-            white-space: nowrap;
-            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
-            transition: transform 0.2s;
-        }
-
-        .btn-emergency:hover {
-            transform: scale(1.03);
-        }
-
-        /* Obszar działania */
-        .coverage-container {
+            gap: 24px;
+            padding: 28px;
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 35px;
+            border-radius: 14px;
         }
 
-        .highway-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .hw-card {
-            background: #090d12;
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .hw-badge {
-            background: #1e3a8a;
-            color: #fff;
-            font-weight: 800;
-            padding: 6px 10px;
-            border-radius: 6px;
-            font-size: 1rem;
-            letter-spacing: 0.5px;
-        }
-
-        .hw-badge.s-road {
-            background: #b91c1c;
-        }
-
-        .hw-info .title {
-            font-weight: 700;
-            font-size: 0.95rem;
-            color: var(--text-main);
-        }
-
-        .hw-info .desc {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .district-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .d-tag {
-            background: #1f242c;
-            color: var(--text-light);
-            border: 1px solid rgba(255,255,255,0.08);
-            padding: 8px 16px;
-            border-radius: 30px;
-            font-size: 0.88rem;
-            font-weight: 500;
-        }
-
-        /* Dlaczego my */
-        .why-us-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-        }
-
-        .why-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 25px;
-            border-radius: 12px;
-        }
-
-        .why-box i {
-            color: var(--brand-yellow);
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-
-        .why-box h4 {
-            font-size: 1.15rem;
-            margin-bottom: 10px;
-            color: var(--text-main);
-        }
-
-        .why-box p {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
+        .party-small h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; margin-bottom: 8px; }
+        .party-small p { max-width: 660px; color: var(--text-muted); }
+        .party-small a { flex-shrink: 0; }
 
         /* Stopka */
-        footer {
-            background: #080B0F;
-            border-top: 1px solid var(--border-color);
-            padding: 50px 6% 30px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
+        footer { background: #080B0F; border-top: 1px solid var(--border-color); padding: 50px 6% 30px; color: var(--text-muted); font-size: .9rem; }
+        .footer-content { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; margin-bottom: 35px; }
+        .footer-brand { max-width: 400px; }
+        .footer-brand h3 { font-family: 'Space Grotesk', sans-serif; color: var(--brand-yellow); font-size: 1.3rem; margin-bottom: 12px; }
+        .footer-phone { display: inline-block; margin-top: 15px; color: var(--brand-yellow); font-weight: 700; text-decoration: none; }
+        .footer-links h3 { color: var(--text-main); font-size: 1rem; margin-bottom: 15px; }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; }
+        .footer-links a:hover { color: var(--brand-yellow); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,.05); padding-top: 25px; text-align: center; font-size: .82rem; }
 
-        .footer-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .footer-brand {
-            max-width: 400px;
-        }
-
-        .footer-brand h4 {
-            font-family: 'Space Grotesk', sans-serif;
-            color: var(--brand-yellow);
-            font-size: 1.3rem;
-            margin-bottom: 12px;
-        }
-
-        .footer-links h5 {
-            color: var(--text-main);
-            font-size: 1rem;
-            margin-bottom: 15px;
-        }
-
-        .footer-links ul {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 8px;
-        }
-
-        .footer-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .footer-links a:hover {
-            color: var(--brand-yellow);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: 25px;
-            text-align: center;
-            font-size: 0.82rem;
-        }
-
-        /* Dolny przycisk na urządzeniach mobilnych */
+        /* Telefon na dole ekranu mobilnego */
         .mobile-bottom-bar {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
             background: var(--brand-yellow);
-            padding: 12px 20px;
+            padding: 12px 16px;
+            padding-bottom: calc(12px + env(safe-area-inset-bottom,0px));
             z-index: 9999;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+            box-shadow: 0 -4px 20px rgba(0,0,0,.5);
             display: none;
         }
 
-        .mobile-bottom-bar a {
-            color: #000;
-            font-size: 1.15rem;
-            font-weight: 800;
-            text-decoration: none;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
+        .mobile-bottom-bar a { color: #000; font-size: 1.1rem; font-weight: 800; text-decoration: none; display: flex; justify-content: center; align-items: center; gap: 10px; text-align: center; }
+
+        @media (max-width: 1000px) {
+            .fleet-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
         }
 
-        /* Układ mobilny */
         @media (max-width: 900px) {
-            .hero h1 {
-                font-size: 2.4rem;
-            }
-
-            .mobile-bottom-bar {
-                display: block;
-            }
-
-            header {
-                padding: 12px 5%;
-            }
-
-            .btn-call-header span {
-                display: none;
-            }
+            body { padding-bottom: calc(80px + env(safe-area-inset-bottom,0px)); }
+            .hero h1 { font-size: 2.4rem; }
+            .mobile-bottom-bar { display: block; }
+            header { padding: 12px 5%; }
+            .btn-call-header span { display: none; }
         }
 
         @media (max-width: 600px) {
-            .hero {
-                padding: 50px 5% 60px;
-            }
+            .hero { padding: 45px 5% 50px; }
+            .hero h1 { font-size: 1.95rem; }
+            .hero p { font-size: 1.05rem; }
+            .hero .arrival-note { font-size: .9rem; }
+            .hero-buttons { flex-direction: column; }
+            .btn-main-call, .btn-secondary { width: 100%; justify-content: center; }
+            .btn-main-call { font-size: 1rem; padding: 16px; }
+            .container { padding: 45px 5%; }
+            .section-header h2 { font-size: 1.8rem; }
+            .price-box { padding: 20px; }
+            .price-box p { font-size: .95rem; }
+            .callout-banner { padding: 25px 20px; text-align: center; }
+            .callout-text h3 { font-size: 1.5rem; }
+            .fleet-grid { grid-template-columns: 1fr; }
+            .coverage-container { padding: 20px; }
+            .party-small { flex-direction: column; align-items: stretch; padding: 22px; }
+            .logo-box { gap: 8px; }
+            .logo-sub { font-size: .65rem; letter-spacing: .4px; }
+            .btn-call-header { padding: 10px 14px; }
+            .mobile-bottom-bar a { font-size: 1rem; }
+        }
 
-            .hero h1 {
-                font-size: 1.95rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-            }
-
-            .btn-main-call,
-            .btn-secondary {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .callout-banner {
-                padding: 25px 20px;
-                text-align: center;
-            }
-
-            .callout-banner .btn-main-call {
-                width: 100%;
-            }
-
-            .party-title {
-                font-size: 2rem;
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+                scroll-behavior: auto !important;
             }
         }
     </style>
 </head>
-<body>
 
-    <!-- Informacja o dostępności i przewidywanym czasie dojazdu -->
+<body id="poczatek">
+
+    <!-- Wspólna ilustracja SVG wykorzystywana w czterech kafelkach -->
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width="0"
+         height="0"
+         aria-hidden="true"
+         style="position:absolute;overflow:hidden;">
+        <defs>
+            <symbol id="tow-truck" viewBox="0 0 640 480">
+                <rect width="640" height="480" fill="#202b3b"/>
+                <circle cx="510" cy="100" r="58" fill="#33445c"/>
+
+                <path d="M0 280V200H65V165H125V225H185V140H260V210H330V170H410V225H480V150H555V205H640V280Z"
+                      fill="#29394c"/>
+
+                <path d="M0 370H640V480H0Z" fill="#151e2b"/>
+                <path d="M30 425H115M170 425H255M310 425H395M450 425H535M590 425H640"
+                      stroke="#728096" stroke-width="5"/>
+
+                <ellipse cx="320" cy="372" rx="265" ry="19" fill="#0c121d"/>
+
+                <!-- Platforma lawety -->
+                <path d="M45 306H385L438 319V342H45Z" fill="#a3b1c1"/>
+                <path d="M54 308H382" stroke="#e6edf3" stroke-width="7"/>
+                <path d="M60 323H386" stroke="#576778" stroke-width="9"/>
+
+                <!-- Kabina, kolor pobierany z kafelka -->
+                <path d="M388 242Q388 224 408 224H492L550 277L575 289V342H388Z"
+                      fill="currentColor" stroke="#0d1725" stroke-width="5"/>
+
+                <path d="M414 241H482L520 278H414Z" fill="#153d58"/>
+                <path d="M425 246H475L503 273H425Z" fill="#7cbed5"/>
+                <path d="M490 239L535 279H551L506 239Z" fill="#183b51"/>
+                <path d="M407 287H465V333H407Z" fill="none" stroke="#263442" stroke-width="3"/>
+                <path d="M443 299H457" stroke="#182738" stroke-width="5"/>
+
+                <rect x="418" y="208" width="43" height="13" rx="4" fill="#ffb800"/>
+                <path d="M548 300H573V313H548Z" fill="#fff3c9"/>
+                <rect x="540" y="329" width="45" height="16" rx="4" fill="#47586b"/>
+                <path d="M47 344H540" stroke="#111c2b" stroke-width="14"/>
+
+                <!-- Koła -->
+                <g fill="#0b111a" stroke="#344254" stroke-width="5">
+                    <circle cx="148" cy="345" r="34"/>
+                    <circle cx="335" cy="345" r="34"/>
+                    <circle cx="506" cy="345" r="34"/>
+                </g>
+
+                <g fill="#bcc9d7" stroke="#6e8297" stroke-width="6">
+                    <circle cx="148" cy="345" r="16"/>
+                    <circle cx="335" cy="345" r="16"/>
+                    <circle cx="506" cy="345" r="16"/>
+                </g>
+
+                <path d="M76 292H358" stroke="#ffb800" stroke-width="5"/>
+                <path d="M85 292V306M125 292V306M165 292V306M205 292V306M245 292V306M285 292V306M325 292V306"
+                      stroke="#182638" stroke-width="5"/>
+            </symbol>
+        </defs>
+    </svg>
+
     <div class="top-status-bar">
         <span class="pulse-dot"></span>
         <span>
@@ -883,9 +499,9 @@
     </div>
 
     <header>
-        <a href="#" class="logo-box">
+        <a href="#poczatek" class="logo-box" aria-label="24/7 Poland — początek strony">
             <div class="logo-icon">
-                <i class="fa-solid fa-truck-pickup"></i>
+                <i class="fa-solid fa-truck-pickup" aria-hidden="true"></i>
             </div>
             <div class="logo-text">
                 <div class="logo-title">24/7 <span>Poland</span></div>
@@ -894,499 +510,477 @@
         </a>
 
         <div class="header-actions">
-            <a href="tel:+48508511133" class="btn-call-header">
-                <i class="fa-solid fa-phone"></i>
+            <a href="tel:+48508511133" class="btn-call-header" aria-label="Zadzwoń: 508 511 133">
+                <i class="fa-solid fa-phone" aria-hidden="true"></i>
                 <span>508 511 133</span>
             </a>
         </div>
     </header>
 
-    <!-- Sekcja główna -->
-    <section class="hero">
-        <div class="hero-badge">
-            <i class="fa-solid fa-bolt"></i>
-            Błyskawiczny dojazd na terenie Wielkopolski
-        </div>
+    <main>
+        <!-- Pierwszy ekran -->
+        <section class="hero">
+            <div class="hero-badge">
+                <i class="fa-solid fa-bolt" aria-hidden="true"></i>
+                Błyskawiczny dojazd na terenie Wielkopolski
+            </div>
 
-        <div class="hero-content">
-            <h1>Pomoc Drogowa Poznań Autolaweta <span>24h/7</span></h1>
+            <div class="hero-content">
+                <h1>Pomoc Drogowa Poznań Autolaweta <span>24h/7</span></h1>
 
-            <p>
-                Awaria, kolizja, brak paliwa lub rozładowany akumulator?
-                Nasza flota nowoczesnych autolawet dyżuruje całą dobę w Poznaniu,
-                na autostradzie A2 oraz drogach ekspresowych S11 i S5.
-            </p>
+                <p>
+                    Awaria, kolizja, brak paliwa lub rozładowany akumulator?
+                    Nasza flota nowoczesnych autolawet dyżuruje całą dobę
+                    w Poznaniu, na autostradzie A2 oraz drogach ekspresowych S11 i S5.
+                </p>
 
-            <div class="hero-buttons">
+                <div class="hero-buttons">
+                    <a href="tel:+48508511133" class="btn-main-call">
+                        <i class="fa-solid fa-phone-volume" aria-hidden="true"></i>
+                        WEZWIJ POMOC: 508 511 133
+                    </a>
+                    <a href="#uslugi" class="btn-secondary">
+                        <i class="fa-solid fa-list-check" aria-hidden="true"></i>
+                        Nasze usługi
+                    </a>
+                </div>
+
+                <p class="arrival-note">
+                    Czas dojazdu zależy od lokalizacji, ruchu i dostępności kierowców.
+                    Potwierdzimy go podczas rozmowy.
+                </p>
+
+                <!-- Cena i płatności przeniesione na początek strony -->
+                <div class="price-box">
+                    <h2>Cena ustalona przed wyjazdem</h2>
+                    <p>
+                        Podaj lokalizację, rodzaj pojazdu i opisz problem.
+                        Cenę ustalimy przed wysłaniem lawety.
+                    </p>
+                    <ul class="payment-tags" aria-label="Płatności i faktury">
+                        <li>Karta</li>
+                        <li>BLIK</li>
+                        <li>Gotówka</li>
+                        <li>Faktura VAT</li>
+                    </ul>
+                </div>
+
+                <div class="hero-metrics">
+                    <div class="metric-card">
+                        <div class="num">10–15 min</div>
+                        <div class="label">Przewidywany dojazd w Poznaniu</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="num">24/7</div>
+                        <div class="label">Dyspozytornia non-stop</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="num">100% OCP</div>
+                        <div class="label">Ubezpieczony transport</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="num">0 zł</div>
+                        <div class="label">Holowanie z OC sprawcy</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Usługi -->
+        <section class="container" id="uslugi">
+            <div class="section-header">
+                <span class="sub-badge">Profesjonalne wsparcie</span>
+                <h2>W czym możemy Ci pomóc?</h2>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon-wrap">
+                        <i class="fa-solid fa-truck" aria-hidden="true"></i>
+                    </div>
+                    <h3>Autolaweta i holowanie</h3>
+                    <p>
+                        Bezpieczny transport aut osobowych, SUV-ów, busów dostawczych,
+                        maszyn budowlanych oraz motocykli. Obsługujemy auta powypadkowe
+                        i z zablokowanymi kołami.
+                    </p>
+                    <ul class="service-features">
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Wciągarki hydrauliczne i rolki pod urwane koła
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Możliwość zabrania do 5 pasażerów
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon-wrap">
+                        <i class="fa-solid fa-road-barrier" aria-hidden="true"></i>
+                    </div>
+                    <h3>Obsługa A2, S11 i S5</h3>
+                    <p>
+                        Ekspresowy dojazd na węzły autostradowe wokół Poznania
+                        (Komorniki, Krzesiny, Tarnowo Podgórne, Luboń).
+                        Zabezpieczenie miejsca zdarzenia według standardów GDDKiA.
+                    </p>
+                    <ul class="service-features">
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Pełne oznakowanie ostrzegawcze
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Zjazd do najbliższego bezpiecznego MOP lub warsztatu
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon-wrap">
+                        <i class="fa-solid fa-car-battery" aria-hidden="true"></i>
+                    </div>
+                    <h3>Awaryjny rozruch — 12/24V</h3>
+                    <p>
+                        Błyskawiczne odpalanie pojazdów przy użyciu profesjonalnych
+                        urządzeń rozruchowych wysokiej mocy. Diagnostyka ładowania
+                        i stanu akumulatora na miejscu.
+                    </p>
+                    <ul class="service-features">
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Obsługa samochodów osobowych i ciężarowych
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Dojazd pod dom, parkingi podziemne, trasa
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon-wrap">
+                        <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
+                    </div>
+                    <h3>Wymiana koła i mobilny serwis</h3>
+                    <p>
+                        Odkręcanie zapieczonych śrub, profesjonalna zmiana koła
+                        na zapasowe lub szybkie kołkowanie opony na drodze
+                        bez konieczności holowania.
+                    </p>
+                    <ul class="service-features">
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Narzędzia pneumatyczne i podnośniki niskoprofilowe
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Sprawdzenie ciśnienia i dokręcenie kluczem dynamometrycznym
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon-wrap">
+                        <i class="fa-solid fa-gas-pump" aria-hidden="true"></i>
+                    </div>
+                    <h3>Dowóz i wypompowanie paliwa</h3>
+                    <p>
+                        Nagle zabrakło paliwa na trasie? Dowieziemy benzynę lub olej
+                        napędowy. Jeśli doszło do pomyłki na stacji — bezpiecznie
+                        wypompujemy złe paliwo z baku.
+                    </p>
+                    <ul class="service-features">
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Odpowietrzanie układu paliwowego
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Bezpieczna utylizacja zanieczyszczonego paliwa
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon-wrap">
+                        <i class="fa-solid fa-file-shield" aria-hidden="true"></i>
+                    </div>
+                    <h3>Holowanie z OC sprawcy i auto zastępcze</h3>
+                    <p>
+                        Miałeś kolizję nie ze swojej winy? Oferujemy bezgotówkowe
+                        holowanie, parking powypadkowy oraz bezpłatne auto zastępcze
+                        opłacane w całości z polisy OC sprawcy.
+                    </p>
+                    <ul class="service-features">
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            0 zł wkładu własnego
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Załatwiamy wszelkie formalności z ubezpieczycielem
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="callout-banner">
+                <div class="callout-text">
+                    <h3>Potrzebujesz natychmiastowej lawety?</h3>
+                    <p>
+                        Dyspozytor odbierze Twój telefon od razu i wyśle
+                        najbliższy wolny holownik w Twoją stronę.
+                    </p>
+                </div>
                 <a href="tel:+48508511133" class="btn-main-call">
-                    <i class="fa-solid fa-phone-volume"></i>
-                    WEZWIJ POMOC: 508 511 133
-                </a>
-                <a href="#uslugi" class="btn-secondary">
-                    <i class="fa-solid fa-list-check"></i>
-                    Nasze Usługi
+                    <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                    Zadzwoń teraz
                 </a>
             </div>
+        </section>
 
-            <p style="font-size: 0.95rem;">
-                Czas dojazdu zależy od lokalizacji, ruchu i dostępności kierowców.
-                Potwierdzimy go podczas rozmowy.
+        <!-- Cztery kafelki z ilustracjami lawet -->
+        <section class="container" id="lawety">
+            <div class="section-header">
+                <span class="sub-badge">Transport pojazdów</span>
+                <h2>Lawety i pomoc w trasie</h2>
+            </div>
+
+            <div class="fleet-grid">
+                <figure class="fleet-card">
+                    <!-- ZDJĘCIE 1:
+                    Zastąp cały poniższy element <svg>...</svg> tym kodem:
+                    <img src="laweta-1.jpg" alt="Czerwona laweta" width="640" height="480" loading="lazy">
+                    -->
+                    <svg viewBox="0 0 640 480"
+                         role="img"
+                         aria-labelledby="laweta-title-1"
+                         style="color:#d8413b;">
+                        <title id="laweta-title-1">Czerwona laweta — ilustracja poglądowa</title>
+                        <use href="#tow-truck"/>
+                    </svg>
+                    <figcaption>Czerwona laweta</figcaption>
+                </figure>
+
+                <figure class="fleet-card">
+                    <!-- ZDJĘCIE 2:
+                    Zastąp cały poniższy element <svg>...</svg> tym kodem:
+                    <img src="laweta-2.jpg" alt="Biała laweta" width="640" height="480" loading="lazy">
+                    -->
+                    <svg viewBox="0 0 640 480"
+                         role="img"
+                         aria-labelledby="laweta-title-2"
+                         style="color:#edf1f5;">
+                        <title id="laweta-title-2">Biała laweta — ilustracja poglądowa</title>
+                        <use href="#tow-truck"/>
+                    </svg>
+                    <figcaption>Biała laweta</figcaption>
+                </figure>
+
+                <figure class="fleet-card">
+                    <!-- ZDJĘCIE 3:
+                    Zastąp cały poniższy element <svg>...</svg> tym kodem:
+                    <img src="laweta-3.jpg" alt="Czerwona laweta" width="640" height="480" loading="lazy">
+                    -->
+                    <svg viewBox="0 0 640 480"
+                         role="img"
+                         aria-labelledby="laweta-title-3"
+                         style="color:#c52b35;">
+                        <title id="laweta-title-3">Czerwona laweta — ilustracja poglądowa</title>
+                        <use href="#tow-truck" transform="translate(640 0) scale(-1 1)"/>
+                    </svg>
+                    <figcaption>Czerwona laweta</figcaption>
+                </figure>
+
+                <figure class="fleet-card">
+                    <!-- ZDJĘCIE 4:
+                    Zastąp cały poniższy element <svg>...</svg> tym kodem:
+                    <img src="laweta-4.jpg" alt="Biała laweta" width="640" height="480" loading="lazy">
+                    -->
+                    <svg viewBox="0 0 640 480"
+                         role="img"
+                         aria-labelledby="laweta-title-4"
+                         style="color:#ffffff;">
+                        <title id="laweta-title-4">Biała laweta — ilustracja poglądowa</title>
+                        <use href="#tow-truck" transform="translate(640 0) scale(-1 1)"/>
+                    </svg>
+                    <figcaption>Biała laweta</figcaption>
+                </figure>
+            </div>
+
+            <p class="fleet-note">
+                Ilustracje poglądowe — nie przedstawiają rzeczywistych pojazdów firmy.
             </p>
+        </section>
 
-            <div class="hero-metrics">
-                <div class="metric-card">
-                    <div class="num">10–15 min</div>
-                    <div class="label">Przewidywany dojazd w Poznaniu</div>
-                </div>
-
-                <div class="metric-card">
-                    <div class="num">24/7</div>
-                    <div class="label">Dyspozytornia non-stop</div>
-                </div>
-
-                <div class="metric-card">
-                    <div class="num">100% OCP</div>
-                    <div class="label">Ubezpieczony transport</div>
-                </div>
-
-                <div class="metric-card">
-                    <div class="num">0 zł</div>
-                    <div class="label">Holowanie z OC sprawcy</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Usługi -->
-    <section class="container" id="uslugi">
-        <div class="section-header">
-            <span class="sub-badge">Profesjonalne wsparcie</span>
-            <h2>W czym możemy Ci pomóc?</h2>
-        </div>
-
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon-wrap">
-                    <i class="fa-solid fa-truck-flatbed"></i>
-                </div>
-                <h3>Autolaweta i Holowanie</h3>
-                <p>
-                    Bezpieczny transport aut osobowych, SUV-ów, busów dostawczych,
-                    maszyn budowlanych oraz motocykli. Obsługujemy auta powypadkowe
-                    i z zablokowanymi kołami.
-                </p>
-                <ul class="service-features">
-                    <li>
-                        <i class="fa-solid fa-check"></i>
-                        Wciągarki hydrauliczne i rolki pod urwane koła
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-check"></i>
-                        Możliwość zabrania do 5 pasażerów
-                    </li>
-                </ul>
+        <!-- Informacje o obsłudze -->
+        <section class="container">
+            <div class="section-header">
+                <span class="sub-badge">Dlaczego my?</span>
+                <h2>Standard obsługi Pomoc Drogowa 24/7 Poland</h2>
             </div>
 
-            <div class="service-card">
-                <div class="service-icon-wrap">
-                    <i class="fa-solid fa-road-barrier"></i>
-                </div>
-                <h3>Obsługa A2, S11 i S5</h3>
-                <p>
-                    Ekspresowy dojazd na węzły autostradowe wokół Poznania
-                    (Komorniki, Krzesiny, Tarnowo Podgórne, Luboń).
-                    Zabezpieczenie miejsca zdarzenia według standardów GDDKiA.
-                </p>
-                <ul class="service-features">
-                    <li>
-                        <i class="fa-solid fa-check"></i>
-                        Pełne oznakowanie ostrzegawcze
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-check"></i>
-                        Zjazd do najbliższego bezpiecznego MOP lub warsztatu
-                    </li>
-                </ul>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon-wrap">
-                    <i class="fa-solid fa-car-battery"></i>
-                </div>
-                <h3>Awaryjny Rozruch (Booster 12/24V)</h3>
-                <p>
-                    Błyskawiczne odpalanie pojazdów przy użyciu profesjonalnych
-                    urządzeń rozruchowych wysokiej mocy. Diagnostyka ładowania
-                    i stanu akumulatora na miejscu.
-                </p>
-                <ul class="service-features">
-                    <li>
-                        <i class="fa-solid fa-check"></i>
-                        Obsługa samochodów osobowych i ciężarowych
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-check"></i>
-                        Dojazd pod dom, parkingi podziemne, trasa
-                    </li>
-                </ul>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon-wrap">
-                    <i class="fa-solid fa-screwdriver-wrench"></i>
-                </div>
-                <h3>Wymiana Koła i Mobilny Serwis</h3>
-                <p>
-                    Odkręcanie zapieczonych śrub, profesjonalna zmiana koła
-                    na zapasowe lub szybkie kołkowanie opony na drodze
-                    bez konieczności holowania.
-                </p>
-                <ul class="service-features">
-                    <li>
-                        <i class="fa-solid fa-check"></i>
-                        Narzędzia pneumatyczne i podnośniki niskoprofilowe
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-check"></i>
-                        Sprawdzenie ciśnienia i dokręcenie kluczem dynamometrycznym
-                    </li>
-                </ul>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon-wrap">
-                    <i class="fa-solid fa-gas-pump"></i>
-                </div>
-                <h3>Dowóz i Wypompowanie Paliwa</h3>
-                <p>
-                    Nagle zabrakło paliwa na trasie? Dowieziemy benzynę lub olej
-                    napędowy. Jeśli doszło do pomyłki na stacji – bezpiecznie
-                    wypompujemy złe paliwo z baku.
-                </p>
-                <ul class="service-features">
-                    <li>
-                        <i class="fa-solid fa-check"></i>
-                        Odpowietrzanie układu paliwowego
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-check"></i>
-                        Bezpieczna utylizacja zanieczyszczonego paliwa
-                    </li>
-                </ul>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon-wrap">
-                    <i class="fa-solid fa-file-shield"></i>
-                </div>
-                <h3>Holowanie z OC Sprawcy &amp; Auto Zastępcze</h3>
-                <p>
-                    Miałeś kolizję nie ze swojej winy? Oferujemy bezgotówkowe
-                    holowanie, parking powypadkowy oraz bezpłatne auto zastępcze
-                    opłacane w całości z polisy OC sprawcy.
-                </p>
-                <ul class="service-features">
-                    <li>
-                        <i class="fa-solid fa-check"></i>
-                        0 zł wkładu własnego
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-check"></i>
-                        Załatwiamy wszelkie formalności z ubezpieczycielem
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="callout-banner">
-            <div class="callout-text">
-                <h3>Potrzebujesz natychmiastowej lawety?</h3>
-                <p>
-                    Dyspozytor odbierze Twój telefon od razu i wyśle
-                    najbliższy wolny holownik w Twoją stronę.
-                </p>
-            </div>
-            <a href="tel:+48508511133" class="btn-main-call">
-                <i class="fa-solid fa-phone"></i>
-                Zadzwoń Teraz
-            </a>
-        </div>
-    </section>
-
-    <!-- Party Driver -->
-    <section id="party-driver" class="party-driver-section">
-        <div class="party-container">
-            <div class="party-badge">
-                🍾🥂 USŁUGA NOCNA &amp; EVENTOWA 24/7
-            </div>
-
-            <h2 class="party-title">🍾 Party Driver 🥂</h2>
-
-            <p class="party-subtitle">
-                Wypiłeś szampana, drinka lub piwo? Nie ryzykuj prawa jazdy,
-                wysokich mandatów ani bezpieczeństwa. Nasz trzeźwy kierowca
-                przyjedzie na miejsce i
-                <strong>bezpiecznie odstawi Ciebie oraz Twoje auto prosto pod dom</strong>.
-            </p>
-
-            <div class="party-grid">
-                <div class="party-card">
-                    <div class="party-card-icon">🍾🚗</div>
-                    <h3>Kierowca Zastępczy (Odprowadzenie)</h3>
+            <div class="why-us-grid">
+                <div class="why-box">
+                    <i class="fa-solid fa-stopwatch-20" aria-hidden="true"></i>
+                    <h3>Cena ustalona przed wyjazdem</h3>
                     <p>
-                        Przyjeżdżamy na imprezę – nasz doświadczony, trzeźwy
-                        kierowca siada za kółkiem Twojego samochodu i wiezie
-                        Cię bezpiecznie pod wskazany adres.
-                    </p>
-                    <ul class="party-features">
-                        <li>🥂 Twoje auto bezpiecznie pod domem rano</li>
-                        <li>🥂 Doświadczeni kierowcy z nienaganną kulturą</li>
-                        <li>🥂 100% dyskrecji, spokoju i profesjonalizmu</li>
-                    </ul>
-                    <a href="tel:+48508511133" class="btn-party-call">
-                        🍾 Zamów Party Drivera
-                    </a>
-                </div>
-
-                <div class="party-card featured">
-                    <div class="card-tag">VIP KOMFORT 🥂</div>
-                    <div class="party-card-icon">🥂🚛</div>
-                    <h3>VIP Transport Lawetą</h3>
-                    <p>
-                        Zero eksploatacji Twojego auta – wciągamy Twój pojazd
-                        na nowoczesną lawetę, a Ty wracasz z imprezy jako
-                        pasażer w czystej, komfortowej kabinie.
-                    </p>
-                    <ul class="party-features">
-                        <li>🍾 Idealne dla aut sportowych, luksusowych i klasyków</li>
-                        <li>🍾 Komfortowa i bezpieczna podróż w kabinie</li>
-                        <li>🍾 Zero ryzyka kontroli drogowej i punktów karnych</li>
-                    </ul>
-                    <a href="tel:+48508511133" class="btn-party-call highlight">
-                        🥂 Zamów VIP Lawetę
-                    </a>
-                </div>
-            </div>
-
-            <div class="party-banner">
-                <div class="banner-text">
-                    <h4>🍾 Jesteś na imprezie, weselu lub w klubie?</h4>
-                    <p>
-                        Party Driver działa na terenie Poznania i okolic
-                        24h na dobę, 7 dni w tygodniu.
+                        Cenę ustalamy z góry przed wyjazdem lawety.
+                        Żadnych ukrytych opłat za kilometry dojazdowe czy załadunek.
                     </p>
                 </div>
-                <a href="tel:+48508511133" class="btn-emergency">
-                    🥂 Zadzwoń: 508 511 133
-                </a>
+
+                <div class="why-box">
+                    <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
+                    <h3>Wygodne płatności</h3>
+                    <p>
+                        W każdym z naszych holowników zapłacisz wygodnie kartą,
+                        kodem BLIK, telefonem lub gotówką. Wystawiamy FV 23%.
+                    </p>
+                </div>
+
+                <div class="why-box">
+                    <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+                    <h3>Ubezpieczenie przewoźnika</h3>
+                    <p>
+                        Posiadamy pełną polisę OCP przewoźnika. Twój samochód
+                        podczas całego procesu transportu jest w 100% ubezpieczony.
+                    </p>
+                </div>
+
+                <div class="why-box">
+                    <i class="fa-solid fa-location-crosshairs" aria-hidden="true"></i>
+                    <h3>Lokalizacja GPS</h3>
+                    <p>
+                        Wykorzystujemy systemy namierzania floty, dzięki czemu
+                        natychmiast wysyłamy kierowcę znajdującego się najbliżej Ciebie.
+                    </p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Dlaczego my -->
-    <section class="container">
-        <div class="section-header">
-            <span class="sub-badge">Dlaczego my?</span>
-            <h2>Standard obsługi Pomoc Drogowa 24/7 Poland</h2>
-        </div>
-
-        <div class="why-us-grid">
-            <div class="why-box">
-                <i class="fa-solid fa-stopwatch-20"></i>
-                <h4>Czysta Transparentność</h4>
-                <p>
-                    Cenę ustalamy z góry przed wyjazdem lawety.
-                    Żadnych ukrytych opłat za kilometry dojazdowe czy załadunek.
+        <!-- Obszar działania -->
+        <section class="container" id="obszar" style="padding-top:0;">
+            <div class="section-header">
+                <span class="sub-badge">Gdzie pomagamy</span>
+                <h2>Działamy w całym Poznaniu i okolicach</h2>
+                <p class="section-description">
+                    Obsługujemy wszystkie dzielnice Poznania oraz pobliskie
+                    odcinki A2, S11 i S5. Czas dojazdu poza Poznań
+                    ustalamy indywidualnie.
                 </p>
             </div>
 
-            <div class="why-box">
-                <i class="fa-solid fa-credit-card"></i>
-                <h4>Mobilny Terminal</h4>
-                <p>
-                    W każdym z naszych holowników zapłacisz wygodnie kartą,
-                    kodem BLIK, telefonem lub gotówką. Wystawiamy FV 23%.
-                </p>
-            </div>
+            <div class="coverage-container">
+                <div class="highway-cards">
+                    <div class="hw-card">
+                        <div class="hw-badge">A2</div>
+                        <div class="hw-info">
+                            <div class="title">Autostrada A2</div>
+                            <div class="desc">
+                                Odcinek Buk – Komorniki – Krzesiny – Września
+                            </div>
+                        </div>
+                    </div>
 
-            <div class="why-box">
-                <i class="fa-solid fa-shield-halved"></i>
-                <h4>Ubezpieczenie Przewoźnika</h4>
-                <p>
-                    Posiadamy pełną polisę OCP przewoźnika. Twój samochód
-                    podczas całego procesu transportu jest w 100% ubezpieczony.
-                </p>
-            </div>
+                    <div class="hw-card">
+                        <div class="hw-badge s-road">S11</div>
+                        <div class="hw-info">
+                            <div class="title">Droga S11</div>
+                            <div class="desc">
+                                Zachodnia obwodnica Poznania, Kórnik, Tarnowo Podgórne
+                            </div>
+                        </div>
+                    </div>
 
-            <div class="why-box">
-                <i class="fa-solid fa-location-crosshairs"></i>
-                <h4>Lokalizacja GPS</h4>
-                <p>
-                    Wykorzystujemy systemy namierzania floty, dzięki czemu
-                    natychmiast wysyłamy kierowcę znajdującego się najbliżej Ciebie.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Obszar działania -->
-    <section class="container" style="padding-top: 0;">
-        <div class="section-header">
-            <span class="sub-badge">Zasięg operacyjny</span>
-            <h2>Działamy w całym Poznaniu i okolicach</h2>
-            <p style="margin-top: 14px; color: var(--text-muted);">
-                Obsługujemy wszystkie dzielnice Poznania oraz pobliskie
-                odcinki A2, S11 i S5. Czas dojazdu poza Poznań
-                ustalamy indywidualnie.
-            </p>
-        </div>
-
-        <div class="coverage-container">
-            <div class="highway-cards">
-                <div class="hw-card">
-                    <div class="hw-badge">A2</div>
-                    <div class="hw-info">
-                        <div class="title">Autostrada A2</div>
-                        <div class="desc">
-                            Odcinek Buk &ndash; Komorniki &ndash; Krzesiny &ndash; Września
+                    <div class="hw-card">
+                        <div class="hw-badge s-road">S5</div>
+                        <div class="hw-info">
+                            <div class="title">Droga S5</div>
+                            <div class="desc">
+                                Trasa w stronę Gniezna, Kostrzyna oraz Stęszewa / Kościana
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="hw-card">
-                    <div class="hw-badge s-road">S11</div>
-                    <div class="hw-info">
-                        <div class="title">Droga S11</div>
-                        <div class="desc">
-                            Zachodnia obwodnica Poznania, Kórnik, Tarnowo Podgórne
-                        </div>
-                    </div>
-                </div>
+                <h3 class="district-title">Dzielnice Poznania i okoliczne gminy:</h3>
 
-                <div class="hw-card">
-                    <div class="hw-badge s-road">S5</div>
-                    <div class="hw-info">
-                        <div class="title">Droga S5</div>
-                        <div class="desc">
-                            Trasa w stronę Gniezna, Kostrzyna oraz Stęszewa / Kościana
-                        </div>
-                    </div>
+                <div class="district-tags">
+                    <span class="d-tag">Stare Miasto</span>
+                    <span class="d-tag">Grunwald</span>
+                    <span class="d-tag">Rataje</span>
+                    <span class="d-tag">Jeżyce</span>
+                    <span class="d-tag">Wilda</span>
+                    <span class="d-tag">Piątkowo i Winogrady</span>
+                    <span class="d-tag">Nowe Miasto</span>
+                    <span class="d-tag">Luboń</span>
+                    <span class="d-tag">Swarzędz</span>
+                    <span class="d-tag">Plewiska i Komorniki</span>
+                    <span class="d-tag">Tarnowo Podgórne</span>
+                    <span class="d-tag">Suchy Las</span>
+                    <span class="d-tag">Mosina i Puszczykowo</span>
+                    <span class="d-tag">Czerwonak i Koziegłowy</span>
                 </div>
             </div>
+        </section>
 
-            <h4 style="color: var(--text-main); margin-bottom: 12px; font-size: 1.05rem;">
-                Dzielnice Poznania i okoliczne gminy:
-            </h4>
-
-            <div class="district-tags">
-                <span class="d-tag">
-                    <i class="fa-solid fa-location-dot" style="color:var(--brand-yellow);"></i>
-                    Stare Miasto
-                </span>
-                <span class="d-tag">
-                    <i class="fa-solid fa-location-dot" style="color:var(--brand-yellow);"></i>
-                    Grunwald
-                </span>
-                <span class="d-tag">
-                    <i class="fa-solid fa-location-dot" style="color:var(--brand-yellow);"></i>
-                    Rataje
-                </span>
-                <span class="d-tag">
-                    <i class="fa-solid fa-location-dot" style="color:var(--brand-yellow);"></i>
-                    Jeżyce
-                </span>
-                <span class="d-tag">
-                    <i class="fa-solid fa-location-dot" style="color:var(--brand-yellow);"></i>
-                    Wilda
-                </span>
-                <span class="d-tag">
-                    <i class="fa-solid fa-location-dot" style="color:var(--brand-yellow);"></i>
-                    Piątkowo &amp; Winogrady
-                </span>
-                <span class="d-tag">
-                    <i class="fa-solid fa-location-dot" style="color:var(--brand-yellow);"></i>
-                    Nowe Miasto
-                </span>
-                <span class="d-tag">
-                    <i class="fa-solid fa-location-dot" style="color:var(--brand-yellow);"></i>
-                    Luboń
-                </span>
-                <span class="d-tag">
-                    <i class="fa-solid fa-location-dot" style="color:var(--brand-yellow);"></i>
-                    Swarzędz
-                </span>
-                <span class="d-tag">
-                    <i class="fa-solid fa-location-dot" style="color:var(--brand-yellow);"></i>
-                    Plewiska &amp; Komorniki
-                </span>
-                <span class="d-tag">
-                    <i class="fa-solid fa-location-dot" style="color:var(--brand-yellow);"></i>
-                    Tarnowo Podgórne
-                </span>
-                <span class="d-tag">
-                    <i class="fa-solid fa-location-dot" style="color:var(--brand-yellow);"></i>
-                    Suchy Las
-                </span>
-                <span class="d-tag">
-                    <i class="fa-solid fa-location-dot" style="color:var(--brand-yellow);"></i>
-                    Mosina &amp; Puszczykowo
-                </span>
-                <span class="d-tag">
-                    <i class="fa-solid fa-location-dot" style="color:var(--brand-yellow);"></i>
-                    Czerwonak &amp; Koziegłowy
-                </span>
+        <!-- Krótka sekcja Party Driver na dole -->
+        <section class="container" id="party-driver" style="padding-top:0;">
+            <div class="party-small">
+                <div>
+                    <h2>Party Driver — wróć bezpiecznie swoim autem</h2>
+                    <p>
+                        Potrzebujesz kierowcy po imprezie? Oferujemy odprowadzenie
+                        Twojego samochodu lub transport lawetą w Poznaniu i okolicach.
+                        Zadzwoń, aby ustalić dostępność i cenę.
+                    </p>
+                </div>
+                <a href="tel:+48508511133" class="btn-secondary">
+                    <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                    Zamów kierowcę
+                </a>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Stopka -->
     <footer>
         <div class="footer-content">
             <div class="footer-brand">
-                <h4>POMOC DROGOWA 24/7 POLAND</h4>
+                <h3>POMOC DROGOWA 24/7 POLAND</h3>
                 <p>
                     Twój zaufany partner na drogach Poznania i Wielkopolski.
-                    Świadczymy usługi holowania, pomocy powypadkowej
-                    i awaryjnej 365 dni w roku, 7 dni w tygodniu,
-                    24 godziny na dobę.
+                    Świadczymy usługi holowania, pomocy powypadkowej i awaryjnej
+                    365 dni w roku, 7 dni w tygodniu, 24 godziny na dobę.
                 </p>
-                <p style="margin-top: 15px; color: var(--brand-yellow); font-weight: 700;">
-                    <i class="fa-solid fa-phone"></i>
-                    Infolinia alarmowa: +48 508 511 133
-                </p>
+                <a href="tel:+48508511133" class="footer-phone">
+                    <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                    Zadzwoń: +48 508 511 133
+                </a>
             </div>
 
             <div class="footer-links">
-                <h5>Usługi</h5>
+                <h3>Usługi</h3>
                 <ul>
                     <li><a href="#uslugi">Autolaweta Poznań</a></li>
-                    <li><a href="#party-driver">🍾 Party Driver (Odprowadzanie)</a></li>
                     <li><a href="#uslugi">Holowanie A2 / S11 / S5</a></li>
-                    <li><a href="#uslugi">Awaryjny Rozruch Akumulatora</a></li>
-                    <li><a href="#uslugi">Mobilna Wulkanizacja</a></li>
-                    <li><a href="#uslugi">Auto Zastępcze z OC</a></li>
+                    <li><a href="#uslugi">Awaryjny rozruch akumulatora</a></li>
+                    <li><a href="#uslugi">Mobilna wulkanizacja</a></li>
+                    <li><a href="#uslugi">Auto zastępcze z OC</a></li>
+                    <li><a href="#party-driver">Party Driver</a></li>
                 </ul>
             </div>
 
             <div class="footer-links">
-                <h5>Płatności &amp; Faktury</h5>
+                <h3>Płatności i faktury</h3>
                 <ul>
-                    <li>
-                        <i class="fa-solid fa-check" style="color:var(--brand-yellow);"></i>
-                        Płatność Kartą / BLIK
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-check" style="color:var(--brand-yellow);"></i>
-                        Gotówka
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-check" style="color:var(--brand-yellow);"></i>
-                        Faktura VAT 23%
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-check" style="color:var(--brand-yellow);"></i>
-                        Rozliczenia bezgotówkowe z polis OC/AC
-                    </li>
+                    <li>Płatność kartą / BLIK</li>
+                    <li>Gotówka</li>
+                    <li>Faktura VAT 23%</li>
+                    <li>Rozliczenia bezgotówkowe z polis OC/AC</li>
                 </ul>
             </div>
         </div>
@@ -1399,10 +993,9 @@
         </div>
     </footer>
 
-    <!-- Stały przycisk telefonu na urządzeniach mobilnych -->
     <div class="mobile-bottom-bar">
         <a href="tel:+48508511133">
-            <i class="fa-solid fa-phone-flip fa-shake"></i>
+            <i class="fa-solid fa-phone" aria-hidden="true"></i>
             SZYBKA LAWETA: 508 511 133
         </a>
     </div>
