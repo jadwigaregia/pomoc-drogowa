@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pomoc Drogowa 24/7 Poland | Autolaweta i Holowanie Poznań A2 S11 S5</title>
     <meta name="description" content="Ekspresowa pomoc drogowa i autolaweta w Poznaniu oraz na trasach A2, S11, S5. Działamy 24h/7. Dojazd w 15-25 min, holowanie, rozruch, wulkanizacja mobilna.">
-    
+
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -70,9 +70,18 @@
         }
 
         @keyframes pulse-green {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+            }
         }
 
         /* Header */
@@ -166,9 +175,10 @@
         .hero {
             position: relative;
             padding: 85px 6% 90px;
-            background: radial-gradient(circle at 80% 20%, rgba(255, 184, 0, 0.08) 0%, transparent 50%),
-                        linear-gradient(180deg, rgba(13, 17, 23, 0.7) 0%, var(--bg-dark) 100%),
-                        url('https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=1400') center/cover no-repeat;
+            background:
+                radial-gradient(circle at 80% 20%, rgba(255, 184, 0, 0.08) 0%, transparent 50%),
+                linear-gradient(180deg, rgba(13, 17, 23, 0.7) 0%, var(--bg-dark) 100%),
+                url('https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=1400') center/cover no-repeat;
             border-bottom: 1px solid var(--border-color);
         }
 
@@ -890,8 +900,14 @@
             .hero { padding: 50px 5% 60px; }
             .hero h1 { font-size: 1.95rem; }
             .hero-buttons { flex-direction: column; }
-            .btn-main-call, .btn-secondary { width: 100%; justify-content: center; }
-            .callout-banner { padding: 25px 20px; text-align: center; }
+            .btn-main-call, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+            .callout-banner {
+                padding: 25px 20px;
+                text-align: center;
+            }
             .callout-banner .btn-main-call { width: 100%; }
             .party-title { font-size: 2rem; }
         }
@@ -908,7 +924,9 @@
     <!-- Header -->
     <header>
         <a href="#" class="logo-box">
-            <div class="logo-icon"><i class="fa-solid fa-truck-pickup"></i></div>
+            <div class="logo-icon">
+                <i class="fa-solid fa-truck-pickup"></i>
+            </div>
             <div class="logo-text">
                 <div class="logo-title">24/7 <span>Poland</span></div>
                 <div class="logo-sub">Pomoc Drogowa Poznań</div>
@@ -944,7 +962,10 @@
 
             <!-- Panel Aplikacji na Żywo (Klient / Kierowca) - TYMCZASOWO UKRYTY -->
             <div class="live-app-box" style="display: none;">
-                <h3><i class="fa-solid fa-location-crosshairs" style="color: var(--brand-yellow);"></i> Gdzie jest wypadek? (System Live GPS)</h3>
+                <h3>
+                    <i class="fa-solid fa-location-crosshairs" style="color: var(--brand-yellow);"></i>
+                    Gdzie jest wypadek? (System Live GPS)
+                </h3>
                 <p>Śledź trasę kierowcy w czasie rzeczywistym lub włącz nadawanie jako kierowca lawety:</p>
                 <div class="live-app-buttons">
                     <a href="klient.html" class="btn-app-client">
@@ -1079,11 +1100,11 @@
     <!-- SEKCJA PARTY DRIVER -->
     <section id="party-driver" class="party-driver-section">
         <div class="party-container">
-            
+
             <div class="party-badge">🍾🥂 USŁUGA NOCNA &amp; EVENTOWA 24/7</div>
             <h2 class="party-title">🍾 Party Driver 🥂</h2>
             <p class="party-subtitle">
-                Wypiłeś szampana, drinka lub piwo? Nie ryzykuj prawa jazdy, wysokich mandatów ani bezpieczeństwa. 
+                Wypiłeś szampana, drinka lub piwo? Nie ryzykuj prawa jazdy, wysokich mandatów ani bezpieczeństwa.
                 Nasz trzeźwy kierowca przyjedzie na miejsce i <strong>bezpiecznie odstawi Ciebie oraz Twoje auto prosto pod dom</strong>.
             </p>
 
@@ -1221,7 +1242,7 @@
                     <i class="fa-solid fa-phone"></i> Infolinia alarmowa: +48 508 511 133
                 </p>
             </div>
-            
+
             <div class="footer-links">
                 <h5>Usługi</h5>
                 <ul>
@@ -1256,20 +1277,6 @@
             <i class="fa-solid fa-phone-flip fa-shake"></i> SZYBKA LAWETA: 508 511 133
         </a>
     </div>
-
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
-    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    (function(){
-    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-    s1.async=true;
-    s1.src='https://embed.tawk.to/6a96d6b14235ce3448ce303e/1k1ejd979';
-    s1.charset='UTF-8';
-    s1.setAttribute('crossorigin','*');
-    s0.parentNode.insertBefore(s1,s0);
-    })();
-    </script>
-    <!--End of Tawk.to Script-->
 
 </body>
 </html>
