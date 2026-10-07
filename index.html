@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Pomoc Drogowa 24/7 Poland | Autolaweta i Holowanie Poznań A2 S11 S5</title>
-    <meta name="description" content="Pomoc drogowa i autolaweta w Poznaniu oraz na trasach A2, S11, S5. Działamy 24h/7. Przewidywany dojazd w Poznaniu: 10–15 minut. Czas i cenę potwierdzamy podczas rozmowy.">
+    <title>Pomoc Drogowa 24/7 Poland | Autolaweta i Holowanie Poznań</title>
+    <meta name="description" content="Pomoc drogowa i autolaweta w Poznaniu oraz na trasach A2, S11, S5. IVNE sp. z o.o. Przewidywany dojazd w Poznaniu: 10–15 minut. Zadzwoń: 508 511 133.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,7 +39,6 @@
         [id] { scroll-margin-top: 110px; }
         a:focus-visible { outline: 3px solid #58a6ff; outline-offset: 4px; }
 
-        /* Pasek informacyjny */
         .top-status-bar {
             background: #1c1500;
             border-bottom: 1px solid rgba(255,184,0,.3);
@@ -69,7 +68,6 @@
             100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
         }
 
-        /* Nagłówek */
         header {
             position: sticky;
             top: 0;
@@ -100,15 +98,7 @@
         }
 
         .logo-text { display: flex; flex-direction: column; }
-        .logo-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--text-main);
-            letter-spacing: -.5px;
-            text-transform: uppercase;
-        }
-
+        .logo-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--text-main); letter-spacing: -.5px; text-transform: uppercase; }
         .logo-title span { color: var(--brand-yellow); }
         .logo-sub { font-size: .75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
         .header-actions { display: flex; align-items: center; }
@@ -131,7 +121,6 @@
 
         .btn-call-header:hover { background: var(--brand-yellow-dark); }
 
-        /* Pierwszy ekran */
         .hero {
             padding: 75px 6% 70px;
             background:
@@ -158,14 +147,7 @@
         }
 
         .hero-content { max-width: 820px; }
-        .hero h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 3.2rem;
-            line-height: 1.15;
-            color: var(--text-main);
-            margin-bottom: 20px;
-        }
-
+        .hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: 3.2rem; line-height: 1.15; color: var(--text-main); margin-bottom: 20px; }
         .hero h1 span { color: var(--brand-yellow); }
         .hero p { font-size: 1.18rem; color: var(--text-muted); margin-bottom: 30px; max-width: 680px; }
         .hero-buttons { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; }
@@ -207,29 +189,15 @@
         .btn-secondary:hover { background: var(--bg-card-hover); border-color: var(--brand-yellow); }
         .hero .arrival-note { font-size: .95rem; margin-bottom: 24px; }
 
-        /* Cena i płatności */
-        .price-box {
-            margin-bottom: 30px;
-            padding: 24px;
-            background: #1c200e;
-            border: 1px solid #726021;
-            border-radius: 14px;
-        }
-
-        .price-box h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.35rem;
-            color: var(--brand-yellow);
-            margin-bottom: 8px;
-        }
-
+        .price-box { margin-bottom: 30px; padding: 24px; background: #1c200e; border: 1px solid #726021; border-radius: 14px; }
+        .price-box h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; color: var(--brand-yellow); margin-bottom: 8px; }
         .price-box p { font-size: 1rem; margin-bottom: 16px; color: var(--text-light); }
         .payment-tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; }
         .payment-tags li { padding: 6px 12px; border: 1px solid #726021; border-radius: 8px; font-size: .85rem; }
 
         .hero-metrics {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%,170px),1fr));
+            grid-template-columns: repeat(auto-fit,minmax(min(100%,170px),1fr));
             gap: 16px;
             padding-top: 30px;
             border-top: 1px solid var(--border-color);
@@ -239,92 +207,37 @@
         .metric-card .num { font-family: 'Space Grotesk', sans-serif; font-size: 1.7rem; font-weight: 700; color: var(--brand-yellow); }
         .metric-card .label { font-size: .85rem; color: var(--text-muted); }
 
-        /* Sekcje */
         .container { max-width: 1200px; margin: 0 auto; padding: 65px 6%; }
         .section-header { text-align: center; margin-bottom: 36px; }
-        .section-header .sub-badge {
-            color: var(--brand-yellow);
-            font-weight: 700;
-            font-size: .85rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 8px;
-            display: block;
-        }
-
+        .section-header .sub-badge { color: var(--brand-yellow); font-weight: 700; font-size: .85rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; display: block; }
         .section-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2.3rem; color: var(--text-main); }
         .section-description { margin-top: 14px; color: var(--text-muted); }
 
-        /* Usługi */
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,320px),1fr)); gap: 24px; }
-        .service-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 30px 25px;
-            transition: border-color .2s;
-            min-width: 0;
-        }
-
+        .service-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; padding: 30px 25px; transition: border-color .2s; min-width: 0; }
         .service-card:hover { border-color: var(--brand-yellow); }
-        .service-icon-wrap {
-            width: 60px;
-            height: 60px;
-            background: rgba(255,184,0,.1);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            color: var(--brand-yellow);
-            margin-bottom: 20px;
-        }
-
+        .service-icon-wrap { width: 60px; height: 60px; background: rgba(255,184,0,.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; color: var(--brand-yellow); margin-bottom: 20px; }
         .service-card h3 { font-size: 1.3rem; margin-bottom: 12px; color: var(--text-main); }
         .service-card p { font-size: .95rem; color: var(--text-muted); margin-bottom: 16px; }
         .service-features { list-style: none; border-top: 1px solid rgba(255,255,255,.06); padding-top: 14px; }
         .service-features li { font-size: .85rem; margin-bottom: 8px; display: flex; align-items: baseline; gap: 8px; }
         .service-features i { color: var(--brand-yellow); font-size: .75rem; }
 
-        .callout-banner {
-            background: linear-gradient(135deg,#1c1500,#2a2000);
-            border: 1px solid rgba(255,184,0,.4);
-            border-radius: 16px;
-            padding: 35px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 25px;
-            margin-top: 35px;
-        }
-
+        .callout-banner { background: linear-gradient(135deg,#1c1500,#2a2000); border: 1px solid rgba(255,184,0,.4); border-radius: 16px; padding: 35px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 25px; margin-top: 35px; }
         .callout-text h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; color: var(--brand-yellow); margin-bottom: 8px; }
         .callout-text p { max-width: 600px; }
 
-        /* Kafelki lawet */
         .fleet-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 18px; }
         .fleet-card { overflow: hidden; border: 1px solid var(--border-color); border-radius: 14px; background: var(--bg-card); }
-        .fleet-card svg,
-        .fleet-card img {
-            display: block;
-            width: 100%;
-            height: auto;
-            aspect-ratio: 4/3;
-            object-fit: cover;
-            background: #202b3b;
-        }
-
+        .fleet-card svg, .fleet-card img { display: block; width: 100%; height: auto; aspect-ratio: 4/3; object-fit: cover; background: #202b3b; }
         .fleet-card figcaption { padding: 16px; font-size: .95rem; font-weight: 700; }
 
-        /* Informacje o obsłudze */
         .why-us-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,260px),1fr)); gap: 20px; }
         .why-box { background: var(--bg-card); border: 1px solid var(--border-color); padding: 25px; border-radius: 12px; }
         .why-box i { color: var(--brand-yellow); font-size: 1.5rem; margin-bottom: 15px; }
         .why-box h3 { font-size: 1.15rem; margin-bottom: 10px; color: var(--text-main); }
         .why-box p { font-size: .9rem; color: var(--text-muted); }
 
-        /* Obszar działania */
         .coverage-container { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 30px; }
         .highway-cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,200px),1fr)); gap: 15px; margin-bottom: 30px; }
         .hw-card { background: #090d12; border: 1px solid var(--border-color); border-radius: 10px; padding: 16px; display: flex; align-items: center; gap: 14px; min-width: 0; }
@@ -336,55 +249,31 @@
         .district-tags { display: flex; flex-wrap: wrap; gap: 10px; }
         .d-tag { background: #1f242c; border: 1px solid rgba(255,255,255,.08); padding: 8px 16px; border-radius: 30px; font-size: .88rem; }
 
-        /* Party Driver */
-        .party-small {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 24px;
-            padding: 28px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-        }
-
+        .party-small { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; }
         .party-small h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; margin-bottom: 8px; }
         .party-small p { max-width: 660px; color: var(--text-muted); }
         .party-small a { flex-shrink: 0; }
 
-        /* Stopka */
-        footer {
-            background: #080B0F;
-            border-top: 1px solid var(--border-color);
-            padding: 50px 6% 30px;
-            color: var(--text-muted);
-            font-size: .9rem;
-        }
+        /* Dane firmy i interaktywna mapa */
+        .company-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; }
+        .company-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 28px; min-width: 0; }
+        .company-card h3 { color: var(--brand-yellow); font-size: 1.3rem; margin-bottom: 18px; }
+        .company-card address { font-style: normal; margin-bottom: 18px; }
+        .company-details { margin-bottom: 22px; }
+        .company-details div { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 5px; }
+        .company-details dt { font-weight: 700; }
+        .company-card .btn-main-call { font-size: 1rem; padding: 16px 20px; }
+        .map-note { margin-top: 20px; margin-bottom: 16px; color: var(--text-muted); font-size: .9rem; }
+        .map-link { color: var(--brand-yellow); text-underline-offset: 4px; }
+        .company-map { display: block; width: 100%; height: 100%; min-height: 420px; border: 1px solid var(--border-color); border-radius: 16px; background: var(--bg-card); }
 
-        .footer-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 30px;
-            margin-bottom: 35px;
-        }
-
+        footer { background: #080B0F; border-top: 1px solid var(--border-color); padding: 50px 6% 30px; color: var(--text-muted); font-size: .9rem; }
+        .footer-content { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; margin-bottom: 35px; }
         .footer-brand { max-width: 400px; }
-        .footer-brand h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            color: var(--brand-yellow);
-            font-size: 1.3rem;
-            margin-bottom: 12px;
-        }
-
-        .footer-phone {
-            display: inline-block;
-            margin-top: 15px;
-            color: var(--brand-yellow);
-            font-weight: 700;
-            text-decoration: none;
-        }
-
+        .footer-brand h3 { font-family: 'Space Grotesk', sans-serif; color: var(--brand-yellow); font-size: 1.3rem; margin-bottom: 12px; }
+        .footer-company { margin-top: 18px; font-style: normal; }
+        .footer-company strong { color: var(--text-light); }
+        .footer-phone { display: inline-block; margin-top: 15px; color: var(--brand-yellow); font-weight: 700; text-decoration: none; }
         .footer-links h3 { color: var(--text-main); font-size: 1rem; margin-bottom: 15px; }
         .footer-links ul { list-style: none; }
         .footer-links li { margin-bottom: 8px; }
@@ -393,31 +282,8 @@
         .footer-links .fa-check { color: var(--brand-yellow); margin-right: 6px; }
         .footer-bottom { border-top: 1px solid rgba(255,255,255,.05); padding-top: 25px; text-align: center; font-size: .82rem; }
 
-        /* Kontakt mobilny */
-        .mobile-bottom-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: var(--brand-yellow);
-            padding: 12px 16px;
-            padding-bottom: calc(12px + env(safe-area-inset-bottom,0px));
-            z-index: 9999;
-            box-shadow: 0 -4px 20px rgba(0,0,0,.5);
-            display: none;
-        }
-
-        .mobile-bottom-bar a {
-            color: #000;
-            font-size: 1.1rem;
-            font-weight: 800;
-            text-decoration: none;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            text-align: center;
-        }
+        .mobile-bottom-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--brand-yellow); padding: 12px 16px; padding-bottom: calc(12px + env(safe-area-inset-bottom,0px)); z-index: 9999; box-shadow: 0 -4px 20px rgba(0,0,0,.5); display: none; }
+        .mobile-bottom-bar a { color: #000; font-size: 1.1rem; font-weight: 800; text-decoration: none; display: flex; justify-content: center; align-items: center; gap: 10px; text-align: center; }
 
         @media (max-width: 1000px) {
             .fleet-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
@@ -429,6 +295,11 @@
             .mobile-bottom-bar { display: block; }
             header { padding: 12px 5%; }
             .btn-call-header span { display: none; }
+        }
+
+        @media (max-width: 800px) {
+            .company-grid { grid-template-columns: 1fr; }
+            .company-map { height: 340px; min-height: 340px; }
         }
 
         @media (max-width: 600px) {
@@ -452,6 +323,7 @@
             .logo-sub { font-size: .65rem; letter-spacing: .4px; }
             .btn-call-header { padding: 10px 14px; }
             .mobile-bottom-bar a { font-size: 1rem; }
+            .company-card { padding: 22px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -466,59 +338,42 @@
 
 <body id="poczatek">
 
-    <!-- Wspólna ilustracja wykorzystywana w kafelkach lawet -->
-    <svg xmlns="http://www.w3.org/2000/svg"
-         width="0"
-         height="0"
-         aria-hidden="true"
-         style="position:absolute;overflow:hidden;">
+    <!-- Ilustracja używana w kafelkach lawet -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0"
+         aria-hidden="true" style="position:absolute;overflow:hidden;">
         <defs>
             <symbol id="tow-truck" viewBox="0 0 640 480">
                 <rect width="640" height="480" fill="#202b3b"/>
                 <circle cx="510" cy="100" r="58" fill="#33445c"/>
-
-                <path d="M0 280V200H65V165H125V225H185V140H260V210H330V170H410V225H480V150H555V205H640V280Z"
-                      fill="#29394c"/>
-
+                <path d="M0 280V200H65V165H125V225H185V140H260V210H330V170H410V225H480V150H555V205H640V280Z" fill="#29394c"/>
                 <path d="M0 370H640V480H0Z" fill="#151e2b"/>
-                <path d="M30 425H115M170 425H255M310 425H395M450 425H535M590 425H640"
-                      stroke="#728096" stroke-width="5"/>
-
+                <path d="M30 425H115M170 425H255M310 425H395M450 425H535M590 425H640" stroke="#728096" stroke-width="5"/>
                 <ellipse cx="320" cy="372" rx="265" ry="19" fill="#0c121d"/>
-
                 <path d="M45 306H385L438 319V342H45Z" fill="#a3b1c1"/>
                 <path d="M54 308H382" stroke="#e6edf3" stroke-width="7"/>
                 <path d="M60 323H386" stroke="#576778" stroke-width="9"/>
-
-                <path d="M388 242Q388 224 408 224H492L550 277L575 289V342H388Z"
-                      fill="currentColor" stroke="#0d1725" stroke-width="5"/>
-
+                <path d="M388 242Q388 224 408 224H492L550 277L575 289V342H388Z" fill="currentColor" stroke="#0d1725" stroke-width="5"/>
                 <path d="M414 241H482L520 278H414Z" fill="#153d58"/>
                 <path d="M425 246H475L503 273H425Z" fill="#7cbed5"/>
                 <path d="M490 239L535 279H551L506 239Z" fill="#183b51"/>
                 <path d="M407 287H465V333H407Z" fill="none" stroke="#263442" stroke-width="3"/>
                 <path d="M443 299H457" stroke="#182738" stroke-width="5"/>
-
                 <rect x="418" y="208" width="43" height="13" rx="4" fill="#ffb800"/>
                 <path d="M548 300H573V313H548Z" fill="#fff3c9"/>
                 <rect x="540" y="329" width="45" height="16" rx="4" fill="#47586b"/>
                 <path d="M47 344H540" stroke="#111c2b" stroke-width="14"/>
-
                 <g fill="#0b111a" stroke="#344254" stroke-width="5">
                     <circle cx="148" cy="345" r="34"/>
                     <circle cx="335" cy="345" r="34"/>
                     <circle cx="506" cy="345" r="34"/>
                 </g>
-
                 <g fill="#bcc9d7" stroke="#6e8297" stroke-width="6">
                     <circle cx="148" cy="345" r="16"/>
                     <circle cx="335" cy="345" r="16"/>
                     <circle cx="506" cy="345" r="16"/>
                 </g>
-
                 <path d="M76 292H358" stroke="#ffb800" stroke-width="5"/>
-                <path d="M85 292V306M125 292V306M165 292V306M205 292V306M245 292V306M285 292V306M325 292V306"
-                      stroke="#182638" stroke-width="5"/>
+                <path d="M85 292V306M125 292V306M165 292V306M205 292V306M245 292V306M285 292V306M325 292V306" stroke="#182638" stroke-width="5"/>
             </symbol>
         </defs>
     </svg>
@@ -552,7 +407,6 @@
     </header>
 
     <main>
-        <!-- Pierwszy ekran -->
         <section class="hero">
             <div class="hero-badge">
                 <i class="fa-solid fa-bolt" aria-hidden="true"></i>
@@ -561,7 +415,6 @@
 
             <div class="hero-content">
                 <h1>Pomoc Drogowa Poznań Autolaweta <span>24h/7</span></h1>
-
                 <p>
                     Awaria, kolizja, brak paliwa lub rozładowany akumulator?
                     Nasza flota nowoczesnych autolawet dyżuruje całą dobę
@@ -619,7 +472,6 @@
             </div>
         </section>
 
-        <!-- Usługi -->
         <section class="container" id="uslugi">
             <div class="section-header">
                 <span class="sub-badge">Profesjonalne wsparcie</span>
@@ -628,134 +480,62 @@
 
             <div class="services-grid">
                 <div class="service-card">
-                    <div class="service-icon-wrap">
-                        <i class="fa-solid fa-truck" aria-hidden="true"></i>
-                    </div>
+                    <div class="service-icon-wrap"><i class="fa-solid fa-truck" aria-hidden="true"></i></div>
                     <h3>Autolaweta i holowanie</h3>
-                    <p>
-                        Bezpieczny transport aut osobowych, SUV-ów, busów dostawczych,
-                        maszyn budowlanych oraz motocykli. Obsługujemy auta powypadkowe
-                        i z zablokowanymi kołami.
-                    </p>
+                    <p>Bezpieczny transport aut osobowych, SUV-ów, busów dostawczych, maszyn budowlanych oraz motocykli. Obsługujemy auta powypadkowe i z zablokowanymi kołami.</p>
                     <ul class="service-features">
-                        <li>
-                            <i class="fa-solid fa-check" aria-hidden="true"></i>
-                            Wciągarki hydrauliczne i rolki pod urwane koła
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-check" aria-hidden="true"></i>
-                            Możliwość zabrania do 5 pasażerów
-                        </li>
+                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Wciągarki hydrauliczne i rolki pod urwane koła</li>
+                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Możliwość zabrania do 5 pasażerów</li>
                     </ul>
                 </div>
 
                 <div class="service-card">
-                    <div class="service-icon-wrap">
-                        <i class="fa-solid fa-road-barrier" aria-hidden="true"></i>
-                    </div>
+                    <div class="service-icon-wrap"><i class="fa-solid fa-road-barrier" aria-hidden="true"></i></div>
                     <h3>Obsługa A2, S11 i S5</h3>
-                    <p>
-                        Ekspresowy dojazd na węzły autostradowe wokół Poznania
-                        (Komorniki, Krzesiny, Tarnowo Podgórne, Luboń).
-                        Zabezpieczenie miejsca zdarzenia według standardów GDDKiA.
-                    </p>
+                    <p>Ekspresowy dojazd na węzły autostradowe wokół Poznania (Komorniki, Krzesiny, Tarnowo Podgórne, Luboń). Zabezpieczenie miejsca zdarzenia według standardów GDDKiA.</p>
                     <ul class="service-features">
-                        <li>
-                            <i class="fa-solid fa-check" aria-hidden="true"></i>
-                            Pełne oznakowanie ostrzegawcze
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-check" aria-hidden="true"></i>
-                            Zjazd do najbliższego bezpiecznego MOP lub warsztatu
-                        </li>
+                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Pełne oznakowanie ostrzegawcze</li>
+                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Zjazd do najbliższego bezpiecznego MOP lub warsztatu</li>
                     </ul>
                 </div>
 
                 <div class="service-card">
-                    <div class="service-icon-wrap">
-                        <i class="fa-solid fa-car-battery" aria-hidden="true"></i>
-                    </div>
+                    <div class="service-icon-wrap"><i class="fa-solid fa-car-battery" aria-hidden="true"></i></div>
                     <h3>Awaryjny rozruch — 12/24V</h3>
-                    <p>
-                        Błyskawiczne odpalanie pojazdów przy użyciu profesjonalnych
-                        urządzeń rozruchowych wysokiej mocy. Diagnostyka ładowania
-                        i stanu akumulatora na miejscu.
-                    </p>
+                    <p>Błyskawiczne odpalanie pojazdów przy użyciu profesjonalnych urządzeń rozruchowych wysokiej mocy. Diagnostyka ładowania i stanu akumulatora na miejscu.</p>
                     <ul class="service-features">
-                        <li>
-                            <i class="fa-solid fa-check" aria-hidden="true"></i>
-                            Obsługa samochodów osobowych i ciężarowych
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-check" aria-hidden="true"></i>
-                            Dojazd pod dom, parkingi podziemne, trasa
-                        </li>
+                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Obsługa samochodów osobowych i ciężarowych</li>
+                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Dojazd pod dom, parkingi podziemne, trasa</li>
                     </ul>
                 </div>
 
                 <div class="service-card">
-                    <div class="service-icon-wrap">
-                        <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
-                    </div>
+                    <div class="service-icon-wrap"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i></div>
                     <h3>Wymiana koła i mobilny serwis</h3>
-                    <p>
-                        Odkręcanie zapieczonych śrub, profesjonalna zmiana koła
-                        na zapasowe lub szybkie kołkowanie opony na drodze
-                        bez konieczności holowania.
-                    </p>
+                    <p>Odkręcanie zapieczonych śrub, profesjonalna zmiana koła na zapasowe lub szybkie kołkowanie opony na drodze bez konieczności holowania.</p>
                     <ul class="service-features">
-                        <li>
-                            <i class="fa-solid fa-check" aria-hidden="true"></i>
-                            Narzędzia pneumatyczne i podnośniki niskoprofilowe
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-check" aria-hidden="true"></i>
-                            Sprawdzenie ciśnienia i dokręcenie kluczem dynamometrycznym
-                        </li>
+                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Narzędzia pneumatyczne i podnośniki niskoprofilowe</li>
+                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Sprawdzenie ciśnienia i dokręcenie kluczem dynamometrycznym</li>
                     </ul>
                 </div>
 
                 <div class="service-card">
-                    <div class="service-icon-wrap">
-                        <i class="fa-solid fa-gas-pump" aria-hidden="true"></i>
-                    </div>
+                    <div class="service-icon-wrap"><i class="fa-solid fa-gas-pump" aria-hidden="true"></i></div>
                     <h3>Dowóz i wypompowanie paliwa</h3>
-                    <p>
-                        Nagle zabrakło paliwa na trasie? Dowieziemy benzynę lub olej
-                        napędowy. Jeśli doszło do pomyłki na stacji — bezpiecznie
-                        wypompujemy złe paliwo z baku.
-                    </p>
+                    <p>Nagle zabrakło paliwa na trasie? Dowieziemy benzynę lub olej napędowy. Jeśli doszło do pomyłki na stacji — bezpiecznie wypompujemy złe paliwo z baku.</p>
                     <ul class="service-features">
-                        <li>
-                            <i class="fa-solid fa-check" aria-hidden="true"></i>
-                            Odpowietrzanie układu paliwowego
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-check" aria-hidden="true"></i>
-                            Bezpieczna utylizacja zanieczyszczonego paliwa
-                        </li>
+                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Odpowietrzanie układu paliwowego</li>
+                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Bezpieczna utylizacja zanieczyszczonego paliwa</li>
                     </ul>
                 </div>
 
                 <div class="service-card">
-                    <div class="service-icon-wrap">
-                        <i class="fa-solid fa-file-shield" aria-hidden="true"></i>
-                    </div>
+                    <div class="service-icon-wrap"><i class="fa-solid fa-file-shield" aria-hidden="true"></i></div>
                     <h3>Holowanie z OC sprawcy i auto zastępcze</h3>
-                    <p>
-                        Miałeś kolizję nie ze swojej winy? Oferujemy bezgotówkowe
-                        holowanie, parking powypadkowy oraz bezpłatne auto zastępcze
-                        opłacane w całości z polisy OC sprawcy.
-                    </p>
+                    <p>Miałeś kolizję nie ze swojej winy? Oferujemy bezgotówkowe holowanie, parking powypadkowy oraz bezpłatne auto zastępcze opłacane w całości z polisy OC sprawcy.</p>
                     <ul class="service-features">
-                        <li>
-                            <i class="fa-solid fa-check" aria-hidden="true"></i>
-                            0 zł wkładu własnego
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-check" aria-hidden="true"></i>
-                            Załatwiamy wszelkie formalności z ubezpieczycielem
-                        </li>
+                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> 0 zł wkładu własnego</li>
+                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Załatwiamy wszelkie formalności z ubezpieczycielem</li>
                     </ul>
                 </div>
             </div>
@@ -763,10 +543,7 @@
             <div class="callout-banner">
                 <div class="callout-text">
                     <h3>Potrzebujesz natychmiastowej lawety?</h3>
-                    <p>
-                        Dyspozytor odbierze Twój telefon od razu i wyśle
-                        najbliższy wolny holownik w Twoją stronę.
-                    </p>
+                    <p>Dyspozytor odbierze Twój telefon od razu i wyśle najbliższy wolny holownik w Twoją stronę.</p>
                 </div>
                 <a href="tel:+48508511133" class="btn-main-call">
                     <i class="fa-solid fa-phone" aria-hidden="true"></i>
@@ -775,7 +552,6 @@
             </div>
         </section>
 
-        <!-- Cztery kafelki lawet -->
         <section class="container" id="lawety">
             <div class="section-header">
                 <span class="sub-badge">Transport pojazdów</span>
@@ -784,14 +560,10 @@
 
             <div class="fleet-grid">
                 <figure class="fleet-card">
-                    <!-- ZDJĘCIE 1:
-                    Zastąp poniższy element svg przez:
+                    <!-- ZDJĘCIE 1: zastąp svg przez:
                     <img src="laweta-1.jpg" alt="Czerwona laweta" width="640" height="480" loading="lazy">
                     -->
-                    <svg viewBox="0 0 640 480"
-                         role="img"
-                         aria-labelledby="laweta-title-1"
-                         style="color:#d8413b;">
+                    <svg viewBox="0 0 640 480" role="img" aria-labelledby="laweta-title-1" style="color:#d8413b;">
                         <title id="laweta-title-1">Ilustracja czerwonej lawety</title>
                         <use href="#tow-truck"/>
                     </svg>
@@ -799,14 +571,10 @@
                 </figure>
 
                 <figure class="fleet-card">
-                    <!-- ZDJĘCIE 2:
-                    Zastąp poniższy element svg przez:
+                    <!-- ZDJĘCIE 2: zastąp svg przez:
                     <img src="laweta-2.jpg" alt="Biała laweta" width="640" height="480" loading="lazy">
                     -->
-                    <svg viewBox="0 0 640 480"
-                         role="img"
-                         aria-labelledby="laweta-title-2"
-                         style="color:#edf1f5;">
+                    <svg viewBox="0 0 640 480" role="img" aria-labelledby="laweta-title-2" style="color:#edf1f5;">
                         <title id="laweta-title-2">Ilustracja białej lawety</title>
                         <use href="#tow-truck"/>
                     </svg>
@@ -814,14 +582,10 @@
                 </figure>
 
                 <figure class="fleet-card">
-                    <!-- ZDJĘCIE 3:
-                    Zastąp poniższy element svg przez:
+                    <!-- ZDJĘCIE 3: zastąp svg przez:
                     <img src="laweta-3.jpg" alt="Czerwona laweta" width="640" height="480" loading="lazy">
                     -->
-                    <svg viewBox="0 0 640 480"
-                         role="img"
-                         aria-labelledby="laweta-title-3"
-                         style="color:#c52b35;">
+                    <svg viewBox="0 0 640 480" role="img" aria-labelledby="laweta-title-3" style="color:#c52b35;">
                         <title id="laweta-title-3">Ilustracja czerwonej lawety</title>
                         <use href="#tow-truck" transform="translate(640 0) scale(-1 1)"/>
                     </svg>
@@ -829,14 +593,10 @@
                 </figure>
 
                 <figure class="fleet-card">
-                    <!-- ZDJĘCIE 4:
-                    Zastąp poniższy element svg przez:
+                    <!-- ZDJĘCIE 4: zastąp svg przez:
                     <img src="laweta-4.jpg" alt="Biała laweta" width="640" height="480" loading="lazy">
                     -->
-                    <svg viewBox="0 0 640 480"
-                         role="img"
-                         aria-labelledby="laweta-title-4"
-                         style="color:#ffffff;">
+                    <svg viewBox="0 0 640 480" role="img" aria-labelledby="laweta-title-4" style="color:#ffffff;">
                         <title id="laweta-title-4">Ilustracja białej lawety</title>
                         <use href="#tow-truck" transform="translate(640 0) scale(-1 1)"/>
                     </svg>
@@ -845,7 +605,6 @@
             </div>
         </section>
 
-        <!-- Informacje o obsłudze -->
         <section class="container">
             <div class="section-header">
                 <span class="sub-badge">Dlaczego my?</span>
@@ -856,50 +615,33 @@
                 <div class="why-box">
                     <i class="fa-solid fa-stopwatch-20" aria-hidden="true"></i>
                     <h3>Cena ustalona przed wyjazdem</h3>
-                    <p>
-                        Cenę ustalamy z góry przed wyjazdem lawety.
-                        Żadnych ukrytych opłat za kilometry dojazdowe czy załadunek.
-                    </p>
+                    <p>Cenę ustalamy z góry przed wyjazdem lawety. Żadnych ukrytych opłat za kilometry dojazdowe czy załadunek.</p>
                 </div>
-
                 <div class="why-box">
                     <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
                     <h3>Wygodne płatności</h3>
-                    <p>
-                        W każdym z naszych holowników zapłacisz wygodnie kartą,
-                        kodem BLIK, telefonem lub gotówką. Wystawiamy FV 23%.
-                    </p>
+                    <p>W każdym z naszych holowników zapłacisz wygodnie kartą, kodem BLIK, telefonem lub gotówką. Wystawiamy FV 23%.</p>
                 </div>
-
                 <div class="why-box">
                     <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
                     <h3>Ubezpieczenie przewoźnika</h3>
-                    <p>
-                        Posiadamy pełną polisę OCP przewoźnika. Twój samochód
-                        podczas całego procesu transportu jest w 100% ubezpieczony.
-                    </p>
+                    <p>Posiadamy pełną polisę OCP przewoźnika. Twój samochód podczas całego procesu transportu jest w 100% ubezpieczony.</p>
                 </div>
-
                 <div class="why-box">
                     <i class="fa-solid fa-location-crosshairs" aria-hidden="true"></i>
                     <h3>Lokalizacja GPS</h3>
-                    <p>
-                        Wykorzystujemy systemy namierzania floty, dzięki czemu
-                        natychmiast wysyłamy kierowcę znajdującego się najbliżej Ciebie.
-                    </p>
+                    <p>Wykorzystujemy systemy namierzania floty, dzięki czemu natychmiast wysyłamy kierowcę znajdującego się najbliżej Ciebie.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Obszar działania -->
         <section class="container" id="obszar" style="padding-top:0;">
             <div class="section-header">
                 <span class="sub-badge">Gdzie pomagamy</span>
                 <h2>Działamy w całym Poznaniu i okolicach</h2>
                 <p class="section-description">
                     Obsługujemy wszystkie dzielnice Poznania oraz pobliskie
-                    odcinki A2, S11 i S5. Czas dojazdu poza Poznań
-                    ustalamy indywidualnie.
+                    odcinki A2, S11 i S5. Czas dojazdu poza Poznań ustalamy indywidualnie.
                 </p>
             </div>
 
@@ -909,35 +651,26 @@
                         <div class="hw-badge">A2</div>
                         <div class="hw-info">
                             <div class="title">Autostrada A2</div>
-                            <div class="desc">
-                                Odcinek Buk – Komorniki – Krzesiny – Września
-                            </div>
+                            <div class="desc">Odcinek Buk – Komorniki – Krzesiny – Września</div>
                         </div>
                     </div>
-
                     <div class="hw-card">
                         <div class="hw-badge s-road">S11</div>
                         <div class="hw-info">
                             <div class="title">Droga S11</div>
-                            <div class="desc">
-                                Zachodnia obwodnica Poznania, Kórnik, Tarnowo Podgórne
-                            </div>
+                            <div class="desc">Zachodnia obwodnica Poznania, Kórnik, Tarnowo Podgórne</div>
                         </div>
                     </div>
-
                     <div class="hw-card">
                         <div class="hw-badge s-road">S5</div>
                         <div class="hw-info">
                             <div class="title">Droga S5</div>
-                            <div class="desc">
-                                Trasa w stronę Gniezna, Kostrzyna oraz Stęszewa / Kościana
-                            </div>
+                            <div class="desc">Trasa w stronę Gniezna, Kostrzyna oraz Stęszewa / Kościana</div>
                         </div>
                     </div>
                 </div>
 
                 <h3 class="district-title">Dzielnice Poznania i okoliczne gminy:</h3>
-
                 <div class="district-tags">
                     <span class="d-tag">Stare Miasto</span>
                     <span class="d-tag">Grunwald</span>
@@ -957,7 +690,6 @@
             </div>
         </section>
 
-        <!-- Krótka sekcja Party Driver -->
         <section class="container" id="party-driver" style="padding-top:0;">
             <div class="party-small">
                 <div>
@@ -974,9 +706,72 @@
                 </a>
             </div>
         </section>
+
+        <!-- Dane firmy bez kapitału zakładowego -->
+        <section class="container" id="kontakt" style="padding-top:0;">
+            <div class="section-header">
+                <span class="sub-badge">Kontakt i dane firmy</span>
+                <h2>IVNE — Pomoc Drogowa 24/7 Poland</h2>
+            </div>
+
+            <div class="company-grid">
+                <div class="company-card">
+                    <h3>IVNE spółka z ograniczoną odpowiedzialnością</h3>
+
+                    <address>
+                        <strong>Adres siedziby:</strong><br>
+                        ul. Wierzbowa 155, lok. B<br>
+                        62-081 Wysogotowo
+                    </address>
+
+                    <dl class="company-details">
+                        <div>
+                            <dt>NIP:</dt>
+                            <dd>7812061461</dd>
+                        </div>
+                        <div>
+                            <dt>KRS:</dt>
+                            <dd>0001072665</dd>
+                        </div>
+                        <div>
+                            <dt>REGON:</dt>
+                            <dd>527091138</dd>
+                        </div>
+                    </dl>
+
+                    <a href="tel:+48508511133" class="btn-main-call">
+                        <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                        Zadzwoń: 508 511 133
+                    </a>
+
+                    <p class="map-note">
+                        Pomoc drogowa z dojazdem do klienta.
+                        Mapa wskazuje adres siedziby spółki.
+                    </p>
+
+                    <a class="map-link"
+                       href="https://www.google.com/maps/search/?api=1&amp;query=Wierzbowa%20155%2FB%2C%2062-081%20Wysogotowo%2C%20Polska"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Otwórz adres w Mapach Google ↗
+                    </a>
+                </div>
+
+                <!-- Interaktywna mapa Google, nie zdjęcie -->
+                <iframe
+                    class="company-map"
+                    title="Mapa adresu siedziby IVNE — ul. Wierzbowa 155, Wysogotowo"
+                    src="https://maps.google.com/maps?q=Wierzbowa%20155%2FB%2C%2062-081%20Wysogotowo%2C%20Polska&amp;z=15&amp;output=embed"
+                    width="600"
+                    height="420"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
     </main>
 
-    <!-- Pełna stopka -->
     <footer>
         <div class="footer-content">
             <div class="footer-brand">
@@ -986,6 +781,16 @@
                     Świadczymy usługi holowania, pomocy powypadkowej i awaryjnej
                     365 dni w roku, 7 dni w tygodniu, 24 godziny na dobę.
                 </p>
+
+                <address class="footer-company">
+                    <strong>IVNE sp. z o.o.</strong><br>
+                    ul. Wierzbowa 155, lok. B<br>
+                    62-081 Wysogotowo<br>
+                    NIP: 7812061461<br>
+                    KRS: 0001072665<br>
+                    REGON: 527091138
+                </address>
+
                 <a href="tel:+48508511133" class="footer-phone">
                     <i class="fa-solid fa-phone" aria-hidden="true"></i>
                     Infolinia alarmowa: +48 508 511 133
@@ -1001,28 +806,17 @@
                     <li><a href="#uslugi">Awaryjny rozruch akumulatora</a></li>
                     <li><a href="#uslugi">Mobilna wulkanizacja</a></li>
                     <li><a href="#uslugi">Auto zastępcze z OC</a></li>
+                    <li><a href="#kontakt">Dane firmy i mapa</a></li>
                 </ul>
             </div>
 
             <div class="footer-links">
                 <h3>Płatności i faktury</h3>
                 <ul>
-                    <li>
-                        <i class="fa-solid fa-check" aria-hidden="true"></i>
-                        Płatność kartą / BLIK
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-check" aria-hidden="true"></i>
-                        Gotówka
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-check" aria-hidden="true"></i>
-                        Faktura VAT 23%
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-check" aria-hidden="true"></i>
-                        Rozliczenia bezgotówkowe z polis OC/AC
-                    </li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Płatność kartą / BLIK</li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Gotówka</li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Faktura VAT 23%</li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Rozliczenia bezgotówkowe z polis OC/AC</li>
                 </ul>
             </div>
         </div>
@@ -1035,7 +829,6 @@
         </div>
     </footer>
 
-    <!-- Stały przycisk telefonu na urządzeniach mobilnych -->
     <div class="mobile-bottom-bar">
         <a href="tel:+48508511133">
             <i class="fa-solid fa-phone" aria-hidden="true"></i>
