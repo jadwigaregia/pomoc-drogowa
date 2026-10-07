@@ -207,7 +207,7 @@
         .btn-secondary:hover { background: var(--bg-card-hover); border-color: var(--brand-yellow); }
         .hero .arrival-note { font-size: .95rem; margin-bottom: 24px; }
 
-        /* Cena i płatności przy głównym kontakcie */
+        /* Cena i płatności */
         .price-box {
             margin-bottom: 30px;
             padding: 24px;
@@ -239,7 +239,7 @@
         .metric-card .num { font-family: 'Space Grotesk', sans-serif; font-size: 1.7rem; font-weight: 700; color: var(--brand-yellow); }
         .metric-card .label { font-size: .85rem; color: var(--text-muted); }
 
-        /* Wspólne sekcje */
+        /* Sekcje */
         .container { max-width: 1200px; margin: 0 auto; padding: 65px 6%; }
         .section-header { text-align: center; margin-bottom: 36px; }
         .section-header .sub-badge {
@@ -302,7 +302,7 @@
         .callout-text h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; color: var(--brand-yellow); margin-bottom: 8px; }
         .callout-text p { max-width: 600px; }
 
-        /* Cztery kafelki lawet */
+        /* Kafelki lawet */
         .fleet-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 18px; }
         .fleet-card { overflow: hidden; border: 1px solid var(--border-color); border-radius: 14px; background: var(--bg-card); }
         .fleet-card svg,
@@ -316,7 +316,6 @@
         }
 
         .fleet-card figcaption { padding: 16px; font-size: .95rem; font-weight: 700; }
-        .fleet-note { margin-top: 14px; color: var(--text-muted); font-size: .88rem; }
 
         /* Informacje o obsłudze */
         .why-us-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,260px),1fr)); gap: 20px; }
@@ -325,7 +324,7 @@
         .why-box h3 { font-size: 1.15rem; margin-bottom: 10px; color: var(--text-main); }
         .why-box p { font-size: .9rem; color: var(--text-muted); }
 
-        /* Gdzie pomagamy */
+        /* Obszar działania */
         .coverage-container { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 30px; }
         .highway-cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,200px),1fr)); gap: 15px; margin-bottom: 30px; }
         .hw-card { background: #090d12; border: 1px solid var(--border-color); border-radius: 10px; padding: 16px; display: flex; align-items: center; gap: 14px; min-width: 0; }
@@ -337,7 +336,7 @@
         .district-tags { display: flex; flex-wrap: wrap; gap: 10px; }
         .d-tag { background: #1f242c; border: 1px solid rgba(255,255,255,.08); padding: 8px 16px; border-radius: 30px; font-size: .88rem; }
 
-        /* Krótka sekcja Party Driver na dole */
+        /* Party Driver */
         .party-small {
             display: flex;
             align-items: center;
@@ -354,19 +353,47 @@
         .party-small a { flex-shrink: 0; }
 
         /* Stopka */
-        footer { background: #080B0F; border-top: 1px solid var(--border-color); padding: 50px 6% 30px; color: var(--text-muted); font-size: .9rem; }
-        .footer-content { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; margin-bottom: 35px; }
+        footer {
+            background: #080B0F;
+            border-top: 1px solid var(--border-color);
+            padding: 50px 6% 30px;
+            color: var(--text-muted);
+            font-size: .9rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+            margin-bottom: 35px;
+        }
+
         .footer-brand { max-width: 400px; }
-        .footer-brand h3 { font-family: 'Space Grotesk', sans-serif; color: var(--brand-yellow); font-size: 1.3rem; margin-bottom: 12px; }
-        .footer-phone { display: inline-block; margin-top: 15px; color: var(--brand-yellow); font-weight: 700; text-decoration: none; }
+        .footer-brand h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--brand-yellow);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        .footer-phone {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--brand-yellow);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
         .footer-links h3 { color: var(--text-main); font-size: 1rem; margin-bottom: 15px; }
         .footer-links ul { list-style: none; }
         .footer-links li { margin-bottom: 8px; }
         .footer-links a { color: var(--text-muted); text-decoration: none; }
         .footer-links a:hover { color: var(--brand-yellow); }
+        .footer-links .fa-check { color: var(--brand-yellow); margin-right: 6px; }
         .footer-bottom { border-top: 1px solid rgba(255,255,255,.05); padding-top: 25px; text-align: center; font-size: .82rem; }
 
-        /* Telefon na dole ekranu mobilnego */
+        /* Kontakt mobilny */
         .mobile-bottom-bar {
             position: fixed;
             bottom: 0;
@@ -380,7 +407,17 @@
             display: none;
         }
 
-        .mobile-bottom-bar a { color: #000; font-size: 1.1rem; font-weight: 800; text-decoration: none; display: flex; justify-content: center; align-items: center; gap: 10px; text-align: center; }
+        .mobile-bottom-bar a {
+            color: #000;
+            font-size: 1.1rem;
+            font-weight: 800;
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            text-align: center;
+        }
 
         @media (max-width: 1000px) {
             .fleet-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
@@ -429,7 +466,7 @@
 
 <body id="poczatek">
 
-    <!-- Wspólna ilustracja SVG wykorzystywana w czterech kafelkach -->
+    <!-- Wspólna ilustracja wykorzystywana w kafelkach lawet -->
     <svg xmlns="http://www.w3.org/2000/svg"
          width="0"
          height="0"
@@ -449,12 +486,10 @@
 
                 <ellipse cx="320" cy="372" rx="265" ry="19" fill="#0c121d"/>
 
-                <!-- Platforma lawety -->
                 <path d="M45 306H385L438 319V342H45Z" fill="#a3b1c1"/>
                 <path d="M54 308H382" stroke="#e6edf3" stroke-width="7"/>
                 <path d="M60 323H386" stroke="#576778" stroke-width="9"/>
 
-                <!-- Kabina, kolor pobierany z kafelka -->
                 <path d="M388 242Q388 224 408 224H492L550 277L575 289V342H388Z"
                       fill="currentColor" stroke="#0d1725" stroke-width="5"/>
 
@@ -469,7 +504,6 @@
                 <rect x="540" y="329" width="45" height="16" rx="4" fill="#47586b"/>
                 <path d="M47 344H540" stroke="#111c2b" stroke-width="14"/>
 
-                <!-- Koła -->
                 <g fill="#0b111a" stroke="#344254" stroke-width="5">
                     <circle cx="148" cy="345" r="34"/>
                     <circle cx="335" cy="345" r="34"/>
@@ -550,7 +584,6 @@
                     Potwierdzimy go podczas rozmowy.
                 </p>
 
-                <!-- Cena i płatności przeniesione na początek strony -->
                 <div class="price-box">
                     <h2>Cena ustalona przed wyjazdem</h2>
                     <p>
@@ -742,7 +775,7 @@
             </div>
         </section>
 
-        <!-- Cztery kafelki z ilustracjami lawet -->
+        <!-- Cztery kafelki lawet -->
         <section class="container" id="lawety">
             <div class="section-header">
                 <span class="sub-badge">Transport pojazdów</span>
@@ -752,14 +785,14 @@
             <div class="fleet-grid">
                 <figure class="fleet-card">
                     <!-- ZDJĘCIE 1:
-                    Zastąp cały poniższy element <svg>...</svg> tym kodem:
+                    Zastąp poniższy element svg przez:
                     <img src="laweta-1.jpg" alt="Czerwona laweta" width="640" height="480" loading="lazy">
                     -->
                     <svg viewBox="0 0 640 480"
                          role="img"
                          aria-labelledby="laweta-title-1"
                          style="color:#d8413b;">
-                        <title id="laweta-title-1">Czerwona laweta — ilustracja poglądowa</title>
+                        <title id="laweta-title-1">Ilustracja czerwonej lawety</title>
                         <use href="#tow-truck"/>
                     </svg>
                     <figcaption>Czerwona laweta</figcaption>
@@ -767,14 +800,14 @@
 
                 <figure class="fleet-card">
                     <!-- ZDJĘCIE 2:
-                    Zastąp cały poniższy element <svg>...</svg> tym kodem:
+                    Zastąp poniższy element svg przez:
                     <img src="laweta-2.jpg" alt="Biała laweta" width="640" height="480" loading="lazy">
                     -->
                     <svg viewBox="0 0 640 480"
                          role="img"
                          aria-labelledby="laweta-title-2"
                          style="color:#edf1f5;">
-                        <title id="laweta-title-2">Biała laweta — ilustracja poglądowa</title>
+                        <title id="laweta-title-2">Ilustracja białej lawety</title>
                         <use href="#tow-truck"/>
                     </svg>
                     <figcaption>Biała laweta</figcaption>
@@ -782,14 +815,14 @@
 
                 <figure class="fleet-card">
                     <!-- ZDJĘCIE 3:
-                    Zastąp cały poniższy element <svg>...</svg> tym kodem:
+                    Zastąp poniższy element svg przez:
                     <img src="laweta-3.jpg" alt="Czerwona laweta" width="640" height="480" loading="lazy">
                     -->
                     <svg viewBox="0 0 640 480"
                          role="img"
                          aria-labelledby="laweta-title-3"
                          style="color:#c52b35;">
-                        <title id="laweta-title-3">Czerwona laweta — ilustracja poglądowa</title>
+                        <title id="laweta-title-3">Ilustracja czerwonej lawety</title>
                         <use href="#tow-truck" transform="translate(640 0) scale(-1 1)"/>
                     </svg>
                     <figcaption>Czerwona laweta</figcaption>
@@ -797,23 +830,19 @@
 
                 <figure class="fleet-card">
                     <!-- ZDJĘCIE 4:
-                    Zastąp cały poniższy element <svg>...</svg> tym kodem:
+                    Zastąp poniższy element svg przez:
                     <img src="laweta-4.jpg" alt="Biała laweta" width="640" height="480" loading="lazy">
                     -->
                     <svg viewBox="0 0 640 480"
                          role="img"
                          aria-labelledby="laweta-title-4"
                          style="color:#ffffff;">
-                        <title id="laweta-title-4">Biała laweta — ilustracja poglądowa</title>
+                        <title id="laweta-title-4">Ilustracja białej lawety</title>
                         <use href="#tow-truck" transform="translate(640 0) scale(-1 1)"/>
                     </svg>
                     <figcaption>Biała laweta</figcaption>
                 </figure>
             </div>
-
-            <p class="fleet-note">
-                Ilustracje poglądowe — nie przedstawiają rzeczywistych pojazdów firmy.
-            </p>
         </section>
 
         <!-- Informacje o obsłudze -->
@@ -928,7 +957,7 @@
             </div>
         </section>
 
-        <!-- Krótka sekcja Party Driver na dole -->
+        <!-- Krótka sekcja Party Driver -->
         <section class="container" id="party-driver" style="padding-top:0;">
             <div class="party-small">
                 <div>
@@ -947,6 +976,7 @@
         </section>
     </main>
 
+    <!-- Pełna stopka -->
     <footer>
         <div class="footer-content">
             <div class="footer-brand">
@@ -958,7 +988,7 @@
                 </p>
                 <a href="tel:+48508511133" class="footer-phone">
                     <i class="fa-solid fa-phone" aria-hidden="true"></i>
-                    Zadzwoń: +48 508 511 133
+                    Infolinia alarmowa: +48 508 511 133
                 </a>
             </div>
 
@@ -966,21 +996,33 @@
                 <h3>Usługi</h3>
                 <ul>
                     <li><a href="#uslugi">Autolaweta Poznań</a></li>
+                    <li><a href="#party-driver">Party Driver (odprowadzanie)</a></li>
                     <li><a href="#uslugi">Holowanie A2 / S11 / S5</a></li>
                     <li><a href="#uslugi">Awaryjny rozruch akumulatora</a></li>
                     <li><a href="#uslugi">Mobilna wulkanizacja</a></li>
                     <li><a href="#uslugi">Auto zastępcze z OC</a></li>
-                    <li><a href="#party-driver">Party Driver</a></li>
                 </ul>
             </div>
 
             <div class="footer-links">
                 <h3>Płatności i faktury</h3>
                 <ul>
-                    <li>Płatność kartą / BLIK</li>
-                    <li>Gotówka</li>
-                    <li>Faktura VAT 23%</li>
-                    <li>Rozliczenia bezgotówkowe z polis OC/AC</li>
+                    <li>
+                        <i class="fa-solid fa-check" aria-hidden="true"></i>
+                        Płatność kartą / BLIK
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-check" aria-hidden="true"></i>
+                        Gotówka
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-check" aria-hidden="true"></i>
+                        Faktura VAT 23%
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-check" aria-hidden="true"></i>
+                        Rozliczenia bezgotówkowe z polis OC/AC
+                    </li>
                 </ul>
             </div>
         </div>
@@ -993,6 +1035,7 @@
         </div>
     </footer>
 
+    <!-- Stały przycisk telefonu na urządzeniach mobilnych -->
     <div class="mobile-bottom-bar">
         <a href="tel:+48508511133">
             <i class="fa-solid fa-phone" aria-hidden="true"></i>
