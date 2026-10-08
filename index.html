@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -5,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Pomoc Drogowa Poznań 24H | Laweta i Holowanie</title>
-    <meta name="description" content="Pomoc drogowa Poznań 24/7. Laweta, holowanie i transport samochodów w Poznaniu oraz okolicach. Awaria pojazdu? Zadzwoń i zamów pomoc!">
+    <meta name="description" content="Pomoc drogowa Poznań 24/7. Laweta, holowanie, pomoc na A2, S5 i S11, awaryjne odpalanie i transport aut. Zadzwoń: 508 511 133.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://pomocdrogowapoznan24h.pl/">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,9 +38,17 @@
         }
 
         html { scroll-behavior: smooth; }
-        body { background: var(--bg-dark); color: var(--text-light); line-height: 1.6; }
+        body {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
         [id] { scroll-margin-top: 110px; }
-        a:focus-visible { outline: 3px solid #58a6ff; outline-offset: 4px; }
+        a:focus-visible, summary:focus-visible {
+            outline: 3px solid #58a6ff;
+            outline-offset: 4px;
+        }
 
         .top-status-bar {
             background: #1c1500;
@@ -82,7 +93,13 @@
             gap: 15px;
         }
 
-        .logo-box { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
         .logo-icon {
             background: var(--brand-yellow);
             color: var(--bg-dark);
@@ -97,11 +114,29 @@
             box-shadow: 0 0 15px var(--brand-yellow-glow);
         }
 
-        .logo-text { display: flex; flex-direction: column; }
-        .logo-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--text-main); letter-spacing: -.5px; text-transform: uppercase; }
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -.5px;
+            text-transform: uppercase;
+        }
+
         .logo-title span { color: var(--brand-yellow); }
-        .logo-sub { font-size: .75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-        .header-actions { display: flex; align-items: center; }
+
+        .logo-sub {
+            font-size: .75rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
         .btn-call-header {
             background: var(--brand-yellow);
@@ -114,7 +149,6 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            font-size: 1rem;
             min-height: 44px;
             box-shadow: 0 4px 14px var(--brand-yellow-glow);
         }
@@ -143,14 +177,33 @@
             font-weight: 700;
             margin-bottom: 24px;
             text-transform: uppercase;
-            letter-spacing: .5px;
         }
 
         .hero-content { max-width: 820px; }
-        .hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: 3.2rem; line-height: 1.15; color: var(--text-main); margin-bottom: 20px; }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.2rem;
+            line-height: 1.15;
+            color: var(--text-main);
+            margin-bottom: 20px;
+        }
+
         .hero h1 span { color: var(--brand-yellow); }
-        .hero p { font-size: 1.18rem; color: var(--text-muted); margin-bottom: 30px; max-width: 680px; }
-        .hero-buttons { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; }
+
+        .hero p {
+            font-size: 1.18rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            max-width: 680px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
 
         .btn-main-call {
             background: var(--brand-yellow);
@@ -186,14 +239,45 @@
             text-align: center;
         }
 
-        .btn-secondary:hover { background: var(--bg-card-hover); border-color: var(--brand-yellow); }
-        .hero .arrival-note { font-size: .95rem; margin-bottom: 24px; }
+        .btn-secondary:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--brand-yellow);
+        }
 
-        .price-box { margin-bottom: 30px; padding: 24px; background: #1c200e; border: 1px solid #726021; border-radius: 14px; }
-        .price-box h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; color: var(--brand-yellow); margin-bottom: 8px; }
-        .price-box p { font-size: 1rem; margin-bottom: 16px; color: var(--text-light); }
-        .payment-tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; }
-        .payment-tags li { padding: 6px 12px; border: 1px solid #726021; border-radius: 8px; font-size: .85rem; }
+        .price-box {
+            margin-bottom: 30px;
+            padding: 24px;
+            background: #1c200e;
+            border: 1px solid #726021;
+            border-radius: 14px;
+        }
+
+        .price-box h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+            color: var(--brand-yellow);
+            margin-bottom: 8px;
+        }
+
+        .price-box p {
+            font-size: 1rem;
+            margin-bottom: 16px;
+            color: var(--text-light);
+        }
+
+        .payment-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .payment-tags li {
+            padding: 6px 12px;
+            border: 1px solid #726021;
+            border-radius: 8px;
+            font-size: .85rem;
+        }
 
         .hero-metrics {
             display: grid;
@@ -203,87 +287,478 @@
             border-top: 1px solid var(--border-color);
         }
 
-        .metric-card { background: rgba(22,27,34,.8); border: 1px solid var(--border-color); padding: 16px 20px; border-radius: 10px; }
-        .metric-card .num { font-family: 'Space Grotesk', sans-serif; font-size: 1.7rem; font-weight: 700; color: var(--brand-yellow); }
-        .metric-card .label { font-size: .85rem; color: var(--text-muted); }
+        .metric-card {
+            background: rgba(22,27,34,.8);
+            border: 1px solid var(--border-color);
+            padding: 16px 20px;
+            border-radius: 10px;
+        }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 65px 6%; }
-        .section-header { text-align: center; margin-bottom: 36px; }
-        .section-header .sub-badge { color: var(--brand-yellow); font-weight: 700; font-size: .85rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; display: block; }
-        .section-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2.3rem; color: var(--text-main); }
-        .section-description { margin-top: 14px; color: var(--text-muted); }
+        .metric-card .num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--brand-yellow);
+        }
 
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,320px),1fr)); gap: 24px; }
-        .service-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; padding: 30px 25px; transition: border-color .2s; min-width: 0; }
+        .metric-card .label {
+            font-size: .85rem;
+            color: var(--text-muted);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 65px 6%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .section-header .sub-badge {
+            color: var(--brand-yellow);
+            font-weight: 700;
+            font-size: .85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .section-header h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.3rem;
+            color: var(--text-main);
+        }
+
+        .section-description {
+            margin-top: 14px;
+            color: var(--text-muted);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(min(100%,320px),1fr));
+            gap: 24px;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 30px 25px;
+            transition: border-color .2s;
+            min-width: 0;
+        }
+
         .service-card:hover { border-color: var(--brand-yellow); }
-        .service-icon-wrap { width: 60px; height: 60px; background: rgba(255,184,0,.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; color: var(--brand-yellow); margin-bottom: 20px; }
-        .service-card h3 { font-size: 1.3rem; margin-bottom: 12px; color: var(--text-main); }
-        .service-card p { font-size: .95rem; color: var(--text-muted); margin-bottom: 16px; }
-        .service-features { list-style: none; border-top: 1px solid rgba(255,255,255,.06); padding-top: 14px; }
-        .service-features li { font-size: .85rem; margin-bottom: 8px; display: flex; align-items: baseline; gap: 8px; }
-        .service-features i { color: var(--brand-yellow); font-size: .75rem; }
 
-        .callout-banner { background: linear-gradient(135deg,#1c1500,#2a2000); border: 1px solid rgba(255,184,0,.4); border-radius: 16px; padding: 35px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 25px; margin-top: 35px; }
-        .callout-text h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; color: var(--brand-yellow); margin-bottom: 8px; }
+        .service-icon-wrap {
+            width: 60px;
+            height: 60px;
+            background: rgba(255,184,0,.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: var(--brand-yellow);
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .service-card p {
+            font-size: .95rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .service-features {
+            list-style: none;
+            border-top: 1px solid rgba(255,255,255,.06);
+            padding-top: 14px;
+        }
+
+        .service-features li {
+            font-size: .85rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .service-features i {
+            color: var(--brand-yellow);
+            font-size: .75rem;
+        }
+
+        .callout-banner {
+            background: linear-gradient(135deg,#1c1500,#2a2000);
+            border: 1px solid rgba(255,184,0,.4);
+            border-radius: 16px;
+            padding: 35px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+            margin-top: 35px;
+        }
+
+        .callout-text h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            color: var(--brand-yellow);
+            margin-bottom: 8px;
+        }
+
         .callout-text p { max-width: 600px; }
 
-        .fleet-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 18px; }
-        .fleet-card { overflow: hidden; border: 1px solid var(--border-color); border-radius: 14px; background: var(--bg-card); }
-        .fleet-card svg, .fleet-card img { display: block; width: 100%; height: auto; aspect-ratio: 4/3; object-fit: cover; background: #202b3b; }
-        .fleet-card figcaption { padding: 16px; font-size: .95rem; font-weight: 700; }
+        .fleet-grid {
+            display: grid;
+            grid-template-columns: repeat(4,minmax(0,1fr));
+            gap: 18px;
+        }
 
-        .why-us-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,260px),1fr)); gap: 20px; }
-        .why-box { background: var(--bg-card); border: 1px solid var(--border-color); padding: 25px; border-radius: 12px; }
-        .why-box i { color: var(--brand-yellow); font-size: 1.5rem; margin-bottom: 15px; }
-        .why-box h3 { font-size: 1.15rem; margin-bottom: 10px; color: var(--text-main); }
-        .why-box p { font-size: .9rem; color: var(--text-muted); }
+        .fleet-card {
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            background: var(--bg-card);
+        }
 
-        .coverage-container { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 30px; }
-        .highway-cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,200px),1fr)); gap: 15px; margin-bottom: 30px; }
-        .hw-card { background: #090d12; border: 1px solid var(--border-color); border-radius: 10px; padding: 16px; display: flex; align-items: center; gap: 14px; min-width: 0; }
-        .hw-badge { background: #1e3a8a; color: #fff; font-weight: 800; padding: 6px 10px; border-radius: 6px; flex-shrink: 0; }
+        .fleet-card svg,
+        .fleet-card img {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            background: #202b3b;
+        }
+
+        .fleet-card figcaption {
+            padding: 16px;
+            font-size: .95rem;
+            font-weight: 700;
+        }
+
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(min(100%,260px),1fr));
+            gap: 20px;
+        }
+
+        .why-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        .why-box i {
+            color: var(--brand-yellow);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .why-box h3 {
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .why-box p {
+            font-size: .9rem;
+            color: var(--text-muted);
+        }
+
+        .coverage-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+        }
+
+        .highway-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(min(100%,200px),1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .hw-card {
+            background: #090d12;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+        }
+
+        .hw-badge {
+            background: #1e3a8a;
+            color: #fff;
+            font-weight: 800;
+            padding: 6px 10px;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+
         .hw-badge.s-road { background: #b91c1c; }
-        .hw-info .title { font-weight: 700; font-size: .95rem; color: var(--text-main); }
-        .hw-info .desc { font-size: .8rem; color: var(--text-muted); }
-        .district-title { margin-bottom: 12px; font-size: 1.05rem; }
-        .district-tags { display: flex; flex-wrap: wrap; gap: 10px; }
-        .d-tag { background: #1f242c; border: 1px solid rgba(255,255,255,.08); padding: 8px 16px; border-radius: 30px; font-size: .88rem; }
 
-        .party-small { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 28px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; }
-        .party-small h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; margin-bottom: 8px; }
-        .party-small p { max-width: 660px; color: var(--text-muted); }
+        .hw-info .title {
+            font-weight: 700;
+            font-size: .95rem;
+            color: var(--text-main);
+        }
+
+        .hw-info .desc {
+            font-size: .8rem;
+            color: var(--text-muted);
+        }
+
+        .district-title {
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+        }
+
+        .district-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .d-tag {
+            background: #1f242c;
+            border: 1px solid rgba(255,255,255,.08);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: .88rem;
+        }
+
+        .party-small {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 28px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+        }
+
+        .party-small h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .party-small p {
+            max-width: 660px;
+            color: var(--text-muted);
+        }
+
         .party-small a { flex-shrink: 0; }
 
-        /* Dane firmy i interaktywna mapa */
-        .company-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; }
-        .company-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 28px; min-width: 0; }
-        .company-card h3 { color: var(--brand-yellow); font-size: 1.3rem; margin-bottom: 18px; }
-        .company-card address { font-style: normal; margin-bottom: 18px; }
-        .company-details { margin-bottom: 22px; }
-        .company-details div { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 5px; }
-        .company-details dt { font-weight: 700; }
-        .company-card .btn-main-call { font-size: 1rem; padding: 16px 20px; }
-        .map-note { margin-top: 20px; margin-bottom: 16px; color: var(--text-muted); font-size: .9rem; }
-        .map-link { color: var(--brand-yellow); text-underline-offset: 4px; }
-        .company-map { display: block; width: 100%; height: 100%; min-height: 420px; border: 1px solid var(--border-color); border-radius: 16px; background: var(--bg-card); }
+        /* FAQ – najczęstsze pytania */
+        .faq-list {
+            max-width: 960px;
+            margin: 0 auto;
+            display: grid;
+            gap: 12px;
+        }
 
-        footer { background: #080B0F; border-top: 1px solid var(--border-color); padding: 50px 6% 30px; color: var(--text-muted); font-size: .9rem; }
-        .footer-content { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; margin-bottom: 35px; }
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0 22px;
+        }
+
+        .faq-item[open] { border-color: rgba(255,184,0,.6); }
+
+        .faq-item summary {
+            cursor: pointer;
+            padding: 19px 0;
+            font-size: 1.03rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .faq-item summary::marker { color: var(--brand-yellow); }
+
+        .faq-item p {
+            padding: 0 0 20px;
+            color: var(--text-muted);
+        }
+
+        /* Kontakt i mapa */
+        .company-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .company-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 28px;
+            min-width: 0;
+        }
+
+        .company-card h3 {
+            color: var(--brand-yellow);
+            font-size: 1.3rem;
+            margin-bottom: 18px;
+        }
+
+        .company-card address {
+            font-style: normal;
+            margin-bottom: 18px;
+        }
+
+        .company-details { margin-bottom: 22px; }
+
+        .company-details div {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 5px;
+        }
+
+        .company-details dt { font-weight: 700; }
+
+        .company-card .btn-main-call {
+            font-size: 1rem;
+            padding: 16px 20px;
+        }
+
+        .map-note {
+            margin-top: 20px;
+            margin-bottom: 16px;
+            color: var(--text-muted);
+            font-size: .9rem;
+        }
+
+        .map-link {
+            color: var(--brand-yellow);
+            text-underline-offset: 4px;
+        }
+
+        .company-map {
+            display: block;
+            width: 100%;
+            height: 100%;
+            min-height: 420px;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            background: var(--bg-card);
+        }
+
+        footer {
+            background: #080B0F;
+            border-top: 1px solid var(--border-color);
+            padding: 50px 6% 30px;
+            color: var(--text-muted);
+            font-size: .9rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+            margin-bottom: 35px;
+        }
+
         .footer-brand { max-width: 400px; }
-        .footer-brand h3 { font-family: 'Space Grotesk', sans-serif; color: var(--brand-yellow); font-size: 1.3rem; margin-bottom: 12px; }
-        .footer-company { margin-top: 18px; font-style: normal; }
+
+        .footer-brand h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--brand-yellow);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        .footer-company {
+            margin-top: 18px;
+            font-style: normal;
+        }
+
         .footer-company strong { color: var(--text-light); }
-        .footer-phone { display: inline-block; margin-top: 15px; color: var(--brand-yellow); font-weight: 700; text-decoration: none; }
-        .footer-links h3 { color: var(--text-main); font-size: 1rem; margin-bottom: 15px; }
+
+        .footer-phone {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--brand-yellow);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .footer-links h3 {
+            color: var(--text-main);
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
         .footer-links ul { list-style: none; }
         .footer-links li { margin-bottom: 8px; }
-        .footer-links a { color: var(--text-muted); text-decoration: none; }
-        .footer-links a:hover { color: var(--brand-yellow); }
-        .footer-links .fa-check { color: var(--brand-yellow); margin-right: 6px; }
-        .footer-bottom { border-top: 1px solid rgba(255,255,255,.05); padding-top: 25px; text-align: center; font-size: .82rem; }
 
-        .mobile-bottom-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--brand-yellow); padding: 12px 16px; padding-bottom: calc(12px + env(safe-area-inset-bottom,0px)); z-index: 9999; box-shadow: 0 -4px 20px rgba(0,0,0,.5); display: none; }
-        .mobile-bottom-bar a { color: #000; font-size: 1.1rem; font-weight: 800; text-decoration: none; display: flex; justify-content: center; align-items: center; gap: 10px; text-align: center; }
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover { color: var(--brand-yellow); }
+
+        .footer-links .fa-check {
+            color: var(--brand-yellow);
+            margin-right: 6px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,.05);
+            padding-top: 25px;
+            text-align: center;
+            font-size: .82rem;
+        }
+
+        .mobile-bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--brand-yellow);
+            padding: 12px 16px;
+            padding-bottom: calc(12px + env(safe-area-inset-bottom,0px));
+            z-index: 9999;
+            box-shadow: 0 -4px 20px rgba(0,0,0,.5);
+            display: none;
+        }
+
+        .mobile-bottom-bar a {
+            color: #000;
+            font-size: 1.1rem;
+            font-weight: 800;
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            text-align: center;
+        }
 
         @media (max-width: 1000px) {
             .fleet-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
@@ -306,9 +781,11 @@
             .hero { padding: 45px 5% 50px; }
             .hero h1 { font-size: 1.95rem; }
             .hero p { font-size: 1.05rem; }
-            .hero .arrival-note { font-size: .9rem; }
             .hero-buttons { flex-direction: column; }
-            .btn-main-call, .btn-secondary { width: 100%; justify-content: center; }
+            .btn-main-call, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
             .btn-main-call { font-size: 1rem; padding: 16px; }
             .container { padding: 45px 5%; }
             .section-header h2 { font-size: 1.8rem; }
@@ -318,12 +795,17 @@
             .callout-text h3 { font-size: 1.5rem; }
             .fleet-grid { grid-template-columns: 1fr; }
             .coverage-container { padding: 20px; }
-            .party-small { flex-direction: column; align-items: stretch; padding: 22px; }
+            .party-small {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 22px;
+            }
             .logo-box { gap: 8px; }
             .logo-sub { font-size: .65rem; letter-spacing: .4px; }
             .btn-call-header { padding: 10px 14px; }
             .mobile-bottom-bar a { font-size: 1rem; }
             .company-card { padding: 22px; }
+            .faq-item { padding: 0 17px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -338,9 +820,10 @@
 
 <body id="poczatek">
 
-    <!-- Ilustracja używana w kafelkach lawet -->
-    <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0"
-         aria-hidden="true" style="position:absolute;overflow:hidden;">
+    <!-- Ilustracje lawet -->
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width="0" height="0" aria-hidden="true"
+         style="position:absolute;overflow:hidden">
         <defs>
             <symbol id="tow-truck" viewBox="0 0 640 480">
                 <rect width="640" height="480" fill="#202b3b"/>
@@ -356,11 +839,8 @@
                 <path d="M414 241H482L520 278H414Z" fill="#153d58"/>
                 <path d="M425 246H475L503 273H425Z" fill="#7cbed5"/>
                 <path d="M490 239L535 279H551L506 239Z" fill="#183b51"/>
-                <path d="M407 287H465V333H407Z" fill="none" stroke="#263442" stroke-width="3"/>
-                <path d="M443 299H457" stroke="#182738" stroke-width="5"/>
                 <rect x="418" y="208" width="43" height="13" rx="4" fill="#ffb800"/>
                 <path d="M548 300H573V313H548Z" fill="#fff3c9"/>
-                <rect x="540" y="329" width="45" height="16" rx="4" fill="#47586b"/>
                 <path d="M47 344H540" stroke="#111c2b" stroke-width="14"/>
                 <g fill="#0b111a" stroke="#344254" stroke-width="5">
                     <circle cx="148" cy="345" r="34"/>
@@ -373,22 +853,25 @@
                     <circle cx="506" cy="345" r="16"/>
                 </g>
                 <path d="M76 292H358" stroke="#ffb800" stroke-width="5"/>
-                <path d="M85 292V306M125 292V306M165 292V306M205 292V306M245 292V306M285 292V306M325 292V306" stroke="#182638" stroke-width="5"/>
             </symbol>
         </defs>
     </svg>
 
+    <!-- PASEK INFORMACYJNY -->
     <div class="top-status-bar">
         <span class="pulse-dot"></span>
         <span>
             Pomoc drogowa 24/7 &bull;
-            Kierowcy w różnych częściach Poznania &bull;
-            Przewidywany dojazd: <strong>10–15 minut</strong>
+            Poznań i okolice &bull;
+            Przewidywany dojazd:
+            <strong>10–15 minut</strong>
         </span>
     </div>
 
+    <!-- NAGŁÓWEK -->
     <header>
-        <a href="#poczatek" class="logo-box" aria-label="24/7 Poland — początek strony">
+        <a href="#poczatek" class="logo-box"
+           aria-label="24/7 Poland — początek strony">
             <div class="logo-icon">
                 <i class="fa-solid fa-truck-pickup" aria-hidden="true"></i>
             </div>
@@ -399,7 +882,8 @@
         </a>
 
         <div class="header-actions">
-            <a href="tel:+48508511133" class="btn-call-header" aria-label="Zadzwoń: 508 511 133">
+            <a href="tel:+48508511133" class="btn-call-header"
+               aria-label="Zadzwoń: 508 511 133">
                 <i class="fa-solid fa-phone" aria-hidden="true"></i>
                 <span>508 511 133</span>
             </a>
@@ -407,21 +891,31 @@
     </header>
 
     <main>
+
+        <!-- SEKCJA GŁÓWNA SEO -->
         <section class="hero">
             <div class="hero-badge">
                 <i class="fa-solid fa-bolt" aria-hidden="true"></i>
-                Błyskawiczny dojazd na terenie Wielkopolski
+                Całodobowa pomoc drogowa Poznań
             </div>
 
             <div class="hero-content">
-                <h1>Pomoc Drogowa Poznań 24H – <span>Laweta i Holowanie</span></h1>
+
+                <h1>
+                    Pomoc Drogowa Poznań 24H –
+                    <span>Laweta i Holowanie</span>
+                </h1>
+
                 <p>
-    Awaria, kolizja lub unieruchomiony samochód?
-    Całodobowa pomoc drogowa i laweta w Poznaniu oraz okolicach.
-    Holowanie i transport pojazdów na terenie Poznania,
-    autostrady A2 oraz dróg ekspresowych S11 i S5.
-    Zadzwoń i zamów pomoc 24/7!
-</p>
+                    Awaria samochodu, kolizja lub unieruchomiony pojazd?
+                    Oferujemy całodobową pomoc drogową, lawetę i holowanie
+                    w Poznaniu oraz okolicach. Organizujemy transport
+                    samochodów osobowych, dostawczych i pojazdów
+                    powypadkowych, a także pomoc na autostradzie A2
+                    oraz drogach ekspresowych S5 i S11.
+                    Przewidywany dojazd w Poznaniu:
+                    <strong>10–15 minut</strong>.
+                </p>
 
                 <div class="hero-buttons">
                     <a href="tel:+48508511133" class="btn-main-call">
@@ -434,16 +928,12 @@
                     </a>
                 </div>
 
-                <p class="arrival-note">
-                    Czas dojazdu zależy od lokalizacji, ruchu i dostępności kierowców.
-                    Potwierdzimy go podczas rozmowy.
-                </p>
-
                 <div class="price-box">
                     <h2>Cena ustalona przed wyjazdem</h2>
                     <p>
-                        Podaj lokalizację, rodzaj pojazdu i opisz problem.
-                        Cenę ustalimy przed wysłaniem lawety.
+                        Podaj lokalizację, markę i model samochodu
+                        oraz miejsce, do którego chcesz go przetransportować.
+                        Ustalimy cenę usługi przed wysłaniem lawety.
                     </p>
                     <ul class="payment-tags" aria-label="Płatności i faktury">
                         <li>Karta</li>
@@ -460,7 +950,7 @@
                     </div>
                     <div class="metric-card">
                         <div class="num">24/7</div>
-                        <div class="label">Dyspozytornia non-stop</div>
+                        <div class="label">Pomoc drogowa non-stop</div>
                     </div>
                     <div class="metric-card">
                         <div class="num">100% OCP</div>
@@ -474,78 +964,285 @@
             </div>
         </section>
 
+        <!-- ETAP 1: ROZBUDOWANE OPISY SZEŚCIU USŁUG -->
         <section class="container" id="uslugi">
             <div class="section-header">
-                <span class="sub-badge">Profesjonalne wsparcie</span>
+                <span class="sub-badge">Usługi pomocy drogowej</span>
                 <h2>W czym możemy Ci pomóc?</h2>
+                <p class="section-description">
+                    Laweta Poznań, holowanie, pomoc po awarii samochodu
+                    i wsparcie kierowców na drogach Wielkopolski.
+                </p>
             </div>
 
             <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon-wrap"><i class="fa-solid fa-truck" aria-hidden="true"></i></div>
-                    <h3>Autolaweta i holowanie</h3>
-                    <p>Bezpieczny transport aut osobowych, SUV-ów, busów dostawczych, maszyn budowlanych oraz motocykli. Obsługujemy auta powypadkowe i z zablokowanymi kołami.</p>
-                    <ul class="service-features">
-                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Wciągarki hydrauliczne i rolki pod urwane koła</li>
-                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Możliwość zabrania do 5 pasażerów</li>
-                    </ul>
-                </div>
 
-                <div class="service-card">
-                    <div class="service-icon-wrap"><i class="fa-solid fa-road-barrier" aria-hidden="true"></i></div>
-                    <h3>Obsługa A2, S11 i S5</h3>
-                    <p>Ekspresowy dojazd na węzły autostradowe wokół Poznania (Komorniki, Krzesiny, Tarnowo Podgórne, Luboń). Zabezpieczenie miejsca zdarzenia według standardów GDDKiA.</p>
-                    <ul class="service-features">
-                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Pełne oznakowanie ostrzegawcze</li>
-                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Zjazd do najbliższego bezpiecznego MOP lub warsztatu</li>
-                    </ul>
-                </div>
+                <!-- USŁUGA 1 -->
+                <article class="service-card">
+                    <div class="service-icon-wrap">
+                        <i class="fa-solid fa-truck" aria-hidden="true"></i>
+                    </div>
 
-                <div class="service-card">
-                    <div class="service-icon-wrap"><i class="fa-solid fa-car-battery" aria-hidden="true"></i></div>
-                    <h3>Awaryjny rozruch — 12/24V</h3>
-                    <p>Błyskawiczne odpalanie pojazdów przy użyciu profesjonalnych urządzeń rozruchowych wysokiej mocy. Diagnostyka ładowania i stanu akumulatora na miejscu.</p>
-                    <ul class="service-features">
-                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Obsługa samochodów osobowych i ciężarowych</li>
-                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Dojazd pod dom, parkingi podziemne, trasa</li>
-                    </ul>
-                </div>
+                    <h3>Laweta Poznań – autolaweta i holowanie</h3>
 
-                <div class="service-card">
-                    <div class="service-icon-wrap"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i></div>
-                    <h3>Wymiana koła i mobilny serwis</h3>
-                    <p>Odkręcanie zapieczonych śrub, profesjonalna zmiana koła na zapasowe lub szybkie kołkowanie opony na drodze bez konieczności holowania.</p>
-                    <ul class="service-features">
-                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Narzędzia pneumatyczne i podnośniki niskoprofilowe</li>
-                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Sprawdzenie ciśnienia i dokręcenie kluczem dynamometrycznym</li>
-                    </ul>
-                </div>
+                    <p>
+                        Potrzebujesz lawety w Poznaniu po awarii,
+                        kolizji lub wypadku? Oferujemy całodobowe
+                        holowanie samochodów i transport pojazdów
+                        na lawecie. Pomagamy w sytuacjach, gdy samochód
+                        nie może samodzielnie kontynuować jazdy
+                        z powodu usterki silnika, skrzyni biegów,
+                        układu kierowniczego lub uszkodzonego koła.
+                    </p>
 
-                <div class="service-card">
-                    <div class="service-icon-wrap"><i class="fa-solid fa-gas-pump" aria-hidden="true"></i></div>
-                    <h3>Dowóz i wypompowanie paliwa</h3>
-                    <p>Nagle zabrakło paliwa na trasie? Dowieziemy benzynę lub olej napędowy. Jeśli doszło do pomyłki na stacji — bezpiecznie wypompujemy złe paliwo z baku.</p>
-                    <ul class="service-features">
-                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Odpowietrzanie układu paliwowego</li>
-                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Bezpieczna utylizacja zanieczyszczonego paliwa</li>
-                    </ul>
-                </div>
+                    <p>
+                        Transportujemy samochody osobowe, SUV-y,
+                        pojazdy dostawcze, motocykle i wybrane maszyny.
+                        Obsługujemy również auta powypadkowe,
+                        także z utrudnionym załadunkiem.
+                        Dobór lawety zależy od masy, wymiarów
+                        i stanu technicznego pojazdu.
+                    </p>
 
-                <div class="service-card">
-                    <div class="service-icon-wrap"><i class="fa-solid fa-file-shield" aria-hidden="true"></i></div>
+                    <ul class="service-features">
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Holowanie i transport aut w Poznaniu oraz poza miasto
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Załadunek pojazdów niesprawnych i powypadkowych
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Transport do warsztatu, domu lub wybranego miejsca
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- USŁUGA 2 -->
+                <article class="service-card">
+                    <div class="service-icon-wrap">
+                        <i class="fa-solid fa-road-barrier" aria-hidden="true"></i>
+                    </div>
+
+                    <h3>Pomoc drogowa A2, S5 i S11</h3>
+
+                    <p>
+                        Awaria samochodu na autostradzie A2,
+                        drodze ekspresowej S5 lub S11
+                        w okolicach Poznania?
+                        Organizujemy pomoc drogową i transport
+                        unieruchomionych pojazdów z tras szybkiego ruchu.
+                        Obsługujemy zgłoszenia z okolic Komornik,
+                        Krzesin, Lubonia, Tarnowa Podgórnego
+                        oraz innych dostępnych odcinków.
+                    </p>
+
+                    <p>
+                        Podczas rozmowy podaj numer drogi, kierunek jazdy,
+                        najbliższy węzeł lub oznaczenie kilometrowe.
+                        Ułatwi to ustalenie dokładnego miejsca zdarzenia
+                        oraz wysłanie odpowiedniego pojazdu pomocy drogowej.
+                    </p>
+
+                    <ul class="service-features">
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Laweta i holowanie na A2, S5 i S11
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Transport auta do warsztatu lub wskazanej lokalizacji
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Pomoc kierowcom po awarii i kolizji
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- USŁUGA 3 -->
+                <article class="service-card">
+                    <div class="service-icon-wrap">
+                        <i class="fa-solid fa-car-battery" aria-hidden="true"></i>
+                    </div>
+
+                    <h3>Awaryjne odpalanie samochodu – Poznań</h3>
+
+                    <p>
+                        Samochód nie odpala z powodu rozładowanego
+                        akumulatora? Oferujemy pomoc przy awaryjnym
+                        uruchamianiu pojazdów w Poznaniu i okolicach.
+                        Pomagamy kierowcom na parkingach,
+                        pod domami, w garażach oraz podczas postoju
+                        na trasie.
+                    </p>
+
+                    <p>
+                        Rozruch wykonywany jest przy użyciu odpowiedniego
+                        sprzętu, z uwzględnieniem rodzaju instalacji
+                        elektrycznej pojazdu. Jeżeli problem wynika
+                        z poważniejszej usterki, możemy zorganizować
+                        transport samochodu do warsztatu.
+                    </p>
+
+                    <ul class="service-features">
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Awaryjny rozruch akumulatora 12V i 24V
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Pomoc na parkingu, posesji i trasie
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Możliwość transportu auta przy większej awarii
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- USŁUGA 4 -->
+                <article class="service-card">
+                    <div class="service-icon-wrap">
+                        <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
+                    </div>
+
+                    <h3>Wymiana koła i pomoc przy przebitej oponie</h3>
+
+                    <p>
+                        Przebiłeś oponę albo nie możesz samodzielnie
+                        wymienić koła? Pomagamy kierowcom w Poznaniu
+                        przy awariach ogumienia.
+                        W zależności od sytuacji możliwa jest
+                        wymiana uszkodzonego koła na zapasowe
+                        lub zorganizowanie transportu pojazdu.
+                    </p>
+
+                    <p>
+                        Problemy z odkręceniem śrub,
+                        brak odpowiednich narzędzi lub uszkodzenie
+                        opony w niebezpiecznym miejscu mogą uniemożliwić
+                        samodzielną wymianę.
+                        Podczas zgłoszenia podaj rozmiar koła,
+                        stan opony oraz informację, czy masz
+                        sprawne koło zapasowe.
+                    </p>
+
+                    <ul class="service-features">
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Wymiana koła na zapasowe
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Pomoc przy zapieczonych śrubach
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Holowanie przy braku możliwości bezpiecznej naprawy
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- USŁUGA 5 -->
+                <article class="service-card">
+                    <div class="service-icon-wrap">
+                        <i class="fa-solid fa-gas-pump" aria-hidden="true"></i>
+                    </div>
+
+                    <h3>Dowóz paliwa i pomoc po złym tankowaniu</h3>
+
+                    <p>
+                        Zabrakło benzyny lub oleju napędowego
+                        podczas jazdy? Oferujemy dowóz paliwa
+                        do unieruchomionych pojazdów
+                        w Poznaniu i okolicznych miejscowościach.
+                        To rozwiązanie dla kierowców,
+                        którzy nie mogą samodzielnie dotrzeć
+                        do najbliższej stacji benzynowej.
+                    </p>
+
+                    <p>
+                        Pomagamy również w organizacji obsługi
+                        samochodów po zatankowaniu niewłaściwego paliwa.
+                        W takiej sytuacji nie uruchamiaj silnika.
+                        Zależnie od rodzaju pojazdu i zakresu problemu
+                        może być konieczne wypompowanie paliwa
+                        przez odpowiedni serwis lub transport do warsztatu.
+                    </p>
+
+                    <ul class="service-features">
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Dowóz benzyny i oleju napędowego
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Pomoc po zatankowaniu niewłaściwego paliwa
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Transport auta do serwisu, gdy jest konieczny
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- USŁUGA 6 -->
+                <article class="service-card">
+                    <div class="service-icon-wrap">
+                        <i class="fa-solid fa-file-shield" aria-hidden="true"></i>
+                    </div>
+
                     <h3>Holowanie z OC sprawcy i auto zastępcze</h3>
-                    <p>Miałeś kolizję nie ze swojej winy? Oferujemy bezgotówkowe holowanie, parking powypadkowy oraz bezpłatne auto zastępcze opłacane w całości z polisy OC sprawcy.</p>
+
+                    <p>
+                        Brałeś udział w kolizji drogowej w Poznaniu,
+                        której nie spowodowałeś?
+                        Oferujemy holowanie z OC sprawcy
+                        za <strong>0 zł wkładu własnego</strong>
+                        oraz pomoc przy bezgotówkowym rozliczeniu
+                        transportu uszkodzonego samochodu.
+                    </p>
+
+                    <p>
+                        Pomagamy w organizacji transportu
+                        auta powypadkowego do warsztatu
+                        lub innego wskazanego miejsca.
+                        Możemy także pomóc w sprawach związanych
+                        z samochodem zastępczym z OC sprawcy.
+                        Zakres refundacji zależy od okoliczności szkody
+                        i odpowiedzialności ubezpieczyciela.
+                    </p>
+
                     <ul class="service-features">
-                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> 0 zł wkładu własnego</li>
-                        <li><i class="fa-solid fa-check" aria-hidden="true"></i> Załatwiamy wszelkie formalności z ubezpieczycielem</li>
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            0 zł wkładu własnego przy holowaniu z OC sprawcy
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Pomoc w formalnościach powypadkowych
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                            Możliwość organizacji auta zastępczego
+                        </li>
                     </ul>
-                </div>
+                </article>
+
             </div>
 
             <div class="callout-banner">
                 <div class="callout-text">
                     <h3>Potrzebujesz natychmiastowej lawety?</h3>
-                    <p>Dyspozytor odbierze Twój telefon od razu i wyśle najbliższy wolny holownik w Twoją stronę.</p>
+                    <p>
+                        Zadzwoń i podaj swoją lokalizację,
+                        rodzaj pojazdu oraz przyczynę awarii.
+                        Organizujemy pomoc drogową w Poznaniu
+                        i okolicach przez całą dobę.
+                    </p>
                 </div>
                 <a href="tel:+48508511133" class="btn-main-call">
                     <i class="fa-solid fa-phone" aria-hidden="true"></i>
@@ -554,6 +1251,7 @@
             </div>
         </section>
 
+        <!-- GALERIA LAWET -->
         <section class="container" id="lawety">
             <div class="section-header">
                 <span class="sub-badge">Transport pojazdów</span>
@@ -562,146 +1260,196 @@
 
             <div class="fleet-grid">
                 <figure class="fleet-card">
-                    <!-- ZDJĘCIE 1: zastąp svg przez:
-                    <img src="laweta-1.jpg" alt="Czerwona laweta" width="640" height="480" loading="lazy">
-                    -->
-                    <svg viewBox="0 0 640 480" role="img" aria-labelledby="laweta-title-1" style="color:#d8413b;">
-                        <title id="laweta-title-1">Ilustracja czerwonej lawety</title>
-                        <use href="#tow-truck"/>
+                    <svg viewBox="0 0 640 480"
+                         role="img"
+                         aria-label="Ilustracja czerwonej lawety"
+                         style="color:#d8413b">
+                        <use href="#tow-truck"></use>
                     </svg>
                     <figcaption>Czerwona laweta</figcaption>
                 </figure>
 
                 <figure class="fleet-card">
-                    <!-- ZDJĘCIE 2: zastąp svg przez:
-                    <img src="laweta-2.jpg" alt="Biała laweta" width="640" height="480" loading="lazy">
-                    -->
-                    <svg viewBox="0 0 640 480" role="img" aria-labelledby="laweta-title-2" style="color:#edf1f5;">
-                        <title id="laweta-title-2">Ilustracja białej lawety</title>
-                        <use href="#tow-truck"/>
+                    <svg viewBox="0 0 640 480"
+                         role="img"
+                         aria-label="Ilustracja białej lawety"
+                         style="color:#edf1f5">
+                        <use href="#tow-truck"></use>
                     </svg>
                     <figcaption>Biała laweta</figcaption>
                 </figure>
 
                 <figure class="fleet-card">
-                    <!-- ZDJĘCIE 3: zastąp svg przez:
-                    <img src="laweta-3.jpg" alt="Czerwona laweta" width="640" height="480" loading="lazy">
-                    -->
-                    <svg viewBox="0 0 640 480" role="img" aria-labelledby="laweta-title-3" style="color:#c52b35;">
-                        <title id="laweta-title-3">Ilustracja czerwonej lawety</title>
-                        <use href="#tow-truck" transform="translate(640 0) scale(-1 1)"/>
+                    <svg viewBox="0 0 640 480"
+                         role="img"
+                         aria-label="Ilustracja czerwonej lawety"
+                         style="color:#c52b35">
+                        <use href="#tow-truck"
+                             transform="translate(640 0) scale(-1 1)"></use>
                     </svg>
                     <figcaption>Czerwona laweta</figcaption>
                 </figure>
 
                 <figure class="fleet-card">
-                    <!-- ZDJĘCIE 4: zastąp svg przez:
-                    <img src="laweta-4.jpg" alt="Biała laweta" width="640" height="480" loading="lazy">
-                    -->
-                    <svg viewBox="0 0 640 480" role="img" aria-labelledby="laweta-title-4" style="color:#ffffff;">
-                        <title id="laweta-title-4">Ilustracja białej lawety</title>
-                        <use href="#tow-truck" transform="translate(640 0) scale(-1 1)"/>
+                    <svg viewBox="0 0 640 480"
+                         role="img"
+                         aria-label="Ilustracja białej lawety"
+                         style="color:#ffffff">
+                        <use href="#tow-truck"
+                             transform="translate(640 0) scale(-1 1)"></use>
                     </svg>
                     <figcaption>Biała laweta</figcaption>
                 </figure>
             </div>
         </section>
 
-        <section class="container">
+        <!-- DLACZEGO MY -->
+        <section class="container" id="dlaczego-my">
             <div class="section-header">
                 <span class="sub-badge">Dlaczego my?</span>
                 <h2>Standard obsługi Pomoc Drogowa 24/7 Poland</h2>
             </div>
 
             <div class="why-us-grid">
+
                 <div class="why-box">
                     <i class="fa-solid fa-stopwatch-20" aria-hidden="true"></i>
-                    <h3>Cena ustalona przed wyjazdem</h3>
-                    <p>Cenę ustalamy z góry przed wyjazdem lawety. Żadnych ukrytych opłat za kilometry dojazdowe czy załadunek.</p>
+                    <h3>Przewidywany dojazd 10–15 minut</h3>
+                    <p>
+                        Pomoc drogowa w Poznaniu z przewidywanym
+                        czasem dojazdu 10–15 minut.
+                        Obsługujemy zgłoszenia przez całą dobę,
+                        również w weekendy i święta.
+                    </p>
                 </div>
+
                 <div class="why-box">
                     <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
-                    <h3>Wygodne płatności</h3>
-                    <p>W każdym z naszych holowników zapłacisz wygodnie kartą, kodem BLIK, telefonem lub gotówką. Wystawiamy FV 23%.</p>
+                    <h3>Cena ustalona przed wyjazdem</h3>
+                    <p>
+                        Przed zamówieniem lawety przedstawiamy
+                        wycenę usługi. Przyjmujemy płatności
+                        gotówką, kartą i BLIK.
+                        Wystawiamy faktury VAT.
+                    </p>
                 </div>
+
                 <div class="why-box">
                     <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
-                    <h3>Ubezpieczenie przewoźnika</h3>
-                    <p>Posiadamy pełną polisę OCP przewoźnika. Twój samochód podczas całego procesu transportu jest w 100% ubezpieczony.</p>
+                    <h3>Ubezpieczenie przewoźnika – 100% OCP</h3>
+                    <p>
+                        Transport pojazdów objęty ubezpieczeniem OCP.
+                        Zabezpieczamy samochód na lawecie
+                        i dbamy o bezpieczny przewóz
+                        do miejsca wskazanego przez klienta.
+                    </p>
                 </div>
+
                 <div class="why-box">
-                    <i class="fa-solid fa-location-crosshairs" aria-hidden="true"></i>
-                    <h3>Lokalizacja GPS</h3>
-                    <p>Wykorzystujemy systemy namierzania floty, dzięki czemu natychmiast wysyłamy kierowcę znajdującego się najbliżej Ciebie.</p>
+                    <i class="fa-solid fa-file-shield" aria-hidden="true"></i>
+                    <h3>Holowanie z OC sprawcy za 0 zł</h3>
+                    <p>
+                        Pomagamy poszkodowanym kierowcom
+                        w organizacji holowania po kolizji.
+                        Oferujemy rozliczenia bezgotówkowe
+                        z polisy OC sprawcy i 0 zł wkładu własnego.
+                    </p>
                 </div>
+
             </div>
         </section>
 
-        <section class="container" id="obszar" style="padding-top:0;">
+        <!-- OBSZAR DZIAŁANIA -->
+        <section class="container" id="obszar" style="padding-top:0">
             <div class="section-header">
                 <span class="sub-badge">Gdzie pomagamy</span>
-                <h2>Działamy w całym Poznaniu i okolicach</h2>
+                <h2>Pomoc drogowa Poznań i okolice</h2>
                 <p class="section-description">
-                    Obsługujemy wszystkie dzielnice Poznania oraz pobliskie
-                    odcinki A2, S11 i S5. Czas dojazdu poza Poznań ustalamy indywidualnie.
+                    Organizujemy holowanie, transport samochodów
+                    i pomoc drogową na terenie Poznania
+                    oraz w pobliskich miejscowościach.
+                    Obsługujemy również zgłoszenia z autostrady
+                    A2 i dróg ekspresowych S5 i S11.
+                    Przewidywany dojazd w Poznaniu: 10–15 minut.
                 </p>
             </div>
 
             <div class="coverage-container">
+
                 <div class="highway-cards">
                     <div class="hw-card">
                         <div class="hw-badge">A2</div>
                         <div class="hw-info">
                             <div class="title">Autostrada A2</div>
-                            <div class="desc">Odcinek Buk – Komorniki – Krzesiny – Września</div>
+                            <div class="desc">
+                                Buk – Komorniki – Krzesiny – Września
+                            </div>
                         </div>
                     </div>
+
                     <div class="hw-card">
                         <div class="hw-badge s-road">S11</div>
                         <div class="hw-info">
                             <div class="title">Droga S11</div>
-                            <div class="desc">Zachodnia obwodnica Poznania, Kórnik, Tarnowo Podgórne</div>
+                            <div class="desc">
+                                Zachodnia obwodnica Poznania,
+                                Kórnik i Tarnowo Podgórne
+                            </div>
                         </div>
                     </div>
+
                     <div class="hw-card">
                         <div class="hw-badge s-road">S5</div>
                         <div class="hw-info">
                             <div class="title">Droga S5</div>
-                            <div class="desc">Trasa w stronę Gniezna, Kostrzyna oraz Stęszewa / Kościana</div>
+                            <div class="desc">
+                                Trasa w kierunku Gniezna,
+                                Stęszewa i Kościana
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <h3 class="district-title">Dzielnice Poznania i okoliczne gminy:</h3>
+                <h3 class="district-title">
+                    Dzielnice Poznania i okoliczne miejscowości:
+                </h3>
+
                 <div class="district-tags">
                     <span class="d-tag">Stare Miasto</span>
                     <span class="d-tag">Grunwald</span>
                     <span class="d-tag">Rataje</span>
                     <span class="d-tag">Jeżyce</span>
                     <span class="d-tag">Wilda</span>
-                    <span class="d-tag">Piątkowo i Winogrady</span>
+                    <span class="d-tag">Piątkowo</span>
+                    <span class="d-tag">Winogrady</span>
                     <span class="d-tag">Nowe Miasto</span>
                     <span class="d-tag">Luboń</span>
                     <span class="d-tag">Swarzędz</span>
-                    <span class="d-tag">Plewiska i Komorniki</span>
+                    <span class="d-tag">Plewiska</span>
+                    <span class="d-tag">Komorniki</span>
                     <span class="d-tag">Tarnowo Podgórne</span>
                     <span class="d-tag">Suchy Las</span>
-                    <span class="d-tag">Mosina i Puszczykowo</span>
-                    <span class="d-tag">Czerwonak i Koziegłowy</span>
+                    <span class="d-tag">Mosina</span>
+                    <span class="d-tag">Puszczykowo</span>
+                    <span class="d-tag">Czerwonak</span>
+                    <span class="d-tag">Koziegłowy</span>
                 </div>
             </div>
         </section>
 
-        <section class="container" id="party-driver" style="padding-top:0;">
+        <!-- PARTY DRIVER -->
+        <section class="container" id="party-driver" style="padding-top:0">
             <div class="party-small">
                 <div>
                     <h2>Party Driver — wróć bezpiecznie swoim autem</h2>
                     <p>
-                        Potrzebujesz kierowcy po imprezie? Oferujemy odprowadzenie
-                        Twojego samochodu lub transport lawetą w Poznaniu i okolicach.
+                        Potrzebujesz kierowcy po imprezie?
+                        Oferujemy odprowadzenie Twojego samochodu
+                        lub transport lawetą w Poznaniu i okolicach.
                         Zadzwoń, aby ustalić dostępność i cenę.
                     </p>
                 </div>
+
                 <a href="tel:+48508511133" class="btn-secondary">
                     <i class="fa-solid fa-phone" aria-hidden="true"></i>
                     Zamów kierowcę
@@ -709,14 +1457,124 @@
             </div>
         </section>
 
-        <!-- Dane firmy bez kapitału zakładowego -->
-        <section class="container" id="kontakt" style="padding-top:0;">
+        <!-- ETAP 1: FAQ -->
+        <section class="container" id="faq">
+            <div class="section-header">
+                <span class="sub-badge">Pytania kierowców</span>
+                <h2>Pomoc drogowa Poznań – najczęstsze pytania</h2>
+                <p class="section-description">
+                    Informacje o zamawianiu lawety,
+                    holowaniu, kosztach i pomocy po kolizji.
+                </p>
+            </div>
+
+            <div class="faq-list">
+
+                <details class="faq-item">
+                    <summary>Ile kosztuje laweta w Poznaniu?</summary>
+                    <p>
+                        Cena lawety zależy od odległości transportu,
+                        rodzaju pojazdu, jego masy, miejsca postoju
+                        oraz stopnia trudności załadunku.
+                        Zadzwoń pod numer 508 511 133.
+                        Podaj miejsce awarii i adres docelowy,
+                        a otrzymasz wycenę przed zamówieniem.
+                    </p>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Jak szybko przyjeżdża pomoc drogowa?</summary>
+                    <p>
+                        Przewidywany dojazd pomocy drogowej
+                        na terenie Poznania wynosi 10–15 minut.
+                        Usługi świadczymy przez całą dobę,
+                        siedem dni w tygodniu.
+                    </p>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Jak zamówić lawetę na A2, S5 lub S11?</summary>
+                    <p>
+                        Podaj numer drogi, kierunek jazdy,
+                        najbliższy węzeł albo numer słupka
+                        kilometrowego. Nie próbuj samodzielnie
+                        naprawiać samochodu na pasie ruchu.
+                        W razie bezpośredniego zagrożenia
+                        życia lub zdrowia dzwoń pod 112.
+                    </p>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Czy holujecie samochody po wypadkach?</summary>
+                    <p>
+                        Tak. Organizujemy transport pojazdów
+                        po kolizjach i wypadkach drogowych.
+                        Przy zgłoszeniu opisz uszkodzenia,
+                        szczególnie stan kół, zawieszenia
+                        i układu kierowniczego.
+                        Pozwoli to dobrać odpowiednią lawetę.
+                    </p>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Czy holowanie z OC sprawcy kosztuje 0 zł?</summary>
+                    <p>
+                        Oferujemy holowanie z OC sprawcy
+                        za 0 zł wkładu własnego
+                        oraz pomoc w organizacji
+                        rozliczenia bezgotówkowego.
+                        Przy zgłoszeniu podaj okoliczności
+                        kolizji i informacje o ubezpieczeniu sprawcy.
+                    </p>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Czy pasażerowie mogą jechać lawetą?</summary>
+                    <p>
+                        Możliwość przewozu pasażerów zależy
+                        od liczby miejsc w konkretnym pojeździe.
+                        Podaj liczbę osób podczas zgłoszenia,
+                        abyśmy mogli dobrać odpowiedni transport.
+                    </p>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Co zrobić po zatankowaniu złego paliwa?</summary>
+                    <p>
+                        Nie uruchamiaj silnika.
+                        Jeśli samochód został zatankowany
+                        niewłaściwym paliwem, może być konieczne
+                        opróżnienie układu paliwowego
+                        albo przewiezienie pojazdu do warsztatu.
+                        Zadzwoń i opisz sytuację.
+                    </p>
+                </details>
+
+                <details class="faq-item">
+                    <summary>Jakie informacje podać przy zamawianiu lawety?</summary>
+                    <p>
+                        Przygotuj dokładną lokalizację,
+                        markę i model samochodu,
+                        opis awarii, stan pojazdu,
+                        liczbę pasażerów oraz adres,
+                        do którego ma zostać przewiezione auto.
+                        Na tej podstawie można ustalić
+                        odpowiedni sposób transportu.
+                    </p>
+                </details>
+
+            </div>
+        </section>
+
+        <!-- KONTAKT I DANE FIRMY -->
+        <section class="container" id="kontakt" style="padding-top:0">
             <div class="section-header">
                 <span class="sub-badge">Kontakt i dane firmy</span>
                 <h2>IVNE — Pomoc Drogowa 24/7 Poland</h2>
             </div>
 
             <div class="company-grid">
+
                 <div class="company-card">
                     <h3>IVNE spółka z ograniczoną odpowiedzialnością</h3>
 
@@ -759,7 +1617,6 @@
                     </a>
                 </div>
 
-                <!-- Interaktywna mapa Google, nie zdjęcie -->
                 <iframe
                     class="company-map"
                     title="Mapa adresu siedziby IVNE — ul. Wierzbowa 155, Wysogotowo"
@@ -772,16 +1629,20 @@
                 </iframe>
             </div>
         </section>
+
     </main>
 
+    <!-- STOPKA -->
     <footer>
         <div class="footer-content">
+
             <div class="footer-brand">
                 <h3>POMOC DROGOWA 24/7 POLAND</h3>
                 <p>
-                    Twój zaufany partner na drogach Poznania i Wielkopolski.
-                    Świadczymy usługi holowania, pomocy powypadkowej i awaryjnej
-                    365 dni w roku, 7 dni w tygodniu, 24 godziny na dobę.
+                    Całodobowa pomoc drogowa w Poznaniu i okolicach.
+                    Laweta, holowanie samochodów, transport pojazdów,
+                    pomoc na autostradzie A2 oraz drogach S5 i S11.
+                    Pomagamy kierowcom po awariach i kolizjach.
                 </p>
 
                 <address class="footer-company">
@@ -802,12 +1663,15 @@
             <div class="footer-links">
                 <h3>Usługi</h3>
                 <ul>
-                    <li><a href="#uslugi">Autolaweta Poznań</a></li>
-                    <li><a href="#party-driver">Party Driver (odprowadzanie)</a></li>
-                    <li><a href="#uslugi">Holowanie A2 / S11 / S5</a></li>
-                    <li><a href="#uslugi">Awaryjny rozruch akumulatora</a></li>
-                    <li><a href="#uslugi">Mobilna wulkanizacja</a></li>
-                    <li><a href="#uslugi">Auto zastępcze z OC</a></li>
+                    <li><a href="#uslugi">Laweta Poznań</a></li>
+                    <li><a href="#uslugi">Holowanie Poznań</a></li>
+                    <li><a href="#uslugi">Pomoc drogowa A2 / S5 / S11</a></li>
+                    <li><a href="#uslugi">Awaryjne odpalanie auta</a></li>
+                    <li><a href="#uslugi">Wymiana koła</a></li>
+                    <li><a href="#uslugi">Dowóz paliwa</a></li>
+                    <li><a href="#uslugi">Holowanie z OC sprawcy</a></li>
+                    <li><a href="#party-driver">Party Driver</a></li>
+                    <li><a href="#faq">Najczęstsze pytania</a></li>
                     <li><a href="#kontakt">Dane firmy i mapa</a></li>
                 </ul>
             </div>
@@ -815,12 +1679,13 @@
             <div class="footer-links">
                 <h3>Płatności i faktury</h3>
                 <ul>
-                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Płatność kartą / BLIK</li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Karta / BLIK</li>
                     <li><i class="fa-solid fa-check" aria-hidden="true"></i> Gotówka</li>
-                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Faktura VAT 23%</li>
-                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Rozliczenia bezgotówkowe z polis OC/AC</li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Faktura VAT</li>
+                    <li><i class="fa-solid fa-check" aria-hidden="true"></i> Rozliczenia z OC/AC</li>
                 </ul>
             </div>
+
         </div>
 
         <div class="footer-bottom">
@@ -831,6 +1696,7 @@
         </div>
     </footer>
 
+    <!-- PRZYCISK TELEFONU NA SMARTFONACH -->
     <div class="mobile-bottom-bar">
         <a href="tel:+48508511133">
             <i class="fa-solid fa-phone" aria-hidden="true"></i>
