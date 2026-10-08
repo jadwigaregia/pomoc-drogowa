@@ -849,8 +849,11 @@
 .realization-grid.single{grid-template-columns:minmax(0,470px)}
 @media(max-width:850px){.realization-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:590px){.realization-grid,.realization-grid.two,.realization-grid.single{grid-template-columns:1fr}.realization-card img{height:240px}}
+.map-consent-shell{width:100%;height:100%;min-height:420px}.map-consent-shell .company-map{width:100%;height:100%;min-height:420px}
 </style>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Pomoc Drogowa 24/7 Poland","url":"https://pomocdrogowapoznan24h.pl/","inLanguage":"pl-PL"}</script>
+<link rel="stylesheet" href="/site-privacy.css">
+<script src="/site-privacy.js" defer></script>
 </head>
 
 <body id="poczatek">
@@ -1645,7 +1648,51 @@
         </section>
 
         <!-- KONTAKT I DANE FIRMY -->
-        <section class="container" id="kontakt" style="padding-top:0">
+        
+        <!-- OPINIE KLIENTÓW: bez fikcyjnych ocen i bez automatycznej publikacji -->
+        <section class="container review-section" id="opinie">
+            <div class="section-header">
+                <span class="sub-badge">Twoje doświadczenie ma znaczenie</span>
+                <h2>Opinie klientów o pomocy drogowej</h2>
+            </div>
+            <p class="review-intro">Tu będą pojawiać się opinie otrzymane od klientów po weryfikacji i uzyskaniu zgody na publikację. Na razie nie publikujemy niezweryfikowanych recenzji ani sztucznej średniej ocen.</p>
+            <div class="review-layout">
+                <div class="review-info">
+                    <h3>Jak weryfikujemy opinie?</h3>
+                    <p>Po otrzymaniu wiadomości sprawdzamy, czy można powiązać ją z rzeczywistym zleceniem pomocy drogowej, np. przez kontakt ze zgłaszającym. Nie wymagamy wyłącznie ocen pozytywnych — publikowane mogą być także opinie krytyczne, jeśli nie naruszają prawa i prywatności.</p>
+                    <ul>
+                        <li>Nie kupujemy ani nie generujemy opinii.</li>
+                        <li>Przed publikacją potrzebujemy osobnej zgody autora.</li>
+                        <li>Można przesłać ocenę również bez zgody na jej publikację.</li>
+                    </ul>
+                </div>
+                <div class="review-form-wrap">
+                    <h3>Prześlij swoją opinię</h3>
+                    <form class="review-form" id="review-form">
+                        <label for="review-author">Podpis lub pseudonim (opcjonalnie)</label>
+                        <input id="review-author" type="text" autocomplete="nickname" maxlength="45" placeholder="Np. Kierowca z Poznania">
+                        <label for="review-rating">Jak oceniasz usługę?</label>
+                        <select id="review-rating" required>
+                            <option value="">Wybierz ocenę</option>
+                            <option value="5">★★★★★ – 5/5</option>
+                            <option value="4">★★★★☆ – 4/5</option>
+                            <option value="3">★★★☆☆ – 3/5</option>
+                            <option value="2">★★☆☆☆ – 2/5</option>
+                            <option value="1">★☆☆☆☆ – 1/5</option>
+                        </select>
+                        <label for="review-comment">Twoja opinia</label>
+                        <textarea id="review-comment" required maxlength="950" minlength="10" placeholder="Opisz, jak przebiegała pomoc drogowa."></textarea>
+                        <label class="review-consent" for="review-publication"><input type="checkbox" id="review-publication"><span><strong>Opcjonalnie:</strong> wyrażam zgodę na publikację treści opinii i podanego podpisu na stronie. Mogę wycofać zgodę, kontaktując się z administratorem danych.</span></label>
+                        <p class="review-small">Po kliknięciu otworzy się aplikacja SMS z przygotowaną wiadomością na numer 508 511 133. Wiadomość wysyłasz samodzielnie; operator może naliczyć opłatę. Formularz nie zapisuje treści opinii w serwisie. <a href="/polityka-prywatnosci.html">Informacje RODO</a>.</p>
+                        <button class="review-button" type="submit">Przygotuj opinię w SMS</button>
+                        <p id="review-form-status" role="status" aria-live="polite" class="review-small"></p>
+                        <button id="review-copy" type="button" class="cookie-button" hidden>Skopiuj treść opinii</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+<section class="container" id="kontakt" style="padding-top:0">
             <div class="section-header">
                 <span class="sub-badge">Kontakt i dane firmy</span>
                 <h2>IVNE — Pomoc Drogowa 24/7 Poland</h2>
@@ -1695,16 +1742,23 @@
                     </a>
                 </div>
 
-                <iframe
+                <div class="map-consent-shell">
+      <div class="map-consent-placeholder" data-map-placeholder>
+        <strong>Mapa Google jest domyślnie wyłączona</strong>
+        <p>Możesz przejść do mapy przez osobny link lub wyrazić zgodę na załadowanie mapy Google w tej witrynie. Wczytanie może wiązać się z cookies Google.</p>
+        <button type="button" data-enable-map>Wczytaj mapę Google</button>
+      </div>
+      <iframe data-consent-map hidden
                     class="company-map"
                     title="Mapa adresu siedziby IVNE — ul. Wierzbowa 155, Wysogotowo"
-                    src="https://maps.google.com/maps?q=Wierzbowa%20155%2FB%2C%2062-081%20Wysogotowo%2C%20Polska&amp;z=15&amp;output=embed"
+                    data-map-src=https://maps.google.com/maps?q=Wierzbowa%20155%2FB%2C%2062-081%20Wysogotowo%2C%20Polska&amp;z=15&amp;output=embed"
                     width="600"
                     height="420"
                     loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"
                     allowfullscreen>
                 </iframe>
+    </div>
             </div>
         </section>
 
@@ -1773,7 +1827,13 @@
                 Wszelkie prawa zastrzeżone &bull; Poznań, Polska
             </p>
         </div>
-    </footer>
+    <div class="legal-links" aria-label="Informacje prawne i preferencje prywatności">
+  <a href="/polityka-prywatnosci.html">Polityka prywatności i RODO</a>
+  <a href="/polityka-cookies.html">Polityka cookies</a>
+  <button type="button" data-cookie-settings>Ustawienia cookies</button>
+  <a href="/#opinie">Opinie klientów</a>
+</div>
+</footer>
 
     <!-- PRZYCISK TELEFONU NA SMARTFONACH -->
     <div class="mobile-bottom-bar">
