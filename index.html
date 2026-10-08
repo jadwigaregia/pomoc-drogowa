@@ -17,6 +17,7 @@
     <meta property="og:title" content="Pomoc Drogowa Poznań 24H | Laweta i Holowanie">
     <meta property="og:description" content="Pomoc drogowa Poznań 24/7. Laweta, holowanie, pomoc na A2, S5 i S11, awaryjne odpalanie i transport aut. Zadzwoń: 508 511 133.">
     <meta property="og:url" content="https://pomocdrogowapoznan24h.pl/">
+    <meta property="og:image" content="https://pomocdrogowapoznan24h.pl/images/pomoc-drogowa-zabezpieczenie-drogi.avif">
     <meta name="twitter:card" content="summary">
 
 
@@ -835,6 +836,19 @@
         .subnav a{color:var(--text-light);text-decoration:none;font-size:.88rem;font-weight:700;padding:9px 12px;border-radius:8px}
         .subnav a:hover{background:rgba(255,184,0,.14);color:var(--brand-yellow)}
         @media(max-width:600px){.subnav{padding:8px 5%;gap:3px;justify-content:flex-start}.subnav a{font-size:.8rem;padding:8px}}
+
+/* Galeria autentycznych zdjęć - responsywne obrazy */
+.realization-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:26px}
+.realization-card{margin:0;background:var(--bg-card);border:1px solid var(--border-color);border-radius:14px;overflow:hidden;min-width:0}
+.realization-card img{display:block;width:100%;height:260px;object-fit:cover;object-position:center 30%;background:#1b232c}
+.realization-card figcaption{padding:15px 17px;line-height:1.55;color:var(--text-light);font-size:.9rem}
+.realization-card figcaption strong{display:block;color:#fff;margin-bottom:4px}
+.realization-card figcaption span{color:var(--text-muted)}
+.realization-link{display:inline-block;color:var(--brand-yellow);font-weight:700;text-underline-offset:4px;margin-top:20px}
+.realization-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.realization-grid.single{grid-template-columns:minmax(0,470px)}
+@media(max-width:850px){.realization-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:590px){.realization-grid,.realization-grid.two,.realization-grid.single{grid-template-columns:1fr}.realization-card img{height:240px}}
 </style>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Pomoc Drogowa 24/7 Poland","url":"https://pomocdrogowapoznan24h.pl/","inLanguage":"pl-PL"}</script>
 </head>
@@ -915,6 +929,7 @@
         <a href="/laweta-poznan.html">Laweta Poznań</a>
         <a href="/holowanie-poznan.html">Holowanie Poznań</a>
         <a href="/pomoc-drogowa-a2.html">Pomoc drogowa A2</a>
+        <a href="/realizacje-pomoc-drogowa-poznan.html">Realizacje</a>
         <a href="#kontakt">Kontakt</a>
     </nav>
 
@@ -1297,6 +1312,21 @@
                     <small>Jak bezpiecznie wezwać pomoc z autostrady A2 w okolicach Poznania.</small>
                 </a>
             </nav>
+        </section>
+
+        <!-- GALERIA PRAWDZIWYCH SYTUACJI DROGOWYCH -->
+        <section class="container" id="realizacje">
+            <div class="section-header">
+                <span class="sub-badge">Zdjęcia z interwencji</span>
+                <h2>Pomoc drogowa w praktyce – galeria zdarzeń</h2>
+                <p class="section-description">Zdjęcia przedstawiają pojazdy podczas zdarzeń drogowych, zabezpieczenie miejsca postoju i uszkodzenia po kolizji. Numery rejestracyjne i widoczne twarze zostały zasłonięte.</p>
+            </div>
+            <div class="realization-grid">
+                <figure class="realization-card"><img src="/images/pomoc-drogowa-interwencja-pobocze.avif" alt="Samochód osobowy na poboczu drogi w trakcie interwencji drogowej" width="480" height="640" loading="lazy" decoding="async"><figcaption><strong>Samochód na poboczu trasy</strong><span>Widok samochodu osobowego obok pojazdu ciężarowego podczas zdarzenia na drodze.</span></figcaption></figure>
+                <figure class="realization-card"><img src="/images/pomoc-drogowa-zabezpieczenie-drogi.avif" alt="Unieruchomiony SUV przy pachołku ostrzegawczym na drodze szybkiego ruchu" width="480" height="640" loading="lazy" decoding="async"><figcaption><strong>Zabezpieczenie miejsca zdarzenia</strong><span>Pojazd na trasie, z widocznym oznakowaniem ostrzegawczym w miejscu postoju.</span></figcaption></figure>
+                <figure class="realization-card"><img src="/images/holowanie-po-kolizji-poznan.avif" alt="Uszkodzony samochód osobowy z otwartą maską po kolizji drogowej" width="480" height="640" loading="lazy" decoding="async"><figcaption><strong>Samochód uszkodzony po kolizji</strong><span>Przykład uszkodzeń przodu pojazdu, które mogą wymagać transportu na lawecie.</span></figcaption></figure>
+            </div>
+            <a class="realization-link" href="/realizacje-pomoc-drogowa-poznan.html">Zobacz galerię i wskazówki dla kierowców &rarr;</a>
         </section>
 
         <!-- GALERIA LAWET -->
@@ -1719,6 +1749,7 @@
                     <li><a href="#uslugi">Dowóz paliwa</a></li>
                     <li><a href="#uslugi">Holowanie z OC sprawcy</a></li>
                     <li><a href="#party-driver">Party Driver</a></li>
+                    <li><a href="/realizacje-pomoc-drogowa-poznan.html">Zdjęcia realizacji</a></li>
                     <li><a href="#faq">Najczęstsze pytania</a></li>
                     <li><a href="#kontakt">Dane firmy i mapa</a></li>
                 </ul>
