@@ -48,3 +48,8 @@
 .legal-warning{padding:16px 20px;border:1px solid #c59c33;border-radius:10px;background:#34270f;color:#fff;margin-bottom:28px}
 @media(max-width:900px){.cookie-banner{bottom:calc(78px + env(safe-area-inset-bottom,0px))}}
 @media(max-width:650px){.cookie-banner{padding:17px;max-height:calc(100dvh - 105px)}.cookie-button{flex:1 1 100%}.review-layout{grid-template-columns:1fr}.review-info,.review-form-wrap{padding:19px}}
+
+.published-reviews{max-width:1020px;margin:0 auto 24px;border:1px dashed #64748b;border-radius:13px;background:#111820;padding:22px;text-align:center}
+.review-empty{margin:0;color:#cbd5e1;font-size:.95rem}
+.published-reviews article{background:#161B22;border:1px solid #30363D;border-radius:12px;padding:20px;margin:10px}
+.published-reviews .stars{color:#FFB800;font-size:1.2rem}
