@@ -15,6 +15,7 @@
     <meta property="og:title" content="Holowanie Poznań 24H – Awaria i kolizja | 24/7 Poland">
     <meta property="og:description" content="Holowanie Poznań 24/7 po awarii i kolizji. Transport samochodu do warsztatu, pomoc na trasie i możliwość rozliczenia z OC sprawcy. Tel. 508 511 133.">
     <meta property="og:url" content="https://pomocdrogowapoznan24h.pl/holowanie-poznan.html">
+<meta property="og:image" content="https://pomocdrogowapoznan24h.pl/images/holowanie-po-kolizji-poznan.avif">
     <meta name="twitter:card" content="summary">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -845,13 +846,26 @@
   .subfaq .faq-item{margin-bottom:12px}
   .small-print{color:var(--text-muted);font-size:.88rem}
   @media(max-width:600px){.subhero{padding:30px 5% 42px}.breadcrumbs{padding:15px 5% 0}.content-shell{padding:18px 5% 55px}.subnav{justify-content:flex-start;padding:9px 5%;gap:4px}.subnav a{font-size:.8rem;padding:8px}}
+
+/* Galeria autentycznych zdjęć - responsywne obrazy */
+.realization-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:26px}
+.realization-card{margin:0;background:var(--bg-card);border:1px solid var(--border-color);border-radius:14px;overflow:hidden;min-width:0}
+.realization-card img{display:block;width:100%;height:260px;object-fit:cover;object-position:center 30%;background:#1b232c}
+.realization-card figcaption{padding:15px 17px;line-height:1.55;color:var(--text-light);font-size:.9rem}
+.realization-card figcaption strong{display:block;color:#fff;margin-bottom:4px}
+.realization-card figcaption span{color:var(--text-muted)}
+.realization-link{display:inline-block;color:var(--brand-yellow);font-weight:700;text-underline-offset:4px;margin-top:20px}
+.realization-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.realization-grid.single{grid-template-columns:minmax(0,470px)}
+@media(max-width:850px){.realization-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:590px){.realization-grid,.realization-grid.two,.realization-grid.single{grid-template-columns:1fr}.realization-card img{height:240px}}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Strona główna","item":"https://pomocdrogowapoznan24h.pl/"},{"@type":"ListItem","position":2,"name":"Holowanie Poznań","item":"https://pomocdrogowapoznan24h.pl/holowanie-poznan.html"}]}</script>
 </head>
 <body id="poczatek">
 <div class="top-status-bar"><span class="pulse-dot"></span><span>Pomoc drogowa 24/7 &bull; Poznań i okolice &bull; Przewidywany dojazd w Poznaniu: <strong>10–15 minut</strong></span></div>
 <header><a class="logo-box" href="/" aria-label="24/7 Poland – strona główna"><div class="logo-icon"><i class="fa-solid fa-truck-pickup" aria-hidden="true"></i></div><div class="logo-text"><div class="logo-title">24/7 <span>Poland</span></div><div class="logo-sub">Pomoc Drogowa Poznań</div></div></a><a href="tel:+48508511133" class="btn-call-header" aria-label="Zadzwoń 508 511 133"><i class="fa-solid fa-phone" aria-hidden="true"></i><span>508 511 133</span></a></header>
-<nav class="subnav" aria-label="Nawigacja usług"><a href="/">Strona główna</a><a href="/laweta-poznan.html">Laweta Poznań</a><a href="/holowanie-poznan.html" aria-current="page">Holowanie Poznań</a><a href="/pomoc-drogowa-a2.html">Pomoc drogowa A2</a><a href="/#kontakt">Kontakt</a></nav>
+<nav class="subnav" aria-label="Nawigacja usług"><a href="/">Strona główna</a><a href="/laweta-poznan.html">Laweta Poznań</a><a href="/holowanie-poznan.html" aria-current="page">Holowanie Poznań</a><a href="/pomoc-drogowa-a2.html">Pomoc drogowa A2</a><a href="/realizacje-pomoc-drogowa-poznan.html">Realizacje</a><a href="/#kontakt">Kontakt</a></nav>
 <main>
 <div class="breadcrumbs"><a href="/">Strona główna</a> &rsaquo; Holowanie Poznań</div>
 <section class="subhero"><div class="hero-badge"><i class="fa-solid fa-truck" aria-hidden="true"></i> Poznań i okolice &bull; pomoc drogowa 24/7</div><h1>Holowanie Poznań 24H – <span>Pomoc po awarii i kolizji</span></h1><p>Awaria auta w mieście, kolizja na skrzyżowaniu albo niesprawny samochód na parkingu? Organizujemy holowanie w Poznaniu i okolicy, w tym przewóz uszkodzonych pojazdów do warsztatu, na parking lub pod wybrany adres.</p><div class="hero-buttons"><a class="btn-main-call" href="tel:+48508511133"><i class="fa-solid fa-phone-volume" aria-hidden="true"></i> WEZWIJ POMOC: 508 511 133</a><a class="btn-secondary" href="/#uslugi">Pozostałe usługi</a></div></section>
@@ -860,6 +874,7 @@
 <p>Holowanie przydaje się również po zdarzeniu drogowym, gdy auto nie nadaje się do ruchu, a także wtedy, gdy konieczny jest przewóz do mechanika. Podczas zgłoszenia ustalimy, jaki sposób transportu będzie odpowiedni.</p></section>
 <section class="prose-section"><h2>Holowanie po kolizji i wypadku w Poznaniu</h2><p>Po kolizji najważniejsze jest bezpieczeństwo uczestników. Jeśli ktoś został ranny albo miejsce zdarzenia stwarza zagrożenie, wezwij odpowiednie służby pod numerem 112. Samochód, którego stan techniczny wyklucza dalszą jazdę, można przetransportować do warsztatu lub innego bezpiecznego miejsca.</p>
 <p>Podczas rozmowy opisz, czy doszło do uszkodzenia zawieszenia, chłodnicy, układu kierowniczego lub czy koła pozostają zablokowane. Informacje te ułatwią dobór lawety.</p></section>
+<section class="prose-section" id="zdjecie-po-kolizji"><h2>Zdjęcie uszkodzonego samochodu po kolizji</h2><p>Uszkodzony przód i elementy zawieszenia mogą uniemożliwić bezpieczny dojazd do warsztatu. Z tego powodu warto wcześniej opisać stan pojazdu, aby dobrać odpowiedni transport.</p><div class="realization-grid single"><figure class="realization-card"><img src="/images/holowanie-po-kolizji-poznan.avif" alt="Uszkodzony samochód osobowy z otwartą maską po kolizji drogowej" width="480" height="640" loading="lazy" decoding="async"><figcaption><strong>Samochód uszkodzony po kolizji</strong><span>Przykład uszkodzeń przodu pojazdu, które mogą wymagać transportu na lawecie.</span></figcaption></figure></div><a class="realization-link" href="/realizacje-pomoc-drogowa-poznan.html">Więcej zdjęć interwencji &rarr;</a></section>
 <section class="prose-section"><h2>Holowanie z OC sprawcy – na czym polega?</h2><p>Jeżeli jesteś poszkodowanym w zdarzeniu spowodowanym przez innego kierowcę, uzasadnione koszty holowania mogą podlegać zwrotowi z ubezpieczenia OC sprawcy. Możemy pomóc w organizacji transportu i rozliczenia bezgotówkowego w sytuacjach, które spełniają warunki takiego rozliczenia.</p>
 <p>Na stronie przedstawiamy ofertę holowania z OC sprawcy z 0 zł wkładu własnego. Przy zgłoszeniu przygotuj informacje o zdarzeniu i ubezpieczeniu, a zasady realizacji i rozliczenia potwierdź przed zleceniem usługi.</p></section>
 <section class="prose-section"><h2>Jak zamówić holowanie samochodu?</h2><p>Zadzwoń pod 508 511 133. Podaj ulicę lub przesłaną lokalizację, markę i model auta, rodzaj awarii i miejsce docelowe. Powiedz, czy samochód może się toczyć, czy blokują się koła oraz ilu pasażerów potrzebuje transportu.</p>
@@ -875,6 +890,6 @@
 <div class="callout-banner"><div class="callout-text"><h3>Potrzebujesz pomocy teraz?</h3><p>Podaj lokalizację, rodzaj pojazdu i opis zdarzenia. Ustalimy sposób transportu i cenę przed wyjazdem.</p></div><a class="btn-main-call" href="tel:+48508511133"><i class="fa-solid fa-phone" aria-hidden="true"></i>Zadzwoń teraz</a></div>
 <p class="small-print" style="margin-top:18px">Informacje na stronie mają charakter ogólny. Dostępność usługi, przewidywany czas dojazdu i warunki rozliczenia należy potwierdzić podczas zamówienia.</p>
 </div></main>
-<footer><div class="footer-content"><div class="footer-brand"><h3>POMOC DROGOWA 24/7 POLAND</h3><p>Całodobowa pomoc drogowa, holowanie i transport pojazdów w Poznaniu i okolicach.</p><address class="footer-company"><strong>IVNE sp. z o.o.</strong><br>ul. Wierzbowa 155, lok. B<br>62-081 Wysogotowo<br>NIP: 7812061461<br>KRS: 0001072665<br>REGON: 527091138</address><a class="footer-phone" href="tel:+48508511133">Infolinia: +48 508 511 133</a></div><div class="footer-links"><h3>Usługi</h3><ul><li><a href="/">Pomoc drogowa Poznań</a></li><li><a href="/laweta-poznan.html">Laweta Poznań</a></li><li><a href="/holowanie-poznan.html">Holowanie Poznań</a></li><li><a href="/pomoc-drogowa-a2.html">Pomoc drogowa A2</a></li><li><a href="/#kontakt">Kontakt i mapa</a></li></ul></div><div class="footer-links"><h3>Kontakt</h3><ul><li><a href="tel:+48508511133">508 511 133</a></li><li><a href="/#faq">FAQ</a></li><li><a href="/#obszar">Obszar działania</a></li></ul></div></div><div class="footer-bottom"><p>&copy; 2026 Pomoc Drogowa 24/7 Poland &bull; Poznań</p></div></footer>
+<footer><div class="footer-content"><div class="footer-brand"><h3>POMOC DROGOWA 24/7 POLAND</h3><p>Całodobowa pomoc drogowa, holowanie i transport pojazdów w Poznaniu i okolicach.</p><address class="footer-company"><strong>IVNE sp. z o.o.</strong><br>ul. Wierzbowa 155, lok. B<br>62-081 Wysogotowo<br>NIP: 7812061461<br>KRS: 0001072665<br>REGON: 527091138</address><a class="footer-phone" href="tel:+48508511133">Infolinia: +48 508 511 133</a></div><div class="footer-links"><h3>Usługi</h3><ul><li><a href="/">Pomoc drogowa Poznań</a></li><li><a href="/laweta-poznan.html">Laweta Poznań</a></li><li><a href="/holowanie-poznan.html">Holowanie Poznań</a></li><li><a href="/pomoc-drogowa-a2.html">Pomoc drogowa A2</a></li><li><a href="/realizacje-pomoc-drogowa-poznan.html">Zdjęcia realizacji</a></li><li><a href="/#kontakt">Kontakt i mapa</a></li></ul></div><div class="footer-links"><h3>Kontakt</h3><ul><li><a href="tel:+48508511133">508 511 133</a></li><li><a href="/#faq">FAQ</a></li><li><a href="/#obszar">Obszar działania</a></li></ul></div></div><div class="footer-bottom"><p>&copy; 2026 Pomoc Drogowa 24/7 Poland &bull; Poznań</p></div></footer>
 <div class="mobile-bottom-bar"><a href="tel:+48508511133"><i class="fa-solid fa-phone" aria-hidden="true"></i> SZYBKA LAWETA: 508 511 133</a></div>
 </body></html>
