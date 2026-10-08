@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://pomocdrogowapoznan24h.pl/</loc></url>
-  <url><loc>https://pomocdrogowapoznan24h.pl/laweta-poznan.html</loc></url>
-  <url><loc>https://pomocdrogowapoznan24h.pl/holowanie-poznan.html</loc></url>
-  <url><loc>https://pomocdrogowapoznan24h.pl/pomoc-drogowa-a2.html</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<url><loc>https://pomocdrogowapoznan24h.pl/</loc></url>
+<url><loc>https://pomocdrogowapoznan24h.pl/laweta-poznan.html</loc></url>
+<url><loc>https://pomocdrogowapoznan24h.pl/holowanie-poznan.html</loc></url>
+<url><loc>https://pomocdrogowapoznan24h.pl/pomoc-drogowa-a2.html</loc></url>
+<url><loc>https://pomocdrogowapoznan24h.pl/realizacje-pomoc-drogowa-poznan.html</loc>
+<image:image><image:loc>https://pomocdrogowapoznan24h.pl/images/pomoc-drogowa-interwencja-pobocze.avif</image:loc></image:image>
+<image:image><image:loc>https://pomocdrogowapoznan24h.pl/images/pomoc-drogowa-zabezpieczenie-drogi.avif</image:loc></image:image>
+<image:image><image:loc>https://pomocdrogowapoznan24h.pl/images/holowanie-po-kolizji-poznan.avif</image:loc></image:image>
+</url>
 </urlset>
