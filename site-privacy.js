@@ -108,37 +108,6 @@
     else showBanner();
   }
 
-  function setupReviews() {
-    const form = document.getElementById("review-form");
-    if (!form) return;
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      if (!form.reportValidity()) return;
-      const rating = form.querySelector("#review-rating").value;
-      const author = form.querySelector("#review-author").value.trim() || "Klient";
-      const body = form.querySelector("#review-comment").value.trim();
-      const publish = form.querySelector("#review-publication").checked;
-      const message = "Opinia o usłudze Pomoc Drogowa 24/7 Poland\nOcena: " + rating + "/5\nPodpis: " + author +
-          "\nTreść: " + body + "\nZgoda na publikację treści i podpisu: " + (publish ? "TAK" : "NIE") +
-          "\nProszę o kontakt tylko w związku z tą opinią.";
-      const url = "sms:+48508511133?body=" + encodeURIComponent(message);
-      const link = document.createElement("a");
-      link.href = url;
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      const status = document.getElementById("review-form-status");
-      if (status) status.textContent = "Otwieramy aplikację SMS. Sprawdź wiadomość i wyślij ją samodzielnie. Jeśli urządzenie nie obsługuje SMS, możesz skopiować treść poniższym przyciskiem.";
-      const copy = document.getElementById("review-copy");
-      if (copy) {
-        copy.hidden = false;
-        copy.onclick = async () => {
-          try { await navigator.clipboard.writeText(message); if(status)status.textContent="Skopiowano opinię. Możesz przesłać ją SMS-em pod numer 508 511 133."; }
-          catch(_) { window.prompt("Skopiuj treść opinii", message); }
-        };
-      }
-    });
-  }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", () => { setup(); setupReviews(); });
-  else { setup(); setupReviews(); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", () => { setup(); });
+  else { setup(); }
 })();
