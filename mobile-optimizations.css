@@ -1,0 +1,34 @@
+/* Wersja mobilna — pozioma nawigacja, duże obszary dotykowe, czytelne treści */
+@media(max-width:900px){
+ .subnav{display:flex;flex-wrap:nowrap;justify-content:flex-start;align-items:center;gap:8px;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scrollbar-width:thin;scroll-snap-type:x proximity;padding:8px 5%}
+ .subnav a{flex:0 0 auto;white-space:nowrap;min-height:44px;display:inline-flex;align-items:center;justify-content:center;scroll-snap-align:start;padding:10px 13px}
+ .subnav a[aria-current="page"]{color:var(--brand-yellow);background:rgba(255,184,0,.10)}
+ .btn-call-header{min-width:44px;min-height:44px}
+ .mobile-bottom-bar{padding:8px 12px;padding-bottom:calc(8px + env(safe-area-inset-bottom,0px))}
+ .mobile-bottom-bar a{min-height:48px;line-height:1.3}
+ .btn-main-call,.btn-secondary,.review-action-link,.seo-page-link{min-height:48px}
+ .realization-card,.service-card,.hw-card,.link-card{min-width:0}
+ .realization-card figcaption,.subhero,.prose-section{overflow-wrap:break-word}
+ [id]{scroll-margin-top:95px}
+}
+@media(max-width:600px){
+ .top-status-bar{padding:7px 12px;font-size:.76rem;line-height:1.35}
+ .hero{padding:34px 5% 42px;background-position:center,center,62% center}
+ .hero h1{font-size:clamp(1.85rem,8vw,2.15rem);line-height:1.16}
+ .hero p{font-size:1rem;line-height:1.65}
+ .hero-badge{font-size:.76rem;padding:7px 11px;line-height:1.3}
+ .subhero{padding-top:28px;padding-bottom:34px}
+ .subhero h1{font-size:clamp(1.75rem,7vw,2.2rem);line-height:1.2}
+ .subhero p{font-size:1rem;line-height:1.55}
+ .hero-buttons{gap:10px}
+ .btn-main-call{padding:14px 12px;font-size:1rem;overflow-wrap:anywhere}
+ .btn-secondary{padding:14px 12px}
+ .realization-card img{display:block;width:100%;height:auto;aspect-ratio:4 / 3;object-fit:cover}
+ .d-tag{min-height:44px;display:inline-flex;align-items:center}
+ .d-tag-link{text-decoration:none;color:var(--text-light)}
+ .d-tag-link:focus-visible,.d-tag-link:hover{border-color:var(--brand-yellow);color:var(--brand-yellow)}
+ .realization-more summary{min-height:44px;padding:10px 0}
+ .section-header h2{line-height:1.25}
+ .mobile-bottom-bar a{font-size:1rem}
+}
+@media(prefers-reduced-motion:reduce){.subnav{scroll-behavior:auto;scroll-snap-type:none}}

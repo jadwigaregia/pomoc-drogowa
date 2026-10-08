@@ -10,6 +10,7 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://pomocdrogowapoznan24h.pl/">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="preload" as="image" href="/images/pomoc-drogowa-poznan-rataje-zamenhofa-transport-porsche.avif" fetchpriority="high">
     <meta name="theme-color" content="#0D1117">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="pl_PL">
@@ -171,7 +172,7 @@
             background:
                 radial-gradient(circle at 80% 20%, rgba(255,184,0,.08), transparent 50%),
                 linear-gradient(180deg, rgba(13,17,23,.7), var(--bg-dark)),
-                url('https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=1400') center/cover no-repeat;
+                url('/images/pomoc-drogowa-poznan-rataje-zamenhofa-transport-porsche.avif') center/cover no-repeat;
             border-bottom: 1px solid var(--border-color);
         }
 
@@ -550,12 +551,16 @@
         }
 
         .d-tag {
+            color: var(--text-light);
             background: #1f242c;
             border: 1px solid rgba(255,255,255,.08);
             padding: 8px 16px;
             border-radius: 30px;
             font-size: .88rem;
         }
+
+        a.d-tag { text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; }
+        a.d-tag:hover, a.d-tag:focus-visible { color: var(--brand-yellow); border-color: var(--brand-yellow); }
 
         .party-small {
             display: flex;
@@ -933,6 +938,7 @@
         }
 
     </style>
+<link rel="stylesheet" href="/mobile-optimizations.css">
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Pomoc Drogowa 24/7 Poland","url":"https://pomocdrogowapoznan24h.pl/","inLanguage":"pl-PL"}</script>
 <link rel="stylesheet" href="/site-privacy.css">
 <script src="/site-privacy.js" defer></script>
@@ -1578,7 +1584,7 @@
                 <div class="district-tags">
                     <span class="d-tag">Stare Miasto</span>
                     <span class="d-tag">Grunwald</span>
-                    <span class="d-tag">Rataje</span>
+                    <a class="d-tag d-tag-link" href="/realizacje-pomoc-drogowa-poznan.html#realizacja-zamenhofa-rataje" aria-label="Zobacz transport Porsche przy ul. Zamenhofa na Ratajach">Rataje</a>
                     <span class="d-tag">Jeżyce</span>
                     <span class="d-tag">Wilda</span>
                     <span class="d-tag">Piątkowo</span>
@@ -1588,6 +1594,7 @@
                     <span class="d-tag">Swarzędz</span>
                     <span class="d-tag">Plewiska</span>
                     <span class="d-tag">Komorniki</span>
+                    <a class="d-tag d-tag-link" href="/realizacje-pomoc-drogowa-poznan.html#realizacja-s11-borowiec" aria-label="Zobacz transport uszkodzonego Fiata na S11 w rejonie Borówca">Borówiec / S11</a>
                     <span class="d-tag">Tarnowo Podgórne</span>
                     <span class="d-tag">Suchy Las</span>
                     <span class="d-tag">Mosina</span>
