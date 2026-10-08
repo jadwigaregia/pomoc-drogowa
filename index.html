@@ -850,7 +850,54 @@
 @media(max-width:850px){.realization-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:590px){.realization-grid,.realization-grid.two,.realization-grid.single{grid-template-columns:1fr}.realization-card img{height:240px}}
 .map-consent-shell{width:100%;height:100%;min-height:420px}.map-consent-shell .company-map{width:100%;height:100%;min-height:420px}
-</style>
+
+        /* Galeria lawet: przewijanie gestem, klawiaturą i strzałkami. */
+        .fleet-gallery { position: relative; }
+        #fleet-track {
+            display: flex;
+            gap: 18px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: thin;
+            scrollbar-color: var(--brand-yellow) var(--bg-card);
+            padding-bottom: 12px;
+        }
+        #fleet-track .fleet-card {
+            flex: 0 0 calc((100% - 36px) / 3);
+            min-width: 0;
+            margin: 0;
+            scroll-snap-align: start;
+        }
+        #fleet-track:focus-visible,
+        .fleet-arrow:focus-visible { outline: 3px solid #58a6ff; outline-offset: 3px; }
+        .fleet-arrow {
+            position: absolute;
+            top: calc(50% - 6px);
+            transform: translateY(-50%);
+            z-index: 2;
+            width: 44px;
+            height: 44px;
+            border: 1px solid rgba(255,255,255,.5);
+            border-radius: 50%;
+            background: var(--brand-yellow);
+            color: #111;
+            font-size: 30px;
+            line-height: 1;
+            cursor: pointer;
+            box-shadow: 0 2px 12px rgba(0,0,0,.45);
+        }
+        .fleet-arrow[hidden] { display: none; }
+        .fleet-arrow:disabled { opacity: .45; cursor: default; }
+        .fleet-arrow-prev { left: 8px; }
+        .fleet-arrow-next { right: 8px; }
+        @media (max-width: 1000px) {
+            #fleet-track .fleet-card { flex-basis: calc((100% - 18px) / 2); }
+        }
+        @media (max-width: 600px) {
+            #fleet-track .fleet-card { flex-basis: 100%; }
+        }
+
+    </style>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Pomoc Drogowa 24/7 Poland","url":"https://pomocdrogowapoznan24h.pl/","inLanguage":"pl-PL"}</script>
 <link rel="stylesheet" href="/site-privacy.css">
 <script src="/site-privacy.js" defer></script>
@@ -1339,7 +1386,9 @@
                 <h2>Lawety i pomoc w trasie</h2>
             </div>
 
-            <div class="fleet-grid">
+            <div class="fleet-gallery" role="region" aria-label="Galeria lawet IVNE">
+                <button class="fleet-arrow fleet-arrow-prev" type="button" aria-label="Poprzednie zdjęcie" aria-controls="fleet-track" hidden><span aria-hidden="true">‹</span></button>
+                <div class="fleet-grid" id="fleet-track" tabindex="0" role="group" aria-label="Zdjęcia lawet — przewijaj w bok">
                 <figure class="fleet-card">
                     <img src="images/laweta-czerwona-1.jpeg"
                          alt="Czerwona laweta Renault z żółtym pasem — widok z boku"
@@ -1367,6 +1416,13 @@
                          width="2048" height="1536"
                          loading="lazy" decoding="async">
                 </figure>
+                <figure class="fleet-card">
+                    <img src="images/laweta-biala-3.jpeg"
+                         alt="Biała laweta IVNE z żółtym pasem na parkingu"
+                         width="2048" height="1536" loading="lazy" decoding="async">
+                </figure>
+                </div>
+                <button class="fleet-arrow fleet-arrow-next" type="button" aria-label="Następne zdjęcie" aria-controls="fleet-track" hidden><span aria-hidden="true">›</span></button>
             </div>
         </section>
 
@@ -1821,6 +1877,43 @@
             SZYBKA LAWETA: 508 511 133
         </a>
     </div>
+
+
+<script>
+(() => {
+    const track = document.getElementById('fleet-track');
+    if (!track) return;
+    const gallery = track.closest('.fleet-gallery');
+    const prev = gallery.querySelector('.fleet-arrow-prev');
+    const next = gallery.querySelector('.fleet-arrow-next');
+    const cards = Array.from(track.querySelectorAll('.fleet-card'));
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    function update() {
+        const max = Math.max(0, track.scrollWidth - track.clientWidth);
+        prev.disabled = track.scrollLeft <= 2;
+        next.disabled = track.scrollLeft >= max - 2;
+        prev.hidden = next.hidden = max <= 2;
+    }
+    function move(direction) {
+        const step = cards.length > 1
+            ? cards[1].getBoundingClientRect().left - cards[0].getBoundingClientRect().left
+            : track.clientWidth;
+        track.scrollBy({ left: direction * step, behavior: reducedMotion.matches ? 'instant' : 'smooth' });
+    }
+    prev.addEventListener('click', () => move(-1));
+    next.addEventListener('click', () => move(1));
+    track.addEventListener('keydown', event => {
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+            event.preventDefault();
+            move(event.key === 'ArrowLeft' ? -1 : 1);
+        }
+    });
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    if ('ResizeObserver' in window) new ResizeObserver(update).observe(track);
+    update();
+})();
+</script>
 
 </body>
 </html>
