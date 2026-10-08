@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Holowanie Poznań 24H – Pomoc po Awarii i Kolizji | 24/7 Poland</title>
+<meta name="description" content="Holowanie Poznań 24/7 po awarii i kolizji. Transport samochodu do warsztatu, pomoc na trasie i możliwość rozliczenia z OC sprawcy. Tel. 508 511 133.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://pomocdrogowapoznan24h.pl/holowanie-poznan.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+        :root {
+            --brand-yellow: #FFB800;
+            --brand-yellow-dark: #E0A200;
+            --brand-yellow-glow: rgba(255,184,0,.25);
+            --bg-dark: #0D1117;
+            --bg-card: #161B22;
+            --bg-card-hover: #1F242C;
+            --text-main: #FFFFFF;
+            --text-muted: #8B949E;
+            --text-light: #E6EDF3;
+            --accent-green: #10B981;
+            --border-color: #30363D;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        [id] { scroll-margin-top: 110px; }
+        a:focus-visible, summary:focus-visible {
+            outline: 3px solid #58a6ff;
+            outline-offset: 4px;
+        }
+
+        .top-status-bar {
+            background: #1c1500;
+            border-bottom: 1px solid rgba(255,184,0,.3);
+            color: #ffda73;
+            padding: 8px 15px;
+            font-size: .85rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .pulse-dot {
+            width: 9px;
+            height: 9px;
+            flex-shrink: 0;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse-green 1.8s infinite;
+        }
+
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(16,185,129,.7); }
+            70% { box-shadow: 0 0 0 8px rgba(16,185,129,0); }
+            100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(13,17,23,.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 14px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            background: var(--brand-yellow);
+            color: var(--bg-dark);
+            width: 44px;
+            height: 44px;
+            flex-shrink: 0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            box-shadow: 0 0 15px var(--brand-yellow-glow);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -.5px;
+            text-transform: uppercase;
+        }
+
+        .logo-title span { color: var(--brand-yellow); }
+
+        .logo-sub {
+            font-size: .75rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-call-header {
+            background: var(--brand-yellow);
+            color: #000;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 44px;
+            box-shadow: 0 4px 14px var(--brand-yellow-glow);
+        }
+
+        .btn-call-header:hover { background: var(--brand-yellow-dark); }
+
+        .hero {
+            padding: 75px 6% 70px;
+            background:
+                radial-gradient(circle at 80% 20%, rgba(255,184,0,.08), transparent 50%),
+                linear-gradient(180deg, rgba(13,17,23,.7), var(--bg-dark)),
+                url('https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=1400') center/cover no-repeat;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,184,0,.12);
+            border: 1px solid rgba(255,184,0,.35);
+            color: var(--brand-yellow);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: .85rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+        }
+
+        .hero-content { max-width: 820px; }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.2rem;
+            line-height: 1.15;
+            color: var(--text-main);
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span { color: var(--brand-yellow); }
+
+        .hero p {
+            font-size: 1.18rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            max-width: 680px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .btn-main-call {
+            background: var(--brand-yellow);
+            color: #000;
+            padding: 18px 30px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(255,184,0,.3);
+        }
+
+        .btn-main-call:hover { background: var(--brand-yellow-dark); }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-align: center;
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--brand-yellow);
+        }
+
+        .price-box {
+            margin-bottom: 30px;
+            padding: 24px;
+            background: #1c200e;
+            border: 1px solid #726021;
+            border-radius: 14px;
+        }
+
+        .price-box h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+            color: var(--brand-yellow);
+            margin-bottom: 8px;
+        }
+
+        .price-box p {
+            font-size: 1rem;
+            margin-bottom: 16px;
+            color: var(--text-light);
+        }
+
+        .payment-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .payment-tags li {
+            padding: 6px 12px;
+            border: 1px solid #726021;
+            border-radius: 8px;
+            font-size: .85rem;
+        }
+
+        .hero-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(min(100%,170px),1fr));
+            gap: 16px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .metric-card {
+            background: rgba(22,27,34,.8);
+            border: 1px solid var(--border-color);
+            padding: 16px 20px;
+            border-radius: 10px;
+        }
+
+        .metric-card .num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--brand-yellow);
+        }
+
+        .metric-card .label {
+            font-size: .85rem;
+            color: var(--text-muted);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 65px 6%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .section-header .sub-badge {
+            color: var(--brand-yellow);
+            font-weight: 700;
+            font-size: .85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .section-header h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.3rem;
+            color: var(--text-main);
+        }
+
+        .section-description {
+            margin-top: 14px;
+            color: var(--text-muted);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(min(100%,320px),1fr));
+            gap: 24px;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 30px 25px;
+            transition: border-color .2s;
+            min-width: 0;
+        }
+
+        .service-card:hover { border-color: var(--brand-yellow); }
+
+        .service-icon-wrap {
+            width: 60px;
+            height: 60px;
+            background: rgba(255,184,0,.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: var(--brand-yellow);
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .service-card p {
+            font-size: .95rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .service-features {
+            list-style: none;
+            border-top: 1px solid rgba(255,255,255,.06);
+            padding-top: 14px;
+        }
+
+        .service-features li {
+            font-size: .85rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .service-features i {
+            color: var(--brand-yellow);
+            font-size: .75rem;
+        }
+
+        .callout-banner {
+            background: linear-gradient(135deg,#1c1500,#2a2000);
+            border: 1px solid rgba(255,184,0,.4);
+            border-radius: 16px;
+            padding: 35px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+            margin-top: 35px;
+        }
+
+        .callout-text h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            color: var(--brand-yellow);
+            margin-bottom: 8px;
+        }
+
+        .callout-text p { max-width: 600px; }
+
+        .fleet-grid {
+            display: grid;
+            grid-template-columns: repeat(4,minmax(0,1fr));
+            gap: 18px;
+        }
+
+        .fleet-card {
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            background: var(--bg-card);
+        }
+
+        .fleet-card svg,
+        .fleet-card img {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            background: #202b3b;
+        }
+
+        .fleet-card figcaption {
+            padding: 16px;
+            font-size: .95rem;
+            font-weight: 700;
+        }
+
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(min(100%,260px),1fr));
+            gap: 20px;
+        }
+
+        .why-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        .why-box i {
+            color: var(--brand-yellow);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .why-box h3 {
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .why-box p {
+            font-size: .9rem;
+            color: var(--text-muted);
+        }
+
+        .coverage-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+        }
+
+        .highway-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(min(100%,200px),1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .hw-card {
+            background: #090d12;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 0;
+        }
+
+        .hw-badge {
+            background: #1e3a8a;
+            color: #fff;
+            font-weight: 800;
+            padding: 6px 10px;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+
+        .hw-badge.s-road { background: #b91c1c; }
+
+        .hw-info .title {
+            font-weight: 700;
+            font-size: .95rem;
+            color: var(--text-main);
+        }
+
+        .hw-info .desc {
+            font-size: .8rem;
+            color: var(--text-muted);
+        }
+
+        .district-title {
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+        }
+
+        .district-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .d-tag {
+            background: #1f242c;
+            border: 1px solid rgba(255,255,255,.08);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: .88rem;
+        }
+
+        .party-small {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 28px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+        }
+
+        .party-small h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .party-small p {
+            max-width: 660px;
+            color: var(--text-muted);
+        }
+
+        .party-small a { flex-shrink: 0; }
+
+        /* FAQ – najczęstsze pytania */
+        .faq-list {
+            max-width: 960px;
+            margin: 0 auto;
+            display: grid;
+            gap: 12px;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0 22px;
+        }
+
+        .faq-item[open] { border-color: rgba(255,184,0,.6); }
+
+        .faq-item summary {
+            cursor: pointer;
+            padding: 19px 0;
+            font-size: 1.03rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .faq-item summary::marker { color: var(--brand-yellow); }
+
+        .faq-item p {
+            padding: 0 0 20px;
+            color: var(--text-muted);
+        }
+
+        /* Kontakt i mapa */
+        .company-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .company-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 28px;
+            min-width: 0;
+        }
+
+        .company-card h3 {
+            color: var(--brand-yellow);
+            font-size: 1.3rem;
+            margin-bottom: 18px;
+        }
+
+        .company-card address {
+            font-style: normal;
+            margin-bottom: 18px;
+        }
+
+        .company-details { margin-bottom: 22px; }
+
+        .company-details div {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 5px;
+        }
+
+        .company-details dt { font-weight: 700; }
+
+        .company-card .btn-main-call {
+            font-size: 1rem;
+            padding: 16px 20px;
+        }
+
+        .map-note {
+            margin-top: 20px;
+            margin-bottom: 16px;
+            color: var(--text-muted);
+            font-size: .9rem;
+        }
+
+        .map-link {
+            color: var(--brand-yellow);
+            text-underline-offset: 4px;
+        }
+
+        .company-map {
+            display: block;
+            width: 100%;
+            height: 100%;
+            min-height: 420px;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            background: var(--bg-card);
+        }
+
+        footer {
+            background: #080B0F;
+            border-top: 1px solid var(--border-color);
+            padding: 50px 6% 30px;
+            color: var(--text-muted);
+            font-size: .9rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+            margin-bottom: 35px;
+        }
+
+        .footer-brand { max-width: 400px; }
+
+        .footer-brand h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--brand-yellow);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        .footer-company {
+            margin-top: 18px;
+            font-style: normal;
+        }
+
+        .footer-company strong { color: var(--text-light); }
+
+        .footer-phone {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--brand-yellow);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .footer-links h3 {
+            color: var(--text-main);
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover { color: var(--brand-yellow); }
+
+        .footer-links .fa-check {
+            color: var(--brand-yellow);
+            margin-right: 6px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,.05);
+            padding-top: 25px;
+            text-align: center;
+            font-size: .82rem;
+        }
+
+        .mobile-bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--brand-yellow);
+            padding: 12px 16px;
+            padding-bottom: calc(12px + env(safe-area-inset-bottom,0px));
+            z-index: 9999;
+            box-shadow: 0 -4px 20px rgba(0,0,0,.5);
+            display: none;
+        }
+
+        .mobile-bottom-bar a {
+            color: #000;
+            font-size: 1.1rem;
+            font-weight: 800;
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            text-align: center;
+        }
+
+        @media (max-width: 1000px) {
+            .fleet-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+        }
+
+        @media (max-width: 900px) {
+            body { padding-bottom: calc(80px + env(safe-area-inset-bottom,0px)); }
+            .hero h1 { font-size: 2.4rem; }
+            .mobile-bottom-bar { display: block; }
+            header { padding: 12px 5%; }
+            .btn-call-header span { display: none; }
+        }
+
+        @media (max-width: 800px) {
+            .company-grid { grid-template-columns: 1fr; }
+            .company-map { height: 340px; min-height: 340px; }
+        }
+
+        @media (max-width: 600px) {
+            .hero { padding: 45px 5% 50px; }
+            .hero h1 { font-size: 1.95rem; }
+            .hero p { font-size: 1.05rem; }
+            .hero-buttons { flex-direction: column; }
+            .btn-main-call, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+            .btn-main-call { font-size: 1rem; padding: 16px; }
+            .container { padding: 45px 5%; }
+            .section-header h2 { font-size: 1.8rem; }
+            .price-box { padding: 20px; }
+            .price-box p { font-size: .95rem; }
+            .callout-banner { padding: 25px 20px; text-align: center; }
+            .callout-text h3 { font-size: 1.5rem; }
+            .fleet-grid { grid-template-columns: 1fr; }
+            .coverage-container { padding: 20px; }
+            .party-small {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 22px;
+            }
+            .logo-box { gap: 8px; }
+            .logo-sub { font-size: .65rem; letter-spacing: .4px; }
+            .btn-call-header { padding: 10px 14px; }
+            .mobile-bottom-bar a { font-size: 1rem; }
+            .company-card { padding: 22px; }
+            .faq-item { padding: 0 17px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    
+
+  .subnav{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px;background:#111820;border-bottom:1px solid var(--border-color);padding:12px 6%}
+  .subnav a{color:var(--text-light);text-decoration:none;font-weight:700;font-size:.88rem;padding:9px 12px;border-radius:8px}
+  .subnav a:hover,.subnav a[aria-current="page"]{background:rgba(255,184,0,.14);color:var(--brand-yellow)}
+  .breadcrumbs{padding:19px 6% 0;color:var(--text-muted);font-size:.88rem}
+  .breadcrumbs a{color:var(--brand-yellow)}
+  .subhero{padding:46px 6% 50px;background:radial-gradient(circle at 90% 20%,rgba(255,184,0,.09),transparent 50%),#0D1117;border-bottom:1px solid var(--border-color)}
+  .subhero h1{font-family:'Space Grotesk',sans-serif;color:#fff;font-size:clamp(2rem,5vw,3.3rem);line-height:1.16;max-width:950px;margin:15px 0 22px}
+  .subhero h1 span{color:var(--brand-yellow)}
+  .subhero p{font-size:1.12rem;color:var(--text-light);max-width:850px;margin-bottom:24px}
+  .content-shell{max-width:1000px;margin:0 auto;padding:35px 6% 65px}
+  .prose-section{padding:30px 0;border-bottom:1px solid var(--border-color)}
+  .prose-section h2{font-family:'Space Grotesk',sans-serif;color:#fff;font-size:clamp(1.35rem,3vw,1.9rem);margin-bottom:16px}
+  .prose-section p{margin:0 0 17px;color:var(--text-light);line-height:1.85}
+  .prose-section ul{padding-left:24px;margin:0 0 17px}
+  .prose-section li{margin-bottom:10px}
+  .link-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:14px;margin-top:22px}
+  .link-card{border:1px solid var(--border-color);border-radius:12px;padding:20px;background:var(--bg-card);color:var(--brand-yellow);text-decoration:none;font-weight:700}
+  .link-card:hover{border-color:var(--brand-yellow)}
+  .link-card span{display:block;color:var(--text-muted);font-size:.88rem;font-weight:400;margin-top:5px}
+  .subfaq .faq-item{margin-bottom:12px}
+  .small-print{color:var(--text-muted);font-size:.88rem}
+  @media(max-width:600px){.subhero{padding:30px 5% 42px}.breadcrumbs{padding:15px 5% 0}.content-shell{padding:18px 5% 55px}.subnav{justify-content:flex-start;padding:9px 5%;gap:4px}.subnav a{font-size:.8rem;padding:8px}}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Strona główna","item":"https://pomocdrogowapoznan24h.pl/"},{"@type":"ListItem","position":2,"name":"Holowanie Poznań","item":"https://pomocdrogowapoznan24h.pl/holowanie-poznan.html"}]}</script>
+</head>
+<body id="poczatek">
+<div class="top-status-bar"><span class="pulse-dot"></span><span>Pomoc drogowa 24/7 &bull; Poznań i okolice &bull; Przewidywany dojazd w Poznaniu: <strong>10–15 minut</strong></span></div>
+<header><a class="logo-box" href="/" aria-label="24/7 Poland – strona główna"><div class="logo-icon"><i class="fa-solid fa-truck-pickup" aria-hidden="true"></i></div><div class="logo-text"><div class="logo-title">24/7 <span>Poland</span></div><div class="logo-sub">Pomoc Drogowa Poznań</div></div></a><a href="tel:+48508511133" class="btn-call-header" aria-label="Zadzwoń 508 511 133"><i class="fa-solid fa-phone" aria-hidden="true"></i><span>508 511 133</span></a></header>
+<nav class="subnav" aria-label="Nawigacja usług"><a href="/">Strona główna</a><a href="/laweta-poznan.html">Laweta Poznań</a><a href="/holowanie-poznan.html" aria-current="page">Holowanie Poznań</a><a href="/pomoc-drogowa-a2.html">Pomoc drogowa A2</a><a href="/#kontakt">Kontakt</a></nav>
+<main>
+<div class="breadcrumbs"><a href="/">Strona główna</a> &rsaquo; Holowanie Poznań</div>
+<section class="subhero"><div class="hero-badge"><i class="fa-solid fa-truck" aria-hidden="true"></i> Poznań i okolice &bull; pomoc drogowa 24/7</div><h1>Holowanie Poznań 24H – <span>Pomoc po awarii i kolizji</span></h1><p>Awaria auta w mieście, kolizja na skrzyżowaniu albo niesprawny samochód na parkingu? Organizujemy holowanie w Poznaniu i okolicy, w tym przewóz uszkodzonych pojazdów do warsztatu, na parking lub pod wybrany adres.</p><div class="hero-buttons"><a class="btn-main-call" href="tel:+48508511133"><i class="fa-solid fa-phone-volume" aria-hidden="true"></i> WEZWIJ POMOC: 508 511 133</a><a class="btn-secondary" href="/#uslugi">Pozostałe usługi</a></div></section>
+<div class="content-shell">
+<section class="prose-section"><h2>Kiedy samochód wymaga holowania?</h2><p>Po awarii kierowca często nie ma pewności, czy może bezpiecznie kontynuować jazdę. Jeśli występuje wyciek płynów, problemy z hamulcami, układem kierowniczym, kołami lub inne objawy zagrażające bezpieczeństwu, nie należy ryzykować dalszej jazdy.</p>
+<p>Holowanie przydaje się również po zdarzeniu drogowym, gdy auto nie nadaje się do ruchu, a także wtedy, gdy konieczny jest przewóz do mechanika. Podczas zgłoszenia ustalimy, jaki sposób transportu będzie odpowiedni.</p></section>
+<section class="prose-section"><h2>Holowanie po kolizji i wypadku w Poznaniu</h2><p>Po kolizji najważniejsze jest bezpieczeństwo uczestników. Jeśli ktoś został ranny albo miejsce zdarzenia stwarza zagrożenie, wezwij odpowiednie służby pod numerem 112. Samochód, którego stan techniczny wyklucza dalszą jazdę, można przetransportować do warsztatu lub innego bezpiecznego miejsca.</p>
+<p>Podczas rozmowy opisz, czy doszło do uszkodzenia zawieszenia, chłodnicy, układu kierowniczego lub czy koła pozostają zablokowane. Informacje te ułatwią dobór lawety.</p></section>
+<section class="prose-section"><h2>Holowanie z OC sprawcy – na czym polega?</h2><p>Jeżeli jesteś poszkodowanym w zdarzeniu spowodowanym przez innego kierowcę, uzasadnione koszty holowania mogą podlegać zwrotowi z ubezpieczenia OC sprawcy. Możemy pomóc w organizacji transportu i rozliczenia bezgotówkowego w sytuacjach, które spełniają warunki takiego rozliczenia.</p>
+<p>Na stronie przedstawiamy ofertę holowania z OC sprawcy z 0 zł wkładu własnego. Przy zgłoszeniu przygotuj informacje o zdarzeniu i ubezpieczeniu, a zasady realizacji i rozliczenia potwierdź przed zleceniem usługi.</p></section>
+<section class="prose-section"><h2>Jak zamówić holowanie samochodu?</h2><p>Zadzwoń pod 508 511 133. Podaj ulicę lub przesłaną lokalizację, markę i model auta, rodzaj awarii i miejsce docelowe. Powiedz, czy samochód może się toczyć, czy blokują się koła oraz ilu pasażerów potrzebuje transportu.</p>
+<p>Na podstawie tych informacji ustalamy sposób załadunku, cenę oraz organizację pomocy. Samochód może zostać przewieziony do wskazanego warsztatu, na posesję lub inne uzgodnione miejsce.</p></section>
+<section class="prose-section"><h2>Holowanie samochodów w Poznaniu i pobliskich gminach</h2><p>Pomagamy kierowcom na poznańskich osiedlach i trasach dojazdowych, między innymi w rejonie Grunwaldu, Jeżyc, Wildy, Rataj i Piątkowa. Przyjmujemy również zlecenia z okolicznych miejscowości, takich jak Luboń, Swarzędz i Komorniki.</p>
+<p>Jeżeli problem wydarzył się na autostradzie A2 lub drodze ekspresowej, podaj dokładny odcinek, kierunek i najbliższy węzeł. Zasady pomocy na autostradzie opisujemy na osobnej podstronie.</p></section>
+<section class="prose-section subfaq"><h2>Najczęstsze pytania – Holowanie Poznań</h2><details class="faq-item"><summary>Czy każde auto można holować na lince?</summary><p>Nie. Rodzaj awarii, konstrukcja napędu i obowiązujące przepisy mogą wykluczać holowanie na lince. W wielu sytuacjach bezpieczniejszym rozwiązaniem jest przewóz pojazdu na lawecie.</p></details>
+<details class="faq-item"><summary>Czy holowanie z OC sprawcy jest za 0 zł?</summary><p>Oferujemy usługę z 0 zł wkładu własnego przy rozliczeniu z OC sprawcy, gdy spełnione są warunki takiego rozliczenia. Szczegóły potwierdzamy podczas zgłoszenia.</p></details>
+<details class="faq-item"><summary>Dokąd można przewieźć uszkodzony samochód?</summary><p>Do wybranego warsztatu, na parking lub pod wskazany adres, pod warunkiem że możliwy jest bezpieczny dojazd i rozładunek.</p></details>
+<details class="faq-item"><summary>Ile informacji trzeba podać przez telefon?</summary><p>Wystarczy zacząć od lokalizacji, modelu pojazdu i opisu problemu. W rozmowie dopytamy o uszkodzenia i adres docelowy.</p></details></section>
+<section class="prose-section"><h2>Sprawdź także inne usługi</h2><p>W zależności od rodzaju awarii możesz potrzebować lawety, holowania albo wsparcia na autostradzie. Sprawdź powiązane usługi lub wróć na stronę główną.</p><div class="link-grid"><a class="link-card" href="/laweta-poznan.html">Laweta Poznań<span>Zobacz zakres usług i odpowiedzi na pytania</span></a>
+<a class="link-card" href="/pomoc-drogowa-a2.html">Pomoc drogowa A2<span>Zobacz zakres usług i odpowiedzi na pytania</span></a><a class="link-card" href="/">Pomoc drogowa Poznań<span>Strona główna – wszystkie usługi 24/7</span></a></div></section>
+<div class="callout-banner"><div class="callout-text"><h3>Potrzebujesz pomocy teraz?</h3><p>Podaj lokalizację, rodzaj pojazdu i opis zdarzenia. Ustalimy sposób transportu i cenę przed wyjazdem.</p></div><a class="btn-main-call" href="tel:+48508511133"><i class="fa-solid fa-phone" aria-hidden="true"></i>Zadzwoń teraz</a></div>
+<p class="small-print" style="margin-top:18px">Informacje na stronie mają charakter ogólny. Dostępność usługi, przewidywany czas dojazdu i warunki rozliczenia należy potwierdzić podczas zamówienia.</p>
+</div></main>
+<footer><div class="footer-content"><div class="footer-brand"><h3>POMOC DROGOWA 24/7 POLAND</h3><p>Całodobowa pomoc drogowa, holowanie i transport pojazdów w Poznaniu i okolicach.</p><address class="footer-company"><strong>IVNE sp. z o.o.</strong><br>ul. Wierzbowa 155, lok. B<br>62-081 Wysogotowo<br>NIP: 7812061461<br>KRS: 0001072665<br>REGON: 527091138</address><a class="footer-phone" href="tel:+48508511133">Infolinia: +48 508 511 133</a></div><div class="footer-links"><h3>Usługi</h3><ul><li><a href="/">Pomoc drogowa Poznań</a></li><li><a href="/laweta-poznan.html">Laweta Poznań</a></li><li><a href="/holowanie-poznan.html">Holowanie Poznań</a></li><li><a href="/pomoc-drogowa-a2.html">Pomoc drogowa A2</a></li><li><a href="/#kontakt">Kontakt i mapa</a></li></ul></div><div class="footer-links"><h3>Kontakt</h3><ul><li><a href="tel:+48508511133">508 511 133</a></li><li><a href="/#faq">FAQ</a></li><li><a href="/#obszar">Obszar działania</a></li></ul></div></div><div class="footer-bottom"><p>&copy; 2026 Pomoc Drogowa 24/7 Poland &bull; Poznań</p></div></footer>
+<div class="mobile-bottom-bar"><a href="tel:+48508511133"><i class="fa-solid fa-phone" aria-hidden="true"></i> SZYBKA LAWETA: 508 511 133</a></div>
+</body></html>
