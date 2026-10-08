@@ -1649,48 +1649,38 @@
 
         <!-- KONTAKT I DANE FIRMY -->
         
-        <!-- OPINIE KLIENTÓW: bez fikcyjnych ocen i bez automatycznej publikacji -->
+        <!-- OPINIE KLIENTÓW: wyłącznie po weryfikacji zrealizowanego zlecenia -->
         <section class="container review-section" id="opinie">
             <div class="section-header">
-                <span class="sub-badge">Twoje doświadczenie ma znaczenie</span>
+                <span class="sub-badge">Zweryfikowani klienci</span>
                 <h2>Opinie klientów o pomocy drogowej</h2>
             </div>
-            <p class="review-intro">Tu będą pojawiać się opinie otrzymane od klientów po weryfikacji i uzyskaniu zgody na publikację. Na razie nie publikujemy niezweryfikowanych recenzji ani sztucznej średniej ocen.</p>
+            <p class="review-intro">Publikujemy opinie dotyczące faktycznie wykonanych usług. Nie ma publicznego formularza ani możliwości samodzielnego dodania oceny na stronę. Każda opinia jest sprawdzana z dokumentacją zlecenia przed publikacją.</p>
             <div id="opublikowane-opinie" class="published-reviews" aria-label="Opublikowane opinie klientów">
-                <p class="review-empty">Nie opublikowaliśmy jeszcze opinii potwierdzonych przez klientów. Po weryfikacji znajdziesz je właśnie tutaj – również te krytyczne.</p>
+                <p class="review-empty">Nie opublikowaliśmy jeszcze opinii zweryfikowanych klientów. Gdy otrzymamy i potwierdzimy pierwsze opinie, pojawią się tutaj – również krytyczne.</p>
             </div>
             <div class="review-layout">
                 <div class="review-info">
-                    <h3>Jak weryfikujemy opinie?</h3>
-                    <p>Po otrzymaniu wiadomości sprawdzamy, czy można powiązać ją z rzeczywistym zleceniem pomocy drogowej, np. przez kontakt ze zgłaszającym. Nie wymagamy wyłącznie ocen pozytywnych — publikowane mogą być także opinie krytyczne, jeśli nie naruszają prawa i prywatności.</p>
-                    <ul>
-                        <li>Nie kupujemy ani nie generujemy opinii.</li>
-                        <li>Przed publikacją potrzebujemy osobnej zgody autora.</li>
-                        <li>Można przesłać ocenę również bez zgody na jej publikację.</li>
-                    </ul>
+                    <h3><i class="fa-solid fa-comment-sms" aria-hidden="true"></i> Opinia na zaproszenie</h3>
+                    <ol class="review-steps">
+                        <li>Po zakończeniu usługi IVNE może wysłać klientowi SMS z <strong>indywidualnym kodem opinii</strong>.</li>
+                        <li>Klient odpowiada na otrzymany SMS, podając kod, ocenę od 1 do 5 i własną treść – także negatywną.</li>
+                        <li>IVNE sprawdza kod oraz zgodność wiadomości z zakończonym zleceniem.</li>
+                        <li>Opinia może zostać opublikowana po pozytywnej weryfikacji oraz wyraźnej zgodzie autora na publikację.</li>
+                    </ol>
+                    <p>Byłaś/byłeś naszym klientem, ale nie otrzymałaś/otrzymałeś zaproszenia? Zadzwoń i poproś o SMS dotyczący Twojego zlecenia.</p>
+                    <a class="review-action-link" href="tel:+48508511133"><i class="fa-solid fa-phone" aria-hidden="true"></i> Zadzwoń: 508 511 133</a>
                 </div>
                 <div class="review-form-wrap">
-                    <h3>Prześlij swoją opinię</h3>
-                    <form class="review-form" id="review-form">
-                        <label for="review-author">Podpis lub pseudonim (opcjonalnie)</label>
-                        <input id="review-author" type="text" autocomplete="nickname" maxlength="45" placeholder="Np. Kierowca z Poznania">
-                        <label for="review-rating">Jak oceniasz usługę?</label>
-                        <select id="review-rating" required>
-                            <option value="">Wybierz ocenę</option>
-                            <option value="5">★★★★★ – 5/5</option>
-                            <option value="4">★★★★☆ – 4/5</option>
-                            <option value="3">★★★☆☆ – 3/5</option>
-                            <option value="2">★★☆☆☆ – 2/5</option>
-                            <option value="1">★☆☆☆☆ – 1/5</option>
-                        </select>
-                        <label for="review-comment">Twoja opinia</label>
-                        <textarea id="review-comment" required maxlength="950" minlength="10" placeholder="Opisz, jak przebiegała pomoc drogowa."></textarea>
-                        <label class="review-consent" for="review-publication"><input type="checkbox" id="review-publication"><span><strong>Opcjonalnie:</strong> wyrażam zgodę na publikację treści opinii i podanego podpisu na stronie. Mogę wycofać zgodę, kontaktując się z administratorem danych.</span></label>
-                        <p class="review-small">Po kliknięciu otworzy się aplikacja SMS z przygotowaną wiadomością na numer 508 511 133. Wiadomość wysyłasz samodzielnie; operator może naliczyć opłatę. Formularz nie zapisuje treści opinii w serwisie. <a href="/polityka-prywatnosci.html">Informacje RODO</a>.</p>
-                        <button class="review-button" type="submit">Przygotuj opinię w SMS</button>
-                        <p id="review-form-status" role="status" aria-live="polite" class="review-small"></p>
-                        <button id="review-copy" type="button" class="cookie-button" hidden>Skopiuj treść opinii</button>
-                    </form>
+                    <h3><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Jak chronimy opinie?</h3>
+                    <p>Nie wystarczy podać przypadkowego numeru zlecenia lub wysłać anonimowej oceny. Każdą wiadomość porównujemy z wewnętrzną ewidencją wykonanych usług oraz zaproszeń. Ten sam kod może posłużyć do opublikowania tylko jednej opinii.</p>
+                    <ul class="review-steps">
+                        <li><strong>Bez fikcyjnych recenzji:</strong> nie zamieszczamy opinii bez potwierdzenia wykonania usługi.</li>
+                        <li><strong>Pozytywne i negatywne:</strong> nie odrzucamy prawdziwej opinii tylko dlatego, że jest krytyczna.</li>
+                        <li><strong>Prywatność:</strong> nie ujawniamy kodów zleceń, numerów telefonów ani danych klientów. Publikujemy wyłącznie uzgodniony podpis lub pseudonim i treść.</li>
+                        <li><strong>Bez automatycznej publikacji:</strong> jedna osoba po stronie IVNE zatwierdza autentyczność i zgodę autora.</li>
+                    </ul>
+                    <p class="review-small">Weryfikacja nie gwarantuje, że nikt nie spróbuje wysłać fałszywego SMS. Zapobiega jednak automatycznej publikacji takich treści na stronie. <a href="/polityka-prywatnosci.html">Zasady przetwarzania danych i zgody</a>.</p>
                 </div>
             </div>
         </section>
