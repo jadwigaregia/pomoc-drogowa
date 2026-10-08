@@ -815,6 +815,11 @@
                 scroll-behavior: auto !important;
             }
         }
+            /* Nawigacja do podstron usług */
+        .seo-page-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:18px;margin-top:24px}
+        .seo-page-link{display:block;background:var(--bg-card);color:var(--brand-yellow);border:1px solid var(--border-color);padding:24px;border-radius:12px;text-decoration:none;font-weight:800}
+        .seo-page-link:hover{border-color:var(--brand-yellow)}
+        .seo-page-link small{display:block;margin-top:8px;color:var(--text-muted);font-size:.86rem;font-weight:400;line-height:1.6}
     </style>
 </head>
 
@@ -1251,6 +1256,26 @@
             </div>
         </section>
 
+        <!-- Linkowanie wewnętrzne do stron usług -->
+        <section class="container" id="szczegolowe-uslugi">
+            <div class="section-header">
+                <span class="sub-badge">Szczegółowe informacje</span>
+                <h2>Laweta, holowanie i pomoc na autostradzie</h2>
+                <p class="section-description">Sprawdź zakres wybranej usługi, sposób zamawiania, wycenę i odpowiedzi na najczęstsze pytania kierowców.</p>
+            </div>
+            <nav class="seo-page-links" aria-label="Szczegółowe strony usług">
+                <a class="seo-page-link" href="/laweta-poznan.html">Laweta Poznań 24H
+                    <small>Transport samochodów, przewóz aut powypadkowych i zamówienie autolawety.</small>
+                </a>
+                <a class="seo-page-link" href="/holowanie-poznan.html">Holowanie Poznań
+                    <small>Co zrobić po awarii lub kolizji? Przewóz do warsztatu i holowanie z OC sprawcy.</small>
+                </a>
+                <a class="seo-page-link" href="/pomoc-drogowa-a2.html">Pomoc drogowa A2
+                    <small>Jak bezpiecznie wezwać pomoc z autostrady A2 w okolicach Poznania.</small>
+                </a>
+            </nav>
+        </section>
+
         <!-- GALERIA LAWET -->
         <section class="container" id="lawety">
             <div class="section-header">
@@ -1663,9 +1688,9 @@
             <div class="footer-links">
                 <h3>Usługi</h3>
                 <ul>
-                    <li><a href="#uslugi">Laweta Poznań</a></li>
-                    <li><a href="#uslugi">Holowanie Poznań</a></li>
-                    <li><a href="#uslugi">Pomoc drogowa A2 / S5 / S11</a></li>
+                    <li><a href="/laweta-poznan.html">Laweta Poznań</a></li>
+                    <li><a href="/holowanie-poznan.html">Holowanie Poznań</a></li>
+                    <li><a href="/pomoc-drogowa-a2.html">Pomoc drogowa A2 / S5 / S11</a></li>
                     <li><a href="#uslugi">Awaryjne odpalanie auta</a></li>
                     <li><a href="#uslugi">Wymiana koła</a></li>
                     <li><a href="#uslugi">Dowóz paliwa</a></li>
