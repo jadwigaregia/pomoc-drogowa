@@ -1,8 +1,8 @@
 # RODO, cookies i opinie – wdrożenie
 
-## Do uzupełnienia PRZED publikacją
+## Ważne działania organizacyjne
 1. **Administrator wskazany przez użytkownika: IVNE sp. z o.o.** Potwierdź dane adresowe/rejestrowe zgodne z informacjami zamieszczonymi na stronie.
-2. W pliku `polityka-prywatnosci.html` nazwa i adres IVNE są już uzupełnione; **brakuje wyłącznie potwierdzonego adresu e-mail do spraw RODO**. Nie zgaduj e-maila.
+2. **Na życzenie administratora nie podajemy na razie e-maila.** Kontakt w sprawach ochrony danych jest możliwy listownie na ul. Wierzbowa 155/B, 62-081 Wysogotowo, albo telefonicznie za pośrednictwem numeru strony 508 511 133. IVNE musi faktycznie obsługiwać otrzymane tymi kanałami żądania.
 3. Potwierdź przebieg obsługi zleceń (kto odbiera SMS/telefon i kto jest administratorem tych danych), okresy retencji danych oraz właściwy wykaz odbiorców.
 4. Rozważ przeniesienie Google Fonts, Font Awesome i tła Unsplash do lokalnych zasobów albo uzupełnienie analizy podstaw prawnych dla zewnętrznych żądań.
 5. Zweryfikuj daty i opisy, najlepiej skonsultuj dokumenty z osobą od RODO.
