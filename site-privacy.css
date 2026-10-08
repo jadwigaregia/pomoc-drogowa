@@ -31,15 +31,16 @@
 .review-info h3,.review-form-wrap h3{font-size:1.3rem;color:#fff;margin-bottom:14px}
 .review-info p,.review-info li{color:#cbd5e1;font-size:.94rem;line-height:1.75}
 .review-info ul{margin:12px 0 0 21px}
-.review-form label{display:block;margin:12px 0 7px;font-weight:700}
-.review-form input:not([type="checkbox"]),.review-form select,.review-form textarea{display:block;width:100%;border:1px solid #64748b;border-radius:9px;background:#090d12;color:#fff;font:inherit;font-size:1rem;padding:12px;min-height:44px}
-.review-form textarea{resize:vertical;min-height:125px}
-.review-form input:focus-visible,.review-form textarea:focus-visible,.review-form select:focus-visible{outline:2px solid #FFB800;outline-offset:2px}
-.review-consent{display:flex;gap:10px;align-items:flex-start;font-weight:400!important}
-.review-consent input{width:20px;height:20px;margin-top:2px;flex:none;accent-color:#FFB800}
-.review-form .review-small{font-size:.82rem;color:#cbd5e1;line-height:1.6;margin:12px 0}
-.review-form .review-button{background:#FFB800;color:#111;font:inherit;font-weight:800;border:0;border-radius:10px;padding:14px 22px;cursor:pointer;width:100%}
-.review-form .review-button:hover{background:#E0A200}
+
+.review-layout{grid-template-columns:repeat(2,minmax(0,1fr))}
+.review-steps{color:#cbd5e1;font-size:.94rem;line-height:1.75;margin:12px 0 16px;padding-left:23px}
+.review-steps li{margin:0 0 9px;padding-left:2px}
+.review-form-wrap p{color:#cbd5e1;line-height:1.75;margin:10px 0 14px}
+.review-form-wrap .review-small{font-size:.86rem;color:#cbd5e1}
+.review-action-link{display:inline-flex;gap:11px;align-items:center;justify-content:center;margin-top:12px;padding:13px 17px;border:1px solid #ffb800;background:#ffb800;color:#121212;text-decoration:none;border-radius:11px;font-weight:800}
+.review-action-link:hover{background:#e6a600;border-color:#e6a600;color:#111}
+.review-info h3 i,.review-form-wrap h3 i{color:#ffb800;margin-right:7px}
+@media(max-width:720px){.review-layout{grid-template-columns:1fr}}
 .legal-page{max-width:960px;margin:auto;padding:50px 6% 75px}
 .legal-page h1{font-size:clamp(2rem,4vw,2.7rem);font-family:'Space Grotesk',sans-serif;color:#fff;margin-bottom:22px}
 .legal-page h2{font-size:1.35rem;color:#FFB800;margin:35px 0 10px}
