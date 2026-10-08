@@ -1,0 +1,55 @@
+
+/* Wspólne moduły: cookies / opinie / prywatność */
+.legal-links {display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center;margin-top:16px;font-size:.86rem}
+.legal-links a,.legal-links button {color:#cbd5e1;background:none;border:0;font:inherit;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:5px}
+.legal-links a:hover,.legal-links button:hover {color:#FFB800}
+.cookie-banner[hidden],.cookie-dialog[hidden],.map-consent-placeholder[hidden],.company-map[hidden] {display:none!important}
+.cookie-banner{position:fixed;z-index:10050;bottom:18px;left:50%;transform:translateX(-50%);width:min(740px,calc(100% - 24px));max-height:calc(100dvh - 24px);overflow:auto;background:#181d27;border:1px solid #FFB800;border-radius:16px;box-shadow:0 15px 50px #000a;padding:24px;color:#f8fafc}
+.cookie-banner h2{font-family:'Space Grotesk',sans-serif;font-size:1.35rem;color:#fff;margin:0 0 10px}
+.cookie-banner p{font-size:.94rem;line-height:1.6;color:#d1d5db;margin:0 0 17px}
+.cookie-banner a,.cookie-dialog a{color:#FFD24B;text-underline-offset:3px}
+.cookie-actions{display:flex;flex-wrap:wrap;gap:10px}
+.cookie-button{border:1px solid #FFB800;border-radius:9px;background:transparent;color:#FFB800;font:inherit;font-size:.93rem;font-weight:750;padding:12px 15px;min-height:46px;cursor:pointer;flex:1 1 185px}
+.cookie-button:hover{background:#302810}
+.cookie-button--primary{background:#FFB800;color:#0D1117}
+.cookie-button--primary:hover{background:#E0A200}
+.cookie-dialog{border:1px solid #FFB800;border-radius:16px;padding:26px;max-width:min(540px,calc(100vw - 24px));width:100%;background:#181d27;color:#fff;box-shadow:0 15px 55px #000a}
+.cookie-dialog::backdrop{background:rgba(3,7,18,.78)}
+.cookie-dialog h2{margin:0 0 13px;font-size:1.45rem;color:#fff}
+.cookie-dialog p{font-size:.93rem;color:#d1d5db;line-height:1.65;margin:0 0 14px}
+.cookie-option{display:flex;align-items:start;gap:14px;border:1px solid #424b58;border-radius:12px;padding:14px;margin:12px 0}
+.cookie-option input{width:22px;height:22px;accent-color:#FFB800;flex:none;margin-top:3px}
+.cookie-option label{cursor:pointer;line-height:1.5;font-size:.94rem}
+.cookie-option small{display:block;color:#d1d5db;font-size:.82rem;margin-top:4px}
+.cookie-dialog .cookie-actions{margin-top:16px}
+.map-consent-placeholder{min-height:260px;border:1px dashed #6b7280;border-radius:16px;display:flex;flex-direction:column;gap:15px;justify-content:center;align-items:center;text-align:center;padding:28px;background:#161B22;color:#e5e7eb}
+.map-consent-placeholder p{max-width:480px}
+.map-consent-placeholder button{border:1px solid #FFB800;border-radius:10px;padding:12px 20px;background:#FFB800;color:#111;font:inherit;font-weight:700;cursor:pointer}
+.review-section .review-intro{max-width:730px;text-align:center;margin:0 auto 25px;color:#cbd5e1}
+.review-layout{display:grid;grid-template-columns:minmax(250px,.8fr) minmax(280px,1.2fr);gap:24px;max-width:1020px;margin:0 auto}
+.review-info,.review-form-wrap{background:#161B22;border:1px solid #30363D;border-radius:16px;padding:25px}
+.review-info h3,.review-form-wrap h3{font-size:1.3rem;color:#fff;margin-bottom:14px}
+.review-info p,.review-info li{color:#cbd5e1;font-size:.94rem;line-height:1.75}
+.review-info ul{margin:12px 0 0 21px}
+.review-form label{display:block;margin:12px 0 7px;font-weight:700}
+.review-form input:not([type="checkbox"]),.review-form select,.review-form textarea{display:block;width:100%;border:1px solid #64748b;border-radius:9px;background:#090d12;color:#fff;font:inherit;font-size:1rem;padding:12px;min-height:44px}
+.review-form textarea{resize:vertical;min-height:125px}
+.review-form input:focus-visible,.review-form textarea:focus-visible,.review-form select:focus-visible{outline:2px solid #FFB800;outline-offset:2px}
+.review-consent{display:flex;gap:10px;align-items:flex-start;font-weight:400!important}
+.review-consent input{width:20px;height:20px;margin-top:2px;flex:none;accent-color:#FFB800}
+.review-form .review-small{font-size:.82rem;color:#cbd5e1;line-height:1.6;margin:12px 0}
+.review-form .review-button{background:#FFB800;color:#111;font:inherit;font-weight:800;border:0;border-radius:10px;padding:14px 22px;cursor:pointer;width:100%}
+.review-form .review-button:hover{background:#E0A200}
+.legal-page{max-width:960px;margin:auto;padding:50px 6% 75px}
+.legal-page h1{font-size:clamp(2rem,4vw,2.7rem);font-family:'Space Grotesk',sans-serif;color:#fff;margin-bottom:22px}
+.legal-page h2{font-size:1.35rem;color:#FFB800;margin:35px 0 10px}
+.legal-page p,.legal-page li{line-height:1.8;color:#d1d5db;margin-bottom:12px}
+.legal-page ul{padding-left:24px}
+.legal-warning{padding:16px 20px;border:1px solid #c59c33;border-radius:10px;background:#34270f;color:#fff;margin-bottom:28px}
+@media(max-width:900px){.cookie-banner{bottom:calc(78px + env(safe-area-inset-bottom,0px))}}
+@media(max-width:650px){.cookie-banner{padding:17px;max-height:calc(100dvh - 105px)}.cookie-button{flex:1 1 100%}.review-layout{grid-template-columns:1fr}.review-info,.review-form-wrap{padding:19px}}
+
+.published-reviews{max-width:1020px;margin:0 auto 24px;border:1px dashed #64748b;border-radius:13px;background:#111820;padding:22px;text-align:center}
+.review-empty{margin:0;color:#cbd5e1;font-size:.95rem}
+.published-reviews article{background:#161B22;border:1px solid #30363D;border-radius:12px;padding:20px;margin:10px}
+.published-reviews .stars{color:#FFB800;font-size:1.2rem}
