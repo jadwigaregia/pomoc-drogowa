@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<title>Pomoc Drogowa 24/7 Poland</title>
+<rect width="64" height="64" rx="13" fill="#0D1117"/>
+<path d="M6 38h35v7H6z" fill="#FFB800"/>
+<path d="M26 25h19l9 10v10H26z" fill="#FFB800"/>
+<path d="M34 29h9l7 7H34z" fill="#0D1117"/>
+<rect x="9" y="31" width="24" height="5" rx="2" fill="#FFB800"/>
+<path d="M12 24v7M8 24h8" stroke="#FFB800" stroke-width="4" stroke-linecap="round"/>
+<circle cx="18" cy="47" r="6" fill="#E6EDF3" stroke="#0D1117" stroke-width="3"/>
+<circle cx="45" cy="47" r="6" fill="#E6EDF3" stroke="#0D1117" stroke-width="3"/>
+</svg>
