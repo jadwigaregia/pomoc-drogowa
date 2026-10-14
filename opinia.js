@@ -1,16 +1,11 @@
 'use strict';
 (() => {
- const api="https://opinie-pomoc-drogowa-poznan.young-mug-0243.chatgpt.site/api/reviews";
- const token=new URLSearchParams(location.hash.slice(1)).get('zaproszenie')||'';
+ const api="https://opinie-pomoc-drogowa-api.jadwiga-regia.workers.dev/api/reviews";
  const form=document.getElementById('review-form');
  const info=document.getElementById('invite-status');
  const result=document.getElementById('review-result');
  const button=document.getElementById('submit-review');
- if(!/^[a-f0-9]{64}$/.test(token)){
-  info.textContent='Dodanie opinii jest dostępne przez indywidualny link wysłany SMS-em po zakończonej usłudze. Otwórz link z otrzymanej wiadomości. Jeśli go nie masz, poproś obsługę o zaproszenie.';
-  return;
- }
- info.textContent='Masz link z zaproszeniem. Jego ważność zostanie sprawdzona przy wysyłaniu opinii.';
+ info.textContent='Wypełnij formularz, aby opublikować opinię.';
  form.hidden=false;
  let pending=false;
  for(const id of ['nickname','comment']){
@@ -24,7 +19,7 @@
   }
   if(!form.reportValidity())return;
   pending=true;button.disabled=true;button.textContent='Publikowanie…';result.textContent='';
-  const payload={token,email:document.getElementById('email').value.trim(),nickname:document.getElementById('nickname').value.trim(),comment:document.getElementById('comment').value.trim(),rating:Number(form.querySelector('input[name=rating]:checked').value),consent:document.getElementById('consent').checked};
+  const payload={email:document.getElementById('email').value.trim(),nickname:document.getElementById('nickname').value.trim(),comment:document.getElementById('comment').value.trim(),rating:Number(form.querySelector('input[name=rating]:checked').value),consent:document.getElementById('consent').checked};
   try{
    const response=await fetch(api,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),credentials:'omit',referrerPolicy:'no-referrer'});
    const data=await response.json();
