@@ -1,52 +1,38 @@
 'use strict';
 (() => {
-  const form = document.getElementById('review-form');
-  const result = document.getElementById('result');
-  const message = document.getElementById('message');
-  const status = document.getElementById('copy-status');
-  const code = document.getElementById('code');
-  const inviteCode = new URLSearchParams(location.hash.slice(1)).get('kod');
-  if (inviteCode && /^[A-Za-z0-9_-]{1,64}$/.test(inviteCode)) code.value = inviteCode;
-  form.hidden = false;
-  form.addEventListener('input', () => { result.hidden = true; });
-  form.addEventListener('submit', event => {
-    event.preventDefault();
-    const comment = document.getElementById('comment');
-    const signature = document.getElementById('signature');
-    for (const field of [comment, signature]) {
-      field.setCustomValidity(field.value.trim() ? '' : 'Uzupełnij to pole.');
-    }
-    if (!form.reportValidity()) return;
-    const rating = form.querySelector('input[name="rating"]:checked').value;
-    const consent = document.getElementById('consent').checked;
-    message.value = [
-      'Opinia — Pomoc Drogowa 24/7 Poland',
-      'Kod zaproszenia: ' + (code.value.trim() || 'nie podano — proszę o weryfikację zlecenia'),
-      'Ocena: ' + rating + '/5',
-      'Opinia: ' + comment.value.trim(),
-      'Podpis: ' + signature.value.trim(),
-      'Publikacja opinii, oceny i podpisu na stronie: ' + (consent ? 'ZGADZAM SIĘ' : 'NIE ZGADZAM SIĘ')
-    ].join('\n');
-    const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    document.getElementById('sms-link').href =
-      'sms:+48508511133' + (ios ? '&' : '?') + 'body=' + encodeURIComponent(message.value);
-    status.textContent = '';
-    result.hidden = false;
-    document.getElementById('result-title').focus();
-    result.scrollIntoView({behavior: 'auto', block: 'start'});
-  });
-  for (const id of ['comment', 'signature']) {
-    document.getElementById(id).addEventListener('input', event => event.target.setCustomValidity(''));
+ const api="https://opinie-pomoc-drogowa-poznan.young-mug-0243.chatgpt.site/api/reviews";
+ const token=new URLSearchParams(location.hash.slice(1)).get('zaproszenie')||'';
+ const form=document.getElementById('review-form');
+ const info=document.getElementById('invite-status');
+ const result=document.getElementById('review-result');
+ const button=document.getElementById('submit-review');
+ if(!/^[a-f0-9]{64}$/.test(token)){
+  info.textContent='Dodanie opinii jest dostępne przez indywidualny link wysłany SMS-em po zakończonej usłudze. Otwórz link z otrzymanej wiadomości. Jeśli go nie masz, poproś obsługę o zaproszenie.';
+  return;
+ }
+ info.textContent='Masz link z zaproszeniem. Jego ważność zostanie sprawdzona przy wysyłaniu opinii.';
+ form.hidden=false;
+ let pending=false;
+ for(const id of ['nickname','comment']){
+  document.getElementById(id).addEventListener('input',e=>e.target.setCustomValidity(''));
+ }
+ form.addEventListener('submit',async event=>{
+  event.preventDefault();if(pending)return;
+  for(const id of ['nickname','comment']){
+   const field=document.getElementById(id);
+   field.setCustomValidity(field.value.trim()?'':'Uzupełnij to pole.');
   }
-  document.getElementById('copy').addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(message.value);
-      status.textContent = 'Skopiowano. Wklej treść do SMS-a na numer 508 511 133 i wyślij.';
-    } catch {
-      message.focus();
-      message.select();
-      status.textContent = 'Zaznaczono wiadomość. Skopiuj ją ręcznie i wklej do SMS-a na numer 508 511 133.';
-    }
-  });
+  if(!form.reportValidity())return;
+  pending=true;button.disabled=true;button.textContent='Publikowanie…';result.textContent='';
+  const payload={token,email:document.getElementById('email').value.trim(),nickname:document.getElementById('nickname').value.trim(),comment:document.getElementById('comment').value.trim(),rating:Number(form.querySelector('input[name=rating]:checked').value),consent:document.getElementById('consent').checked};
+  try{
+   const response=await fetch(api,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),credentials:'omit',referrerPolicy:'no-referrer'});
+   const data=await response.json();
+   if(!response.ok)throw new Error(data.error||'Nie udało się zapisać opinii.');
+   form.reset();form.hidden=true;info.hidden=true;
+   result.textContent='Dziękujemy! Twoja opinia została opublikowana. Możesz zobaczyć ją w sekcji opinii klientów.';
+   result.focus();
+  }catch(error){result.textContent=error instanceof TypeError?'Nie udało się potwierdzić zapisu. Sprawdź połączenie i listę opinii, a następnie spróbuj ponownie.':error.message;result.focus();}
+  finally{pending=false;button.disabled=false;button.textContent='Opublikuj opinię';}
+ });
 })();

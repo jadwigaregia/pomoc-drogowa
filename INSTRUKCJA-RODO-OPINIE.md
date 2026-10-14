@@ -1,80 +1,31 @@
-# RODO, cookies i opinie – wdrożenie
+# Opinie klientów — jednorazowe zaproszenia
 
-## Ważne działania organizacyjne
-1. **Administrator wskazany przez użytkownika: IVNE sp. z o.o.** Potwierdź dane adresowe/rejestrowe zgodne z informacjami zamieszczonymi na stronie.
-2. **Na życzenie administratora nie podajemy na razie e-maila.** Kontakt w sprawach ochrony danych jest możliwy listownie na ul. Wierzbowa 155/B, 62-081 Wysogotowo, albo telefonicznie za pośrednictwem numeru strony 508 511 133. IVNE musi faktycznie obsługiwać otrzymane tymi kanałami żądania.
-3. Uwaga prawna: art. 13 RODO nie wymaga wskazania konkretnego formatu kontaktu, ale art. 5 ust. 2 pkt 1 ustawy o świadczeniu usług drogą elektroniczną może wymagać udostępnienia adresu elektronicznego przez usługodawcę. Sprawdź zastosowanie do faktycznej działalności i w razie potrzeby uzupełnij kontakt elektroniczny.
-4. Potwierdź przebieg obsługi zleceń (kto odbiera SMS/telefon i kto jest administratorem tych danych), okresy retencji danych oraz właściwy wykaz odbiorców.
-5. Rozważ przeniesienie Google Fonts, Font Awesome i tła Unsplash do lokalnych zasobów albo uzupełnienie analizy podstaw prawnych dla zewnętrznych żądań.
-6. Zweryfikuj daty i opisy, najlepiej skonsultuj dokumenty z osobą od RODO.
+Aktualizacja: 14.10.2026. Ta wersja zastępuje poprzedni system ręcznego dodawania opinii z SMS-ów.
 
-## Jak działa obecne rozwiązanie
-- Pytanie o preferencje pojawia się w nowej sesji przeglądarki; wybór pozostaje podczas nawigowania po podstronach w tej samej sesji (sessionStorage).
-- Przyciski odmowy i akceptacji są równie widoczne, ustawienia można zmienić w stopce.
-- Mapa Google nie otrzymuje `src` przed zgodą; bez niej widoczny jest placeholder i link do Map Google.
-- Nie dodano żadnych skryptów analitycznych ani reklamowych.
+## Panel obsługi
+https://opinie-pomoc-drogowa-poznan.young-mug-0243.chatgpt.site/admin
 
-## Opinie wyłącznie po zrealizowanym zleceniu – darmowa obsługa przez jedną osobę
+Zaloguj się kontem właściciela ChatGPT użytym do utworzenia systemu. Publiczny formularz klienta nie wymaga konta ChatGPT.
 
-### Po wykonaniu usługi
-1. Pracownik IVNE potwierdza, że zgłoszenie zostało wykonane i odnotowuje **numer zlecenia i numer kontaktowy klienta** w prywatnym rejestrze, niedostępnym publicznie.
-2. Dla tego zlecenia przygotowuje **jeden indywidualny, trudny do odgadnięcia kod**, np. wygenerowany przez menedżera haseł (12 losowych znaków). Kod musi być unikalny; nie należy używać kolejnych numerów 000001, daty ani fragmentów numeru telefonu.
-3. W prywatnym arkuszu, do którego dostęp ma tylko upoważniona osoba, zapisuje: numer zlecenia, numer telefonu klienta, kod, datę zaproszenia i status "zaproszony". Nie wolno umieszczać tych danych w publicznym repozytorium ani kodzie strony.
-4. Wysyła SMS **tylko na numer z rzeczywiście wykonanego zlecenia** i nie warunkuje możliwości oceny jej treścią czy wysokością oceny.
+1. Po zakończeniu usługi kliknij „Utwórz nowy link dla klienta”.
+2. Wpisz numer klienta i wybierz „Otwórz SMS do klienta” albo skopiuj wiadomość i wyślij ją ze swojego telefonu.
+3. Jeden link wysyłaj tylko jednemu klientowi. Zapisz go przed zamknięciem panelu; system nie przechowuje jawnych tokenów do późniejszego odczytu.
+4. Klient wpisuje e-mail, pseudonim, ocenę i komentarz. Po wyrażeniu zgody i wysłaniu formularza opinia publikuje się automatycznie.
+5. E-mail nigdy nie jest udostępniany przez publiczne API. Na stronie widoczny jest pseudonim, ocena, treść i data.
 
-### SMS wysyłany klientowi (wzór)
-> Pomoc Drogowa 24/7 Poland – dziękujemy za skorzystanie z pomocy drogowej. Jeśli chcesz dobrowolnie ocenić zakończoną usługę, odpowiedz na tego SMS-a:
-> Kod: [INDYWIDUALNY_KOD]
-> Ocena: [1–5]
-> Opinia: [Twój komentarz]
-> Publikacja opinii i podpisu [pseudonim]: ZGADZAM SIĘ / NIE ZGADZAM SIĘ.
-> Publikujemy wyłącznie po weryfikacji wykonania usługi i zgodzie autora – także oceny negatywne. Kontakt RODO: IVNE, ul. Wierzbowa 155/B, 62-081 Wysogotowo, tel. 508 511 133. Więcej: https://pomocdrogowapoznan24h.pl/polityka-prywatnosci.html
+Link wygasa po 30 dniach, działa tylko raz i może zostać anulowany w panelu przed wykorzystaniem. Kod jest losowy (256 bitów); baza przechowuje jego skrót SHA-256. Unikalny indeks chroni przed podwójną publikacją również przy równoczesnych żądaniach.
 
-**Uwaga:** możesz skrócić wzór SMS-a; wówczas podaj odnośnik do polityki i poproś o jednoznaczne potwierdzenie publikacji w dalszej wymianie wiadomości. Klient może odpowiedzieć na SMS bez wchodzenia na stronę. Koszt wiadomości zależy od taryfy operatora.
+Nie ma potwierdzania SMS ani e-maila. Link może być przekazany dalej — dlatego nie oznaczamy opinii jako zweryfikowanej tożsamości. Zapraszaj wszystkich rzeczywistych klientów niezależnie od przewidywanej oceny.
 
-### Przyjęcie i weryfikacja opinii
-1. Operator porównuje otrzymany **kod** z prywatnym rejestrem zakończonych zleceń oraz numer nadawcy z numerem kontaktowym zapisanym przy zleceniu. Nieprawidłowa wiadomość jest wyjaśniana indywidualnie i nie jest publikowana jako zweryfikowana. Jeśli numer nadawcy różni się, tożsamość klienta trzeba sprawdzić dodatkowo bez ujawniania danych w odpowiedzi do przypadkowej osoby.
-2. Operator sprawdza, czy kod nie był już wykorzystany. Jedno zlecenie = co najwyżej jedna opublikowana opinia dla danego zaproszenia; zarejestrowane kolejne korekty klienta można uwzględnić po ponownej weryfikacji.
-3. Operator odnotowuje **oddzielną zgodę na publikację** treści i zaakceptowanego podpisu. Bez zgody nie zamieszcza opinii publicznie.
-4. Dopiero po dopasowaniu do ukończonego zlecenia i zgodzie autora umieszcza opinię w `index.html` w `#opublikowane-opinie`. W arkuszu ustawia status "wykorzystany".
-5. Publikuje także autentyczne oceny negatywne, bez warunkowania dostępu do formularza czy zaproszenia pozytywnym nastawieniem. Nie zmienia znaczenia komentarza. Treści niezgodne z prawem lub ujawniające dane osób trzecich wyjaśnia z autorem.
-6. Jeśli klient wycofa zgodę, usuwa jego opublikowaną opinię z serwisu bez zbędnej zwłoki oraz rozpatruje zakres dalszego przechowywania danych.
-7. Nie publikuje w GitHubie **numerów telefonów, kodów zaproszenia, numerów zleceń, rejestracji pojazdów ani szczegółów pozwalających identyfikować klienta bez podstawy prawnej**.
+Nie umieszczaj telefonów, e-maili, tokenów ani prywatnych wiadomości klientów w GitHubie.
 
-### Co zapewnia ta wersja?
-- Strona jest statyczna (GitHub Pages). Formularz /opinia.html jedynie przygotowuje SMS: użytkownik musi zatwierdzić wysyłkę w swojej aplikacji. Nie ma bazy do samodzielnego publikowania opinii.
-- **To weryfikacja przez operatora** oraz powiązanie z ukończonym zleceniem chronią przed fałszywą publikacją. Sam kod SMS nie jest automatycznie weryfikowany przez serwer.
-- Konkurent może próbować wysyłać wiadomości na publiczny numer firmy, ale nie ma dostępu do publikacji na stronie, a niezweryfikowane SMS-y są odrzucane.
-- Tylko upoważniona osoba mająca dostęp do GitHub i prywatnego rejestru dodaje zweryfikowane opinie.
-- Jeśli potrzebujesz w przyszłości **automatycznej jednorazowej weryfikacji i publikacji bez człowieka**, potrzebna będzie usługa serwerowa lub zewnętrzny system formularzy z walidacją po stronie serwera.
+## Utrzymanie
+Frontend: index.html, opinia.html, opinia.js, opinie-lista.js w tym repozytorium.
+Zaplecze: OpenAI Sites, projekt appgprj_6acfaa4f45c08191ab07bc7bd1169642; własne repozytorium źródłowe Sites.
+Baza: D1 (DB). API odczytu udostępnia wyłącznie publiczne pola. Właściciela identyfikuje logowanie ChatGPT; początkowy adres administratora zapisano jako niepubliczną zmienną ADMIN_EMAIL, a identyfikator użytkownika zostaje przypisany przy pierwszym logowaniu.
 
-### Przykład struktury HTML zatwierdzonej opinii
-```html
-<article class="review-card">
-  <div class="stars" aria-label="Ocena 4 na 5">★★★★☆</div>
-  <blockquote><p>[rzeczywista treść klienta, z jego zgodą]</p></blockquote>
-  <p>– [podpis zatwierdzony przez autora]</p>
-  <p>Opinia zweryfikowana na podstawie zakończonego zlecenia i kodu SMS.</p>
-</article>
-```
+Dostępne chronione API: POST /api/invites (utworzenie), DELETE /api/invites (anulowanie), DELETE /api/reviews (usunięcie po zweryfikowanym żądaniu autora, z wyczyszczeniem danych osobowych). Usunięcie nie zwalnia wykorzystanego zaproszenia.
 
-Nigdy nie generuj fikcyjnych ocen. Usuwając pusty komunikat po pierwszej opinii, zachowaj kontener `#opublikowane-opinie`.
+Testy zaplecza: scripts/check-reviews.cjs. Obejmują jednorazowość, uprawnienia, CSRF, zgodę, e-mail, prywatność, wygasanie i anulowanie.
 
-
-## Formularz i link do SMS-a — aktualizacja 14.10.2026
-
-Adres dla klienta: https://pomocdrogowapoznan24h.pl/opinia.html
-
-Można wysłać wspólny adres i kod w treści SMS-a. Opcjonalnie kod uzupełnia się z linku:
-https://pomocdrogowapoznan24h.pl/opinia.html#kod=INDYWIDUALNY_KOD
-Zastąp INDYWIDUALNY_KOD losowym kodem z prywatnego rejestru (litery, cyfry, myślnik lub podkreślenie). Nie umieszczaj w linku numeru telefonu ani danych klienta.
-
-Przykładowe zaproszenie:
-Dziękujemy za skorzystanie z Pomocy Drogowej 24/7 Poland. Podziel się opinią: https://pomocdrogowapoznan24h.pl/opinia.html
-Twój kod: [KOD]. Po wypełnieniu formularza wyślij przygotowany SMS.
-
-Ocena i komentarz trafiają do obsługi dopiero po wysłaniu SMS-a przez klienta na 508 511 133. Przed wysyłaniem zaproszeń sprawdź odbiór na tym numerze i zrób próbę na używanym telefonie. Niektóre aplikacje nie wypełniają treści z linku SMS — formularz pozwala także ją skopiować. Długie wiadomości mogą być rozliczane jako kilka SMS-ów.
-
-Kod w formularzu jest opcjonalny, aby klient mógł przekazać uwagi także bez kodu. Brak kodu nie stanowi potwierdzenia autentyczności: obsługa musi ustalić zakończone zlecenie i sprawdzić autora przed ewentualną publikacją. Samo posiadanie linku lub wpisanie kodu nigdy nie daje uprawnień do publikacji.
-
-Zgoda na publikację jest oddzielna i domyślnie niezaznaczona. Wiadomość bez zgody pozostaje prywatną uwagą. Rzeczywiste opinie dodawaj ręcznie w #opublikowane-opinie po weryfikacji, zachowując zasady opisane powyżej. Wklejając treść do HTML, koduj znaki specjalne (&, <, >, cudzysłowy) zamiast wklejać kod użytkownika.
+Administrator danych pozostaje zgodny z obecną stroną: IVNE sp. z o.o., ul. Wierzbowa 155/B, 62-081 Wysogotowo. Kontakt i okresy przechowywania opisuje polityka-prywatnosci.html. Obsługuj zgłoszenia wycofania zgody i naruszeń prywatności; nie usuwaj opinii tylko dlatego, że jest krytyczna.
