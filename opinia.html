@@ -12,7 +12,7 @@
 *{box-sizing:border-box}body{margin:0;background:#0d1117;color:#f3f4f6;font:16px/1.6 system-ui,-apple-system,Segoe UI,sans-serif}
 header,main,footer{max-width:680px;margin:auto;padding:24px}header{border-bottom:1px solid #30363d}a{color:var(--yellow)}header a{text-decoration:none;font-weight:750;font-size:14px}main{padding-top:36px}h1{font-size:clamp(28px,6vw,40px);line-height:1.15;margin:10px 0 18px}h2{font-size:22px}.eyebrow{color:var(--yellow);font-size:13px;letter-spacing:.08em;text-transform:uppercase}.intro{color:var(--muted)}form,.result{padding:24px;background:#161b22;border:1px solid #30363d;border-radius:18px;margin:26px 0}label,legend{font-weight:650}input[type=text],input[type=email],textarea{display:block;width:100%;background:#0d1117;color:#fff;border:1px solid #6b7280;border-radius:8px;font:inherit;padding:12px;margin:8px 0 20px}textarea{resize:vertical}fieldset{border:0;padding:0;margin:0 0 24px}legend{margin-bottom:10px}.ratings{display:flex;gap:8px}.rating{position:relative;flex:1}.rating input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}.rating span{display:block;text-align:center;padding:12px 0;border:1px solid #6b7280;border-radius:8px}.rating input:checked+span{background:var(--yellow);color:#111;border-color:var(--yellow);font-weight:800}.rating input:focus-visible+span{outline:3px solid white;outline-offset:3px}.hint{font-size:14px;color:var(--muted);margin:6px 0 18px}.consent{display:flex;gap:12px;font-weight:400;font-size:14px;margin:20px 0}.consent input{width:22px;height:22px;flex:none;accent-color:var(--yellow);margin-top:3px}button,.button{display:block;text-align:center;width:100%;padding:14px 18px;border:0;border-radius:10px;background:var(--yellow);color:#111;font:700 16px/1.4 system-ui;cursor:pointer;text-decoration:none}.secondary{background:#252d38;color:#fff;margin-top:12px}a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--yellow);outline-offset:4px}[hidden]{display:none!important}footer{font-size:13px;color:var(--muted);padding-bottom:36px}.result{border-color:var(--yellow)}@media(max-width:420px){header,main,footer{padding-left:18px;padding-right:18px}form,.result{padding:18px}}
 </style>
-<script src="/opinia.js?v=2" defer></script>
+<script src="/opinia.js?v=3" defer></script>
 </head>
 <body>
 <header><a href="/">POMOC DROGOWA 24/7 POLAND</a></header>
@@ -22,7 +22,7 @@ header,main,footer{max-width:680px;margin:auto;padding:24px}header{border-bottom
 <p class="intro">Dziękujemy za zaufanie. Napisz szczerze, jak przebiegła usługa — również wtedy, gdy coś wymaga poprawy.</p>
 <p class="hint">Na stronie pojawią się Twój pseudonim, ocena, komentarz i data. Adres e-mail pozostanie prywatny. Nie musisz wysyłać SMS-a ani kodu potwierdzającego.</p>
 <noscript><p>Do wysłania opinii wymagane jest włączenie JavaScript.</p></noscript>
-<p id="invite-status" class="hint" role="status">Sprawdzanie linku do formularza…</p>
+<p id="invite-status" class="hint" role="status">Wczytywanie formularza…</p>
 <form id="review-form" hidden>
 <fieldset><legend>Twoja ocena *</legend><div class="ratings">
 <label class="rating"><input type="radio" name="rating" value="1" required aria-label="1 na 5"><span>1 ★</span></label>
@@ -42,7 +42,7 @@ header,main,footer{max-width:680px;margin:auto;padding:24px}header{border-bottom
 <label class="consent"><input type="checkbox" id="consent" name="consent" required><span>Zgadzam się na publiczne zamieszczenie mojego pseudonimu, oceny i komentarza na stronie Pomoc Drogowa 24/7 Poland. Zgoda jest dobrowolna i mogę ją wycofać przez kontakt z obsługą.</span></label>
 <p class="hint">Administratorem danych jest IVNE sp. z o.o. <a href="/polityka-prywatnosci.html">Polityka prywatności i zasady obsługi opinii</a>.</p>
 <button id="submit-review" type="submit">Opublikuj opinię</button>
-<p class="hint">Po wysłaniu opinia pojawi się automatycznie. Jeden link pozwala opublikować jedną opinię.</p>
+<p class="hint">Po wysłaniu opinia pojawi się automatycznie. Możesz wystawić opinię bez kodu i bez logowania.</p>
 </form>
 <p id="review-result" role="status" tabindex="-1"></p>
 <p><a href="/opinie-klientow.html">Zobacz opinie klientów</a> · <a href="/">Wróć na stronę główną</a></p>
