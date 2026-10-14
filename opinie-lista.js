@@ -3,30 +3,37 @@
  const box=document.getElementById('opublikowane-opinie');
  const summary=document.getElementById('review-summary');
  const more=document.getElementById('reviews-more');
- if(!box)return;
- let offset=0,pending=false;
- function text(tag,value,className){const e=document.createElement(tag);e.textContent=value;if(className)e.className=className;return e;}
+ if(!box||!summary||!more)return;
+ let offset=0,pending=false,total=0,sum=0;
+ const text=(tag,value,cls)=>{const e=document.createElement(tag);e.textContent=value;if(cls)e.className=cls;return e;};
  async function load(){
-  if(pending)return;pending=true;more.disabled=true;box.setAttribute('aria-busy','true');
+  if(pending)return;
+  pending=true;more.disabled=true;box.setAttribute('aria-busy','true');
   try{
-   const response=await fetch("https://opinie-pomoc-drogowa-poznan.young-mug-0243.chatgpt.site/api/reviews?offset="+offset,{credentials:'omit',referrerPolicy:'no-referrer'});
-   if(!response.ok)throw Error();
+   const response=await fetch('https://opinie-pomoc-drogowa-api.jadwiga-regia.workers.dev/api/reviews?offset='+offset,{credentials:'omit',referrerPolicy:'no-referrer'});
+   if(!response.ok)throw Error('HTTP '+response.status);
    const data=await response.json();
    if(!offset)box.replaceChildren();
-   if(!data.count)box.append(text('p','Pierwsze opinie pojawią się tutaj po przesłaniu formularza przez zaproszonych klientów.','review-empty'));
-   for(const review of data.reviews){
+   const reviews=Array.isArray(data.reviews)?data.reviews:[];
+   total=Number(data.total)||0;
+   if(!total)box.append(text('p','Nie ma jeszcze opinii. Możesz dodać pierwszą!','review-empty'));
+   for(const review of reviews){
     const card=document.createElement('article');card.className='review-card';
-    const stars=text('div','★'.repeat(review.rating)+'☆'.repeat(5-review.rating),'stars');stars.setAttribute('aria-label','Ocena '+review.rating+' na 5');card.append(stars);
-    const quote=document.createElement('blockquote');const content=text('p',review.comment);content.style.whiteSpace='pre-wrap';content.style.overflowWrap='anywhere';quote.append(content);card.append(quote);
-    const author=text('p',review.nickname);author.style.overflowWrap='anywhere';card.append(author);
-    card.append(text('p',new Date(review.createdAt).toLocaleDateString('pl-PL',{timeZone:'Europe/Warsaw'})+' · Opinia z zaproszenia','review-small'));
-    box.append(card);
+    const rating=Math.max(1,Math.min(5,Number(review.rating)||1));
+    const stars=text('div','★'.repeat(rating)+'☆'.repeat(5-rating),'stars');
+    stars.setAttribute('aria-label','Ocena '+rating+' na 5');card.append(stars);
+    const quote=document.createElement('blockquote');
+    const content=text('p',String(review.comment||''));content.style.whiteSpace='pre-wrap';content.style.overflowWrap='anywhere';quote.append(content);card.append(quote);
+    const author=text('p',String(review.nickname||'Klient'));author.style.overflowWrap='anywhere';card.append(author);
+    const date=new Date(String(review.created_at||'').replace(' ','T')+'Z');
+    card.append(text('p',(Number.isNaN(date.getTime())?'':date.toLocaleDateString('pl-PL',{timeZone:'Europe/Warsaw'})),'review-small'));
+    box.append(card);sum+=rating;
    }
-   offset+=data.reviews.length;
-   summary.textContent=data.count?'Średnia ocen: '+Number(data.average).toFixed(1).replace('.',',')+'/5 · Liczba opinii: '+data.count:'';
-   more.hidden=offset>=data.count;more.textContent='Pokaż kolejne opinie';
-  }catch{
-   if(!offset)box.replaceChildren(text('p','Nie udało się wczytać opinii. Spróbuj ponownie za chwilę.'));
+   offset+=reviews.length;
+   summary.textContent=total?'Liczba opinii: '+total:'';
+   more.hidden=offset>=total||!reviews.length;more.textContent='Pokaż kolejne opinie';
+  }catch(e){
+   if(!offset)box.replaceChildren(text('p','Nie udało się wczytać opinii. Spróbuj ponownie.'));
    more.hidden=false;more.textContent='Spróbuj ponownie';
   }finally{pending=false;more.disabled=false;box.setAttribute('aria-busy','false');}
  }
