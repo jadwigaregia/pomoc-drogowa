@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,follow">
+<meta name="referrer" content="no-referrer">
+<title>Dodaj opinię | Pomoc Drogowa 24/7 Poland</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+:root{color-scheme:dark;--yellow:#ffb800;--muted:#bac2ce}
+*{box-sizing:border-box}body{margin:0;background:#0d1117;color:#f3f4f6;font:16px/1.6 system-ui,-apple-system,Segoe UI,sans-serif}
+header,main,footer{max-width:680px;margin:auto;padding:24px}header{border-bottom:1px solid #30363d}a{color:var(--yellow)}header a{text-decoration:none;font-weight:750;font-size:14px}main{padding-top:36px}h1{font-size:clamp(28px,6vw,40px);line-height:1.15;margin:10px 0 18px}h2{font-size:22px}.eyebrow{color:var(--yellow);font-size:13px;letter-spacing:.08em;text-transform:uppercase}.intro{color:var(--muted)}form,.result{padding:24px;background:#161b22;border:1px solid #30363d;border-radius:18px;margin:26px 0}label,legend{font-weight:650}input[type=text],textarea{display:block;width:100%;background:#0d1117;color:#fff;border:1px solid #6b7280;border-radius:8px;font:inherit;padding:12px;margin:8px 0 20px}textarea{resize:vertical}fieldset{border:0;padding:0;margin:0 0 24px}legend{margin-bottom:10px}.ratings{display:flex;gap:8px}.rating{position:relative;flex:1}.rating input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}.rating span{display:block;text-align:center;padding:12px 0;border:1px solid #6b7280;border-radius:8px}.rating input:checked+span{background:var(--yellow);color:#111;border-color:var(--yellow);font-weight:800}.rating input:focus-visible+span{outline:3px solid white;outline-offset:3px}.hint{font-size:14px;color:var(--muted);margin:6px 0 18px}.consent{display:flex;gap:12px;font-weight:400;font-size:14px;margin:20px 0}.consent input{width:22px;height:22px;flex:none;accent-color:var(--yellow);margin-top:3px}button,.button{display:block;text-align:center;width:100%;padding:14px 18px;border:0;border-radius:10px;background:var(--yellow);color:#111;font:700 16px/1.4 system-ui;cursor:pointer;text-decoration:none}.secondary{background:#252d38;color:#fff;margin-top:12px}a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--yellow);outline-offset:4px}[hidden]{display:none!important}footer{font-size:13px;color:var(--muted);padding-bottom:36px}.result{border-color:var(--yellow)}@media(max-width:420px){header,main,footer{padding-left:18px;padding-right:18px}form,.result{padding:18px}}
+</style>
+<script src="/opinia.js" defer></script>
+</head>
+<body>
+<header><a href="/">POMOC DROGOWA 24/7 POLAND</a></header>
+<main>
+<span class="eyebrow">Po zakończonej usłudze</span>
+<h1>Jak oceniasz naszą pomoc?</h1>
+<p class="intro">Dziękujemy za zaufanie. Napisz, jak przebiegła usługa — każda szczera opinia pomaga nam poprawiać obsługę.</p>
+<p class="hint">Wypełnij formularz, a następnie wyślij przygotowany SMS na numer 508 511 133. Publikujemy opinie po sprawdzeniu wykonania usługi i tylko za zgodą autora.</p>
+<noscript><p>Aby skorzystać z formularza, włącz JavaScript. Możesz też odpowiedzieć na SMS z zaproszeniem: podaj ocenę 1–5, komentarz, podpis oraz informację, czy zgadzasz się na publikację.</p></noscript>
+<form id="review-form" hidden>
+<fieldset><legend>Twoja ocena *</legend><div class="ratings">
+<label class="rating"><input type="radio" name="rating" value="1" required aria-label="1 na 5"><span>1 ★</span></label>
+<label class="rating"><input type="radio" name="rating" value="2" required aria-label="2 na 5"><span>2 ★</span></label>
+<label class="rating"><input type="radio" name="rating" value="3" required aria-label="3 na 5"><span>3 ★</span></label>
+<label class="rating"><input type="radio" name="rating" value="4" required aria-label="4 na 5"><span>4 ★</span></label>
+<label class="rating"><input type="radio" name="rating" value="5" required aria-label="5 na 5"><span>5 ★</span></label>
+</div><p class="hint">1 — bardzo źle · 5 — bardzo dobrze</p></fieldset>
+<label for="comment">Twoja opinia *</label>
+<textarea id="comment" name="comment" rows="4" maxlength="1000" required placeholder="Co było pomocne? Co możemy poprawić?"></textarea>
+<label for="signature">Imię lub pseudonim *</label>
+<input type="text" id="signature" name="signature" maxlength="50" required autocomplete="off" placeholder="Np. Anna">
+<label for="code">Kod z zaproszenia (jeśli go otrzymałaś/otrzymałeś)</label>
+<input type="text" id="code" name="code" maxlength="64" autocomplete="off" spellcheck="false">
+<p class="hint">Nie wpisuj numeru rejestracyjnego, adresu ani danych innych osób. Opinię wyślij z numeru telefonu użytego przy zamówieniu usługi.</p>
+<label class="consent"><input type="checkbox" id="consent" name="consent"><span>Zgadzam się na publikację treści mojej opinii, oceny i podanego podpisu na tej stronie. Zgoda jest dobrowolna i mogę ją wycofać. Bez zgody moja wiadomość będzie wyłącznie uwagą dla obsługi.</span></label>
+<p class="hint">Administratorem danych jest IVNE sp. z o.o. <a href="/polityka-prywatnosci.html">Informacje o prywatności i wycofaniu zgody</a>.</p>
+<button type="submit">Przygotuj SMS z opinią</button>
+<p class="hint">Nic nie zostanie wysłane automatycznie. Koszt SMS-ów zależy od Twojej taryfy; dłuższa opinia może zająć kilka SMS-ów.</p>
+</form>
+<section id="result" class="result" hidden aria-labelledby="result-title">
+<h2 id="result-title" tabindex="-1">Twoja wiadomość jest gotowa</h2>
+<p>To jeszcze nie jest wysłana opinia. Otwórz aplikację SMS, sprawdź treść i naciśnij „Wyślij”.</p>
+<label for="message">Treść do wysłania na 508 511 133</label>
+<textarea id="message" readonly rows="10"></textarea>
+<a id="sms-link" class="button" href="sms:+48508511133">Otwórz aplikację SMS</a>
+<button id="copy" class="secondary" type="button">Kopiuj treść wiadomości</button>
+<p id="copy-status" class="hint" role="status"></p>
+<p class="hint">Jeśli aplikacja się nie otworzy lub nie uzupełni treści, skopiuj wiadomość i wklej ją do SMS-a na numer 508 511 133. Na komputerze możesz przepisać opinię w SMS-ie na telefonie.</p>
+</section>
+<p class="hint">Sprawdzamy zgodność opinii ze zrealizowanym zleceniem. Publikujemy również oceny krytyczne. Formularz nie sprawdza automatycznie kodów i nie publikuje opinii.</p>
+<p><a href="/#opinie">Zobacz opinie klientów</a> · <a href="/">Wróć na stronę główną</a></p>
+</main>
+<footer>IVNE sp. z o.o. · ul. Wierzbowa 155/B, 62-081 Wysogotowo<br>NIP 7812061461 · <a href="tel:+48508511133">508 511 133</a><br><a href="/polityka-prywatnosci.html">Polityka prywatności</a></footer>
+</body>
+</html>

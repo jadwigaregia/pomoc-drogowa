@@ -23,7 +23,7 @@
 4. Wysyła SMS **tylko na numer z rzeczywiście wykonanego zlecenia** i nie warunkuje możliwości oceny jej treścią czy wysokością oceny.
 
 ### SMS wysyłany klientowi (wzór)
-> IVNE – dziękujemy za skorzystanie z pomocy drogowej. Jeśli chcesz dobrowolnie ocenić zakończoną usługę, odpowiedz na tego SMS-a:
+> Pomoc Drogowa 24/7 Poland – dziękujemy za skorzystanie z pomocy drogowej. Jeśli chcesz dobrowolnie ocenić zakończoną usługę, odpowiedz na tego SMS-a:
 > Kod: [INDYWIDUALNY_KOD]
 > Ocena: [1–5]
 > Opinia: [Twój komentarz]
@@ -42,7 +42,7 @@
 7. Nie publikuje w GitHubie **numerów telefonów, kodów zaproszenia, numerów zleceń, rejestracji pojazdów ani szczegółów pozwalających identyfikować klienta bez podstawy prawnej**.
 
 ### Co zapewnia ta wersja?
-- Strona jest statyczna (GitHub Pages) – nie ma publicznego formularza ani bazy, do której osoba z zewnątrz mogłaby samodzielnie dopisać opinię.
+- Strona jest statyczna (GitHub Pages). Formularz /opinia.html jedynie przygotowuje SMS: użytkownik musi zatwierdzić wysyłkę w swojej aplikacji. Nie ma bazy do samodzielnego publikowania opinii.
 - **To weryfikacja przez operatora** oraz powiązanie z ukończonym zleceniem chronią przed fałszywą publikacją. Sam kod SMS nie jest automatycznie weryfikowany przez serwer.
 - Konkurent może próbować wysyłać wiadomości na publiczny numer firmy, ale nie ma dostępu do publikacji na stronie, a niezweryfikowane SMS-y są odrzucane.
 - Tylko upoważniona osoba mająca dostęp do GitHub i prywatnego rejestru dodaje zweryfikowane opinie.
@@ -59,3 +59,22 @@
 ```
 
 Nigdy nie generuj fikcyjnych ocen. Usuwając pusty komunikat po pierwszej opinii, zachowaj kontener `#opublikowane-opinie`.
+
+
+## Formularz i link do SMS-a — aktualizacja 14.10.2026
+
+Adres dla klienta: https://pomocdrogowapoznan24h.pl/opinia.html
+
+Można wysłać wspólny adres i kod w treści SMS-a. Opcjonalnie kod uzupełnia się z linku:
+https://pomocdrogowapoznan24h.pl/opinia.html#kod=INDYWIDUALNY_KOD
+Zastąp INDYWIDUALNY_KOD losowym kodem z prywatnego rejestru (litery, cyfry, myślnik lub podkreślenie). Nie umieszczaj w linku numeru telefonu ani danych klienta.
+
+Przykładowe zaproszenie:
+Dziękujemy za skorzystanie z Pomocy Drogowej 24/7 Poland. Podziel się opinią: https://pomocdrogowapoznan24h.pl/opinia.html
+Twój kod: [KOD]. Po wypełnieniu formularza wyślij przygotowany SMS.
+
+Ocena i komentarz trafiają do obsługi dopiero po wysłaniu SMS-a przez klienta na 508 511 133. Przed wysyłaniem zaproszeń sprawdź odbiór na tym numerze i zrób próbę na używanym telefonie. Niektóre aplikacje nie wypełniają treści z linku SMS — formularz pozwala także ją skopiować. Długie wiadomości mogą być rozliczane jako kilka SMS-ów.
+
+Kod w formularzu jest opcjonalny, aby klient mógł przekazać uwagi także bez kodu. Brak kodu nie stanowi potwierdzenia autentyczności: obsługa musi ustalić zakończone zlecenie i sprawdzić autora przed ewentualną publikacją. Samo posiadanie linku lub wpisanie kodu nigdy nie daje uprawnień do publikacji.
+
+Zgoda na publikację jest oddzielna i domyślnie niezaznaczona. Wiadomość bez zgody pozostaje prywatną uwagą. Rzeczywiste opinie dodawaj ręcznie w #opublikowane-opinie po weryfikacji, zachowując zasady opisane powyżej. Wklejając treść do HTML, koduj znaki specjalne (&, <, >, cudzysłowy) zamiast wklejać kod użytkownika.
